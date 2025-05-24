@@ -3,6 +3,10 @@
   publish = "."
   command = ""
 
+[build.environment]
+  NODE_VERSION = "18"
+  NODE_ENV = "production"
+
 # Redirection pour les pages spécifiques
 [[redirects]]
   from = "/admin"
