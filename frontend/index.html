@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programme 21 jours</title>
+  <link rel="icon" href="favicon.ico">
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>Connexion</h1>
+    <input v-model="code" placeholder="Code patient" />
+    <input type="password" v-model="password" placeholder="Mot de passe" />
+    <button @click="login" :disabled="loading">Se connecter</button>
+
+    <div v-if="error" style="color:red">{{ error }}</div>
+    <pre v-if="result">{{ result }}</pre>
+
+    <div v-if="token">
+      <h2>Programme 21 jours</h2>
+      <button @click="loadContent" :disabled="loadingContent">Charger le contenu</button>
+      <ul>
+        <li v-for="day in content.days" :key="day.day">
+          Jour {{ day.day }} - 
+          Vidéo: <a :href="day.video" target="_blank">Voir</a> | 
+          Podcast: <a :href="day.podcast" target="_blank">Écouter</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

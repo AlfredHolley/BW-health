@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programme 21 jours</title>
+    <link rel="icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="favicon.ico">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4fc3f7">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script>
+        // Enregistrement du service worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('Service Worker enregistré avec succès:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Erreur lors de l\'enregistrement du Service Worker:', error);
+                    });
+            });
+        }
+
+        // Vérification de l'installation
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            console.log('L\'application peut être installée');
+        });
+
+        window.addEventListener('appinstalled', (evt) => {
+            console.log('Application installée avec succès');
+        });
+    </script>
+    <style>
+        :root {
+            --primary-color: #4fc3f7;
+            --primary-dark: #00b2e6;
+            --neutral-light: #ecebe5;
+            --neutral-dark: #2c3e50;
+            --neutral-gray: #2e2e2e;
+            --text-color: #333333;
+            --error-color: #ff7043;
+            --success-color: #66bb6a;
+            --background-color: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .header {
+            background: var(--neutral-gray);
+            color: white;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            background: #646464;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .logout-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .day-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(85, 85, 85, 0.1);
+            position: relative;
+        }
+
+        .day-card.locked {
+            background: var(--neutral-light);
+            opacity: 0.8;
+            cursor: not-allowed;
+        }
+
+        .day-card.locked::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lock-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--neutral-gray);
+            font-size: 2rem;
+            z-index: 1;
+        }
+
+        .day-number {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--neutral-gray);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--neutral-light);
+            margin: 2rem 0;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: var(--neutral-gray);
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+            margin-bottom: 0.618rem;
+
+        }
+
+        .day-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(85, 85, 85, 0.1);
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.2rem;
+            gap: 1rem;
+        }
+
+        .day-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .day-title {
+            font-size: 1.3rem;
+            color: var(--neutral-gray);
+            margin: 0 0 0.5rem 0;
+            font-weight: 600;
+        }
+
+        .day-description {
+            color: var(--neutral-gray);
+            opacity: 0.8;
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .day-card.locked .day-description {
+            opacity: 0.5;
+        }
+
+        .media-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            flex: 1;
+            justify-content: flex-end;
+            min-width: 0;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .day-card.locked .media-links {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .media-btn {
+            background: var(--neutral-light);
+            color: var(--neutral-gray);
+            text-decoration: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid rgba(85, 85, 85, 0.2);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .media-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            border-color: var(--primary-color);
+        }
+
+        .error {
+            color: var(--error-color);
+            text-align: center;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(255, 112, 67, 0.1);
+            border-radius: 8px;
+        }
+
+        .loading {
+            text-align: center;
+            color: var(--neutral-gray);
+            margin: 2rem 0;
+            font-size: 1.1rem;
+        }
+
+        .test-panel {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 2px solid var(--primary-color);
+        }
+
+        .test-panel h3 {
+            color: var(--neutral-gray);
+            margin: 0 0 1rem 0;
+            font-size: 1.2rem;
+        }
+
+        .test-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .test-btn {
+            background: var(--neutral-light);
+            color: var(--neutral-gray);
+            border: 1px solid var(--neutral-gray);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .test-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .test-info {
+            color: var(--neutral-gray);
+            font-size: 0.9rem;
+        }
+
+        .test-info p {
+            margin: 0.5rem 0;
+        }
+
+        @media screen and (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .day-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .day-info {
+                width: 100%;
+            }
+
+            .media-links {
+                width: 100%;
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .media-btn {
+                justify-content: center;
+            }
+
+            .day-number {
+                top: 0.5rem;
+                right: 0.5rem;
+            }
+
+            .lock-icon {
+                font-size: 1.5rem;
+            }
+        }
+
+        .install-prompt {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 1000;
+            max-width: 90%;
+            width: 400px;
+        }
+
+        .install-prompt button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .install-prompt button:hover {
+            background: var(--primary-dark);
+        }
+
+        .install-prompt .close-btn {
+            background: none;
+            border: none;
+            color: var(--neutral-gray);
+            cursor: pointer;
+            padding: 0.5rem;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="header">
+            <h1>Programme 21 jours</h1>
+            <button class="logout-btn" @click="logout">Déconnexion</button>
+        </div>
+        
+        <div class="container">
+            <div v-if="error" class="error">{{ error }}</div>
+            <div v-if="loading" class="loading">Chargement du contenu...</div>
+            
+            <!-- Panneau de test -->
+            <div v-if="isTestMode" class="test-panel">
+                <h3>Mode Test</h3>
+                <div class="test-controls">
+                    <button @click="simulatePreviousDay" class="test-btn">Jour précédent</button>
+                    <button @click="simulateNextDay" class="test-btn">Jour suivant</button>
+                    <button @click="resetTest" class="test-btn">Réinitialiser</button>
+                </div>
+                <div class="test-info">
+                    <p>Jours débloqués : {{ unlockedDays }} / 21</p>
+                    <p>Date de début : {{ startDate ? startDate.toLocaleDateString() : 'Non définie' }}</p>
+                </div>
+            </div>
+
+            <div v-else>
+                <div class="progress-bar">
+                    <div class="progress-fill" :style="{ width: progressPercentage + '%' }"></div>
+                </div>
+                <div class="progress-text">
+                    Progression : {{ unlockedDays }} / 21 jours
+                </div>
+
+                <div v-for="day in allDays" :key="day.day" 
+                     :class="['day-card', { 'locked': !isDayUnlocked(day.day) }]">
+                    <div class="day-number">Jour {{ day.day }}</div>
+                    <div v-if="!isDayUnlocked(day.day)" class="lock-icon">🔒</div>
+                    
+                    <div class="day-header">
+                        <div class="day-info">
+                            <h2 class="day-title">{{ day.title }}</h2>
+                            <p class="day-description">{{ day.description }}</p>
+                        </div>
+                        <div class="media-links">
+                            <a v-if="isDayUnlocked(day.day)" :href="`/day.html?day=${day.day}`" class="media-btn">Voir les instructions</a>
+                            <a v-if="isDayUnlocked(day.day)" :href="day.video" target="_blank" class="media-btn">Voir la vidéo</a>
+                            <a v-if="isDayUnlocked(day.day)" :href="day.podcast" target="_blank" class="media-btn">Écouter le podcast</a>
+                        </div>
+                    </div>
+
+                    <div v-if="isDayUnlocked(day.day)" class="content-section">
+                        <h3>Podcast du jour</h3>
+                        <div v-html="renderPodcast(day.podcast)"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="showInstallPrompt" class="install-prompt">
+            <div>
+                <strong>Installer l'application</strong>
+                <p>Ajoutez cette application à votre écran d'accueil pour une meilleure expérience</p>
+            </div>
+            <button @click="installApp">Installer</button>
+            <button class="close-btn" @click="dismissInstallPrompt">×</button>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html> 

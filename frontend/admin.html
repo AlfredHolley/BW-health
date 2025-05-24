@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - Programme 21 jours</title>
+    <link rel="icon" href="favicon.ico">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <style>
+        :root {
+            --primary-color: #4fc3f7;
+            --primary-dark: #00b2e6;
+            --neutral-light: #ecebe5;
+            --neutral-dark: #2c3e50;
+            --neutral-gray: #2e2e2e;
+            --text-color: #333333;
+            --background-color: #f8f9fa;
+            --success-color: #66bb6a;
+            --warning-color: #ffa726;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .header {
+            background: var(--neutral-gray);
+            color: white;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            background: #646464;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .logout-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .stat-title {
+            color: var(--neutral-gray);
+            font-size: 1.1rem;
+            margin: 0 0 1rem 0;
+            font-weight: 500;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .patients-table {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--neutral-light);
+        }
+
+        th {
+            color: var(--neutral-gray);
+            font-weight: 600;
+            background: var(--neutral-light);
+        }
+
+        tr:hover {
+            background: var(--neutral-light);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--neutral-light);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .status-active {
+            color: var(--success-color);
+            font-weight: 500;
+        }
+
+        .status-inactive {
+            color: var(--warning-color);
+            font-weight: 500;
+        }
+
+        .error {
+            color: #e74c3c;
+            text-align: center;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(231, 76, 60, 0.1);
+            border-radius: 8px;
+        }
+
+        .loading {
+            text-align: center;
+            color: var(--neutral-gray);
+            margin: 2rem 0;
+            font-size: 1.1rem;
+        }
+
+        .search-bar {
+            margin-bottom: 1.5rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--neutral-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(79, 195, 247, 0.2);
+        }
+
+        @media screen and (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-card {
+                padding: 1rem;
+            }
+
+            .stat-value {
+                font-size: 1.5rem;
+            }
+
+            th, td {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .media-btn {
+                width: auto;
+                min-width: 0;
+                padding: 0.5rem 1rem;
+                margin: 0.5rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .form-group {
+                grid-template-columns: 1fr;
+            }
+
+            .action-btn {
+                width: auto;
+                margin: 0.25rem;
+            }
+        }
+
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .edit-btn {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .save-btn {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .cancel-btn {
+            background: var(--warning-color);
+            color: white;
+        }
+
+        .delete-btn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .add-btn {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .action-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .add-patient-form {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .form-input {
+            padding: 0.8rem;
+            border: 1px solid var(--neutral-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(79, 195, 247, 0.2);
+        }
+
+        .patients-list {
+            margin-top: 2rem;
+        }
+
+        h2, h3 {
+            color: var(--neutral-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="header">
+            <h1>Administration - Programme 21 jours</h1>
+            <button class="logout-btn" @click="logout">Déconnexion</button>
+        </div>
+        
+        <div class="container">
+            <div v-if="error" class="error">{{ error }}</div>
+            <div v-if="loading" class="loading">Chargement des données...</div>
+            
+            <div v-else>
+                <div class="dashboard">
+                    <div class="stat-card">
+                        <h2 class="stat-title">Nombre total de patients</h2>
+                        <p class="stat-value">{{ totalPatients }}</p>
+                    </div>
+                    <div class="stat-card">
+                        <h2 class="stat-title">Patients actifs</h2>
+                        <p class="stat-value">{{ activePatients }}</p>
+                    </div>
+                    <div class="stat-card">
+                        <h2 class="stat-title">Progression moyenne</h2>
+                        <p class="stat-value">{{ averageProgress }}%</p>
+                    </div>
+                </div>
+
+                <div class="search-bar">
+                    <input 
+                        type="text" 
+                        class="search-input" 
+                        v-model="searchQuery" 
+                        placeholder="Rechercher un patient..."
+                    >
+                </div>
+
+                <div class="patients-table">
+                    <h2>Gestion des patients</h2>
+                    
+                    <!-- Formulaire d'ajout de patient -->
+                    <div class="add-patient-form">
+                        <h3>Ajouter un nouveau patient</h3>
+                        <div class="form-group">
+                            <input 
+                                type="text" 
+                                v-model="newPatient.code" 
+                                placeholder="Code patient"
+                                class="form-input"
+                            >
+                            <input 
+                                type="password" 
+                                v-model="newPatient.password" 
+                                placeholder="Mot de passe"
+                                class="form-input"
+                            >
+                            <input 
+                                type="date" 
+                                v-model="newPatient.startDate" 
+                                class="form-input"
+                            >
+                            <select 
+                                v-model="newPatient.language" 
+                                class="form-input"
+                            >
+                                <option value="FR">Français</option>
+                                <option value="EN">English</option>
+                                <option value="DE">Deutsch</option>
+                                <option value="SP">Español</option>
+                            </select>
+                            <button 
+                                @click="addPatient" 
+                                class="action-btn add-btn"
+                                :disabled="!isNewPatientValid"
+                            >
+                                Ajouter
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Liste des patients -->
+                    <div class="patients-list">
+                        <h3>Liste des patients</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Date de début</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="patient in filteredPatients" :key="patient.code">
+                                    <td>{{ patient.code }}</td>
+                                    <td>{{ patient.startDate }}</td>
+                                    <td :class="patient.isActive ? 'status-active' : 'status-inactive'">
+                                        {{ patient.isActive ? 'Actif' : 'Inactif' }}
+                                    </td>
+                                    <td>
+                                        <button 
+                                            @click="deletePatient(patient.code)" 
+                                            class="action-btn delete-btn"
+                                            :disabled="patient.code === 'admin'"
+                                        >
+                                            Supprimer
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const { createApp } = Vue;
+        
+        const app = createApp({
+            data() {
+                return {
+                    patients: [],
+                    newPatient: {
+                        code: '',
+                        password: '',
+                        startDate: '',
+                        language: 'FR'
+                    },
+                    loading: false,
+                    error: null,
+                    searchQuery: ''
+                }
+            },
+            computed: {
+                totalPatients() {
+                    return this.patients.length;
+                },
+                activePatients() {
+                    return this.patients.filter(p => p.active).length;
+                },
+                averageProgress() {
+                    if (this.patients.length === 0) return 0;
+                    const totalProgress = this.patients.reduce((sum, patient) => {
+                        const startDate = new Date(patient.startDate);
+                        const today = new Date();
+                        const daysPassed = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+                        return sum + Math.min(Math.max(daysPassed, 0), 21);
+                    }, 0);
+                    return Math.round((totalProgress / (this.patients.length * 21)) * 100);
+                },
+                filteredPatients() {
+                    if (!this.searchQuery) return this.patients;
+                    const query = this.searchQuery.toLowerCase();
+                    return this.patients.filter(patient => 
+                        patient.code.toLowerCase().includes(query)
+                    );
+                },
+                isNewPatientValid() {
+                    return this.newPatient.code && 
+                           this.newPatient.password && 
+                           this.newPatient.startDate &&
+                           this.newPatient.language;
+                }
+            },
+            methods: {
+                async loadPatients() {
+                    try {
+                        this.loading = true;
+                        const response = await fetch('/patients');
+                        if (!response.ok) {
+                            throw new Error('Erreur lors du chargement des patients');
+                        }
+                        const data = await response.json();
+                        this.patients = data;
+                        this.error = null;
+                    } catch (error) {
+                        this.error = error.message;
+                        console.error(error);
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+                async addPatient() {
+                    try {
+                        this.loading = true;
+                        const response = await fetch('/patients', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(this.newPatient)
+                        });
+                        
+                        if (!response.ok) {
+                            const errorData = await response.json();
+                            throw new Error(errorData.error || 'Erreur lors de l\'ajout du patient');
+                        }
+                        
+                        await this.loadPatients();
+                        this.newPatient = {
+                            code: '',
+                            password: '',
+                            startDate: '',
+                            language: 'FR'
+                        };
+                        this.error = null;
+                    } catch (error) {
+                        this.error = error.message;
+                        console.error(error);
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+                async deletePatient(patientCode) {
+                    if (!confirm('Êtes-vous sûr de vouloir supprimer ce patient ?')) {
+                        return;
+                    }
+                    
+                    try {
+                        this.loading = true;
+                        const response = await fetch(`/patients/${patientCode}`, {
+                            method: 'DELETE'
+                        });
+                        
+                        if (!response.ok) {
+                            const errorData = await response.json();
+                            throw new Error(errorData.error || 'Erreur lors de la suppression du patient');
+                        }
+                        
+                        await this.loadPatients();
+                        this.error = null;
+                    } catch (error) {
+                        this.error = error.message;
+                        console.error(error);
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+                formatDate(date) {
+                    return new Date(date).toLocaleDateString('fr-FR');
+                },
+                logout() {
+                    window.location.href = '/login.html';
+                }
+            },
+            mounted() {
+                this.loadPatients();
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html> 

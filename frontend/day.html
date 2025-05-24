@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jour {{ dayNumber }} - Programme 21 jours</title>
+    <link rel="icon" href="favicon.ico">
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <style>
+        :root {
+            --primary-color: #4fc3f7;
+            --primary-dark: #00b2e6;
+            --neutral-light: #ecebe5;
+            --neutral-dark: #2c3e50;
+            --neutral-gray: #2e2e2e;
+            --text-color: #333333;
+            --background-color: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .header {
+            background: var(--neutral-gray);
+            color: white;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .back-btn {
+            background: #646464;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .day-content {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .day-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--neutral-light);
+        }
+
+        .day-title {
+            font-size: 2rem;
+            color: var(--neutral-gray);
+            margin: 0 0 1rem 0;
+        }
+
+        .day-description {
+            font-size: 1.1rem;
+            color: var(--neutral-gray);
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        .media-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--neutral-light);
+            border-radius: 8px;
+        }
+
+        .media-title {
+            font-size: 1.3rem;
+            color: var(--neutral-gray);
+            margin: 0 0 1rem 0;
+        }
+
+        .media-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .media-btn {
+            background: white;
+            color: var(--neutral-gray);
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid rgba(85, 85, 85, 0.2);
+        }
+
+        .media-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .instructions {
+            margin-top: 2rem;
+        }
+
+        .instructions h2 {
+            color: var(--neutral-gray);
+            margin-bottom: 1rem;
+        }
+
+        .instructions-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .instructions-list li {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: var(--neutral-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .instructions-list li::before {
+            content: '📝';
+            font-size: 1.2rem;
+        }
+
+        .error {
+            color: #e74c3c;
+            text-align: center;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(231, 76, 60, 0.1);
+            border-radius: 8px;
+        }
+
+        .loading {
+            text-align: center;
+            color: var(--neutral-gray);
+            margin: 2rem 0;
+            font-size: 1.1rem;
+        }
+
+        @media screen and (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .day-content {
+                padding: 1.5rem;
+            }
+
+            .day-title {
+                font-size: 1.5rem;
+            }
+
+            .media-links {
+                flex-direction: column;
+            }
+
+            .media-btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="header">
+            <h1>Programme 21 jours</h1>
+            <a href="/app.html" class="back-btn">Retour au programme</a>
+        </div>
+        
+        <div class="container">
+            <div v-if="error" class="error">{{ error }}</div>
+            <div v-if="loading" class="loading">Chargement du contenu...</div>
+            
+            <div v-else class="day-content">
+                <div class="day-header">
+                    <h1 class="day-title">{{ day.title }}</h1>
+                    <p class="day-description">{{ day.description }}</p>
+                </div>
+
+                <div class="media-section">
+                    <h2 class="media-title">Ressources du jour</h2>
+                    <div class="media-links">
+                        <a :href="day.video" target="_blank" class="media-btn">Voir la vidéo</a>
+                        <a :href="day.podcast" target="_blank" class="media-btn">Écouter le podcast</a>
+                    </div>
+                </div>
+
+                <div class="instructions">
+                    <h2>Instructions du jour</h2>
+                    <ul class="instructions-list">
+                        <li v-for="(instruction, index) in day.instructions" :key="index">
+                            {{ instruction }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="day.js"></script>
+</body>
+</html> 

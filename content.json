@@ -1,0 +1,34 @@
+{
+  "days": [
+    { 
+      "day": 1, 
+      "video": "https://youtu.be/dQw4w9WgXcQ", 
+      "podcast": {
+        "embed": "https://open.spotify.com/embed/episode/5Mk3oAMu1mLpd6ZbesjqNL?utm_source=generator",
+        "height": 352,
+        "style": "border-radius:12px"
+      },
+      "title": "Jour 1",
+      "description": "Introduction au programme",
+      "instructions": [
+        "Regardez la vidéo d'introduction",
+        "Écoutez le podcast pour comprendre les objectifs",
+        "Prenez quelques minutes pour réfléchir à vos attentes",
+        "Notez vos objectifs personnels dans un carnet"
+      ]
+    },
+    { 
+      "day": 2, 
+      "video": "https://youtu.be/oHg5SJYRHA0", 
+      "podcast": "https://open.spotify.com/episode/...",
+      "title": "Jour 2",
+      "description": "Premiers pas dans le programme",
+      "instructions": [
+        "Visionnez la vidéo du jour",
+        "Écoutez le podcast associé",
+        "Commencez à mettre en pratique les premiers exercices",
+        "Notez vos impressions et difficultés"
+      ]
+    }
+  ]
+}
