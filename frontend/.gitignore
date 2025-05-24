@@ -1,0 +1,24 @@
+# Dépendances
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Fichiers d'environnement
+.env
+.env.local
+.env.*.local
+
+# Fichiers de build
+/dist
+/build
+
+# Fichiers d'IDE
+.idea/
+.vscode/
+*.swp
+*.swo 

@@ -1,4 +1,5 @@
 const { createApp } = Vue;
+import config from './config.js';
 
 createApp({
   data() {
@@ -70,7 +71,7 @@ createApp({
     }
 
     try {
-      const res = await fetch('/program-content', {
+      const res = await fetch(`${config.apiUrl}/program-content`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -112,7 +113,7 @@ createApp({
       this.loading = true;
 
       try {
-        const res = await fetch('/login', {
+        const res = await fetch(`${config.apiUrl}/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ code: this.code, password: this.password }),
