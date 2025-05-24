@@ -5,7 +5,7 @@ export const config = {
     
     // Configuration de la base de données
     database: {
-        path: 'database.sqlite'
+        path: process.env.NODE_ENV === 'production' ? '/data/database.sqlite' : 'database.sqlite'
     },
     
     // Configuration du serveur

@@ -8,14 +8,17 @@
     "migrate": "node migrations/migrate.js",
     "backup": "node scripts/backup.js",
     "backup:schedule": "node -e \"setInterval(() => require('./scripts/backup.js').createBackup(), 24 * 60 * 60 * 1000)\"",
-    "init-db": "node database/init.js"
+    "init-db": "node database/init.js",
+    "deploy": "node scripts/deploy.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
     "better-sqlite3": "^9.4.1",
     "dotenv": "^16.4.5",
     "express": "^4.18.3",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "sqlite3": "^5.1.7",
+    "sqlite": "^5.1.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
