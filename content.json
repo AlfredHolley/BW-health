@@ -2,47 +2,33 @@
   "days": [
     { 
       "day": 1, 
-      "video": "https://www.youtube.com/embed/example1", 
+      "video": "https://youtu.be/dQw4w9WgXcQ", 
       "podcast": {
-        "embed": "https://open.spotify.com/embed/episode/example1",
+        "embed": "https://open.spotify.com/embed/episode/5Mk3oAMu1mLpd6ZbesjqNL?utm_source=generator",
         "height": 352,
         "style": "border-radius:12px"
       },
-      "title": "Bienvenue dans votre programme",
-      "description": "Découvrez votre parcours personnalisé",
+      "title": "Jour 1",
+      "description": "Introduction au programme",
       "instructions": [
-        "Bienvenue dans votre programme de suivi",
-        "Nous allons vous accompagner jour après jour",
-        "Prenez le temps de vous familiariser avec l'interface",
-        "N'hésitez pas à contacter votre coach si vous avez des questions"
+        "Regardez la vidéo d'introduction",
+        "Écoutez le podcast pour comprendre les objectifs",
+        "Prenez quelques minutes pour réfléchir à vos attentes",
+        "Notez vos objectifs personnels dans un carnet"
       ]
     },
     { 
       "day": 2, 
-      "video": "https://www.youtube.com/embed/example2", 
-      "podcast": {
-        "embed": "https://open.spotify.com/embed/episode/example2",
-        "height": 352,
-        "style": "border-radius:12px"
-      },
-      "title": "Votre premier jour",
-      "description": "Commençons votre parcours",
+      "video": "https://youtu.be/oHg5SJYRHA0", 
+      "podcast": "https://open.spotify.com/episode/...",
+      "title": "Jour 2",
+      "description": "Premiers pas dans le programme",
       "instructions": [
-        "Découvrez les objectifs de votre programme",
-        "Familiarisez-vous avec les outils mis à votre disposition",
-        "Notez vos premières impressions",
-        "Préparez-vous pour les prochaines étapes"
+        "Visionnez la vidéo du jour",
+        "Écoutez le podcast associé",
+        "Commencez à mettre en pratique les premiers exercices",
+        "Notez vos impressions et difficultés"
       ]
     }
-  ],
-  "welcome": {
-    "title": "Bienvenue dans votre espace personnel",
-    "message": "Votre programme personnalisé commence aujourd'hui. Nous sommes là pour vous accompagner dans votre parcours.",
-    "instructions": [
-      "Consultez votre programme quotidien",
-      "Suivez les vidéos et podcasts recommandés",
-      "Notez vos progrès et vos questions",
-      "Contactez votre coach si nécessaire"
-    ]
-  }
+  ]
 }

@@ -14,7 +14,6 @@ yarn-error.log
 
 # Logs
 *.log
-npm-debug.log*
 
 # Fichiers système
 .DS_Store
@@ -32,4 +31,16 @@ Thumbs.db
 .idea/
 .vscode/
 *.swp
-*.swo 
+*.swo
+
+# Fichiers de configuration sensibles
+.env
+config.js
+
+# Base de données
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+npm-debug.log* 
