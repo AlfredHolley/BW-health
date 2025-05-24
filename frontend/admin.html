@@ -366,21 +366,29 @@
                                 v-model="newPatient.code" 
                                 placeholder="Code patient"
                                 class="form-input"
+                                id="patient-code"
+                                aria-label="Code patient"
                             >
                             <input 
                                 type="password" 
                                 v-model="newPatient.password" 
                                 placeholder="Mot de passe"
                                 class="form-input"
+                                id="patient-password"
+                                aria-label="Mot de passe"
                             >
                             <input 
                                 type="date" 
                                 v-model="newPatient.startDate" 
                                 class="form-input"
+                                id="patient-date"
+                                aria-label="Date de début"
                             >
                             <select 
                                 v-model="newPatient.language" 
                                 class="form-input"
+                                id="patient-language"
+                                aria-label="Langue"
                             >
                                 <option value="FR">Français</option>
                                 <option value="EN">English</option>
@@ -456,7 +464,7 @@
                     return this.patients.length;
                 },
                 activePatients() {
-                    return this.patients.filter(p => p.active).length;
+                    return this.patients.filter(p => p.isActive).length;
                 },
                 averageProgress() {
                     if (this.patients.length === 0) return 0;
@@ -486,12 +494,30 @@
                 async loadPatients() {
                     try {
                         this.loading = true;
-                        const response = await fetch('/patients');
+                        const token = localStorage.getItem('token');
+                        if (!token) {
+                            window.location.href = '/login.html';
+                            return;
+                        }
+
+                        const response = await fetch('/admin/patients', {
+                            headers: {
+                                'Authorization': `Bearer ${token}`,
+                                'Cache-Control': 'no-cache'
+                            }
+                        });
+
                         if (!response.ok) {
+                            if (response.status === 401 || response.status === 403) {
+                                localStorage.removeItem('token');
+                                window.location.href = '/login.html';
+                                return;
+                            }
                             throw new Error('Erreur lors du chargement des patients');
                         }
+
                         const data = await response.json();
-                        this.patients = data;
+                        this.patients = data.patients;
                         this.error = null;
                     } catch (error) {
                         this.error = error.message;
@@ -503,15 +529,27 @@
                 async addPatient() {
                     try {
                         this.loading = true;
+                        const token = localStorage.getItem('token');
+                        if (!token) {
+                            window.location.href = '/login.html';
+                            return;
+                        }
+
                         const response = await fetch('/patients', {
                             method: 'POST',
                             headers: {
-                                'Content-Type': 'application/json'
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
                             },
                             body: JSON.stringify(this.newPatient)
                         });
                         
                         if (!response.ok) {
+                            if (response.status === 401 || response.status === 403) {
+                                localStorage.removeItem('token');
+                                window.location.href = '/login.html';
+                                return;
+                            }
                             const errorData = await response.json();
                             throw new Error(errorData.error || 'Erreur lors de l\'ajout du patient');
                         }
@@ -538,11 +576,25 @@
                     
                     try {
                         this.loading = true;
+                        const token = localStorage.getItem('token');
+                        if (!token) {
+                            window.location.href = '/login.html';
+                            return;
+                        }
+
                         const response = await fetch(`/patients/${patientCode}`, {
-                            method: 'DELETE'
+                            method: 'DELETE',
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            }
                         });
                         
                         if (!response.ok) {
+                            if (response.status === 401 || response.status === 403) {
+                                localStorage.removeItem('token');
+                                window.location.href = '/login.html';
+                                return;
+                            }
                             const errorData = await response.json();
                             throw new Error(errorData.error || 'Erreur lors de la suppression du patient');
                         }

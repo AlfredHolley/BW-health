@@ -7,7 +7,8 @@
     "dev": "nodemon server.js",
     "migrate": "node migrations/migrate.js",
     "backup": "node scripts/backup.js",
-    "backup:schedule": "node -e \"setInterval(() => require('./scripts/backup.js').createBackup(), 24 * 60 * 60 * 1000)\""
+    "backup:schedule": "node -e \"setInterval(() => require('./scripts/backup.js').createBackup(), 24 * 60 * 60 * 1000)\"",
+    "init-db": "node database/init.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
