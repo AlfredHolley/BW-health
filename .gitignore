@@ -29,18 +29,18 @@ yarn-error.log
 
 # # Fichiers d'IDE
 # .idea/
-# .vscode/
-# *.swp
-# *.swo
+.vscode/
+*.swp
+*.swo
 
 # # Fichiers de configuration sensibles
-# .env
+.env
 # config.js
 
 # # Base de données
 # *.sqlite
 # *.sqlite3
 
-# # Logs
-# *.log
-# npm-debug.log* 
+# Logs
+*.log
+npm-debug.log* 
