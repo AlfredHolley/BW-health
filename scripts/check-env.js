@@ -11,10 +11,17 @@ function checkEnvironment() {
 
     // Vérifier la configuration JWT
     try {
+        console.log('Vérification de JWT_SECRET...');
+        if (!process.env.JWT_SECRET) {
+            throw new Error('JWT_SECRET n\'est pas défini dans les variables d\'environnement');
+        }
+        console.log('JWT_SECRET est défini');
+        
         config.validateConfig();
         console.log('✅ Configuration JWT valide');
     } catch (error) {
         console.error('❌ Erreur de configuration JWT:', error.message);
+        console.error('Vérifiez que JWT_SECRET est bien défini avec: fly secrets list');
         process.exit(1);
     }
 
@@ -36,14 +43,28 @@ function checkEnvironment() {
     }
 
     // Vérifier les variables d'environnement
-    const requiredEnvVars = ['NODE_ENV', 'PORT'];
+    const requiredEnvVars = ['NODE_ENV', 'PORT', 'JWT_SECRET'];
     const missingEnvVars = requiredEnvVars.filter(varName => !process.env[varName]);
     
     if (missingEnvVars.length > 0) {
         console.error('❌ Variables d\'environnement manquantes:', missingEnvVars.join(', '));
+        console.error('Pour définir JWT_SECRET: fly secrets set JWT_SECRET=votre_clé');
         process.exit(1);
     }
     console.log('✅ Variables d\'environnement OK');
+
+    // Vérifier la connexion à la base de données
+    try {
+        const dbPath = config.database.path;
+        if (!fs.existsSync(dbPath)) {
+            console.log(`Base de données non trouvée à ${dbPath}, création...`);
+            // La base sera créée au premier accès
+        }
+        console.log('✅ Configuration de la base de données OK');
+    } catch (error) {
+        console.error('❌ Erreur de configuration de la base de données:', error.message);
+        process.exit(1);
+    }
 
     console.log('✅ Vérification de l\'environnement terminée avec succès');
 }
