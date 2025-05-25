@@ -393,6 +393,99 @@
             padding: 0.5rem;
             font-size: 1.2rem;
         }
+
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            padding-bottom: 5rem;
+        }
+
+        .step {
+            background: #9f9f9f;
+            border-radius: 50%;
+            width: 5.8rem;
+            height: 4.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            opacity: 0.6;
+            background-color: #b0b0b0;
+            box-shadow: 0 8px 0;
+
+        }
+        
+        .step.unlocked {
+            background-color: var(--success-color);
+            border-color: var(--success-color);
+            opacity: 1;
+            box-shadow: 0 8px 0 #3fa001;
+        }
+
+        .step.current {
+            background-color: var(--primary-color);
+            border-color: var(--primary-dark);
+            opacity: 1;
+            transform: scale(1.1);
+            box-shadow: 0 8px 0 var(--primary-dark);
+        }
+
+        .step:hover,
+        .step.unlocked:hover,
+        .step.current:hover {
+            box-shadow: none;
+            transform: translateY(8px);
+        }
+
+
+
+        .step.current:hover {
+            background-color: #29b6f6;
+        }
+
+        .step-icon {
+            width: 1.8rem;
+            height: 1.8rem;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.1rem;
+            z-index: 2;
+        }
+
+        .step-number {
+            font-size: 0.8rem;
+            color: var(--neutral-dark);
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .step.unlocked .step-number,
+        .step.current .step-number {
+            color: white;
+        }
+
+        .current-day-indicator {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            position: absolute;
+            bottom: calc(100% + 5px);
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            z-index: 10;
+        }
     </style>
 
 </head>
@@ -429,28 +522,17 @@
                     Progression : {{ unlockedDays }} / 21 jours
                 </div>
 
-                <div v-for="day in allDays" :key="day.day" 
-                     :class="['day-card', { 'locked': !isDayUnlocked(day.day) }]">
-                    <div class="day-number">Jour {{ day.day }}</div>
-                    <div v-if="!isDayUnlocked(day.day)" class="lock-icon">🔒</div>
-                    
-                    <div class="day-header">
-                        <div class="day-info">
-                            <h2 class="day-title">{{ day.title }}</h2>
-                            <p class="day-description">{{ day.description }}</p>
-                        </div>
-                        <div class="media-links">
-                            <a v-if="isDayUnlocked(day.day)" :href="`/day.html?day=${day.day}`" class="media-btn">Voir les instructions</a>
-                            <a v-if="isDayUnlocked(day.day)" :href="day.video" target="_blank" class="media-btn">Voir la vidéo</a>
-                            <a v-if="isDayUnlocked(day.day)" :href="day.podcast" target="_blank" class="media-btn">Écouter le podcast</a>
-                        </div>
-                    </div>
-
-                    <div v-if="isDayUnlocked(day.day)" class="content-section">
-                        <h3>Podcast du jour</h3>
-                        <div v-html="renderPodcast(day.podcast)"></div>
+                <!-- Nouvelle structure pour les étapes -->
+                <div class="steps-container">
+                    <div v-for="day in allDays" :key="day.day" 
+                         :class="['step', { 'unlocked': isDayUnlocked(day.day), 'current': day.day === currentDay }]"
+                         @click="goToDay(day.day)">
+                        <div v-if="day.day === currentDay" class="current-day-indicator">Jour Actuel</div>
+                        <div class="step-icon"></div> <!-- Placeholder for icon -->
+                        <div class="step-number">{{ day.day }}</div>
                     </div>
                 </div>
+
             </div>
         </div>
 

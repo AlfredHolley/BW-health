@@ -15,6 +15,7 @@ createApp({
       },
       unlockedDays: 0,
       startDate: null,
+      currentDay: 0,
       // Mode test
       isTestMode: false,
       testDate: new Date(),
@@ -94,6 +95,7 @@ createApp({
         console.log('Date de début reçue:', data.startDate);
         this.startDate = new Date(data.startDate);
         this.calculateUnlockedDays();
+        this.calculateCurrentDay();
       }
     } catch (e) {
       this.error = 'Erreur lors du chargement du contenu';
@@ -201,6 +203,35 @@ createApp({
       this.unlockedDays = Math.min(diffDays + 1, 21);
     },
 
+    calculateCurrentDay() {
+      if (!this.startDate) return;
+      
+      const today = new Date();
+      const start = new Date(this.startDate);
+      
+      // Normaliser les dates pour ignorer les heures
+      today.setHours(0, 0, 0, 0);
+      start.setHours(0, 0, 0, 0);
+      
+      // Calculer le nombre de jours depuis le début
+      const diffTime = today.getTime() - start.getTime();
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      
+      // Le jour actuel est le nombre de jours écoulés + 1 (en s'assurant qu'il ne dépasse pas 21)
+      this.currentDay = Math.min(diffDays + 1, 21);
+      
+      console.log('Debug - Jour actuel calculé:', this.currentDay);
+    },
+
+    goToDay(dayNumber) {
+      if (this.isDayUnlocked(dayNumber)) {
+        window.location.href = `/day.html?day=${dayNumber}`;
+      } else {
+        console.log(`Jour ${dayNumber} bloqué.`);
+        // Optionnellement, afficher un message à l'utilisateur indiquant que le jour est bloqué
+      }
+    },
+
     // Méthodes de test
     simulateNextDay() {
       if (!this.isTestMode) return;
@@ -286,5 +317,13 @@ createApp({
       this.showInstallPrompt = false;
       this.deferredPrompt = null;
     });
+
+    // Faire défiler la vue jusqu'à l'étape du jour actuel
+    setTimeout(() => {
+      const currentStepElement = document.querySelector('.step.current');
+      if (currentStepElement) {
+        currentStepElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 500);
   }
 }).mount('#app');
