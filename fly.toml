@@ -6,12 +6,6 @@ primary_region = "cdg"
 
 [env]
   PORT = "8080"
-  NODE_ENV = "production"
-  LOG_LEVEL = "info"
-
-# Configuration des secrets
-[secrets]
-  JWT_SECRET = ""  # Sera défini via fly secrets set
 
 [http_service]
   internal_port = 8080

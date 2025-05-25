@@ -3,16 +3,13 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "node scripts/check-env.js && node server.js",
+    "start": "node server.js",
     "dev": "nodemon server.js",
     "migrate": "node migrations/migrate.js",
     "backup": "node scripts/backup.js",
     "backup:schedule": "node -e \"setInterval(() => require('./scripts/backup.js').createBackup(), 24 * 60 * 60 * 1000)\"",
     "init-db": "node database/init.js",
-    "deploy": "node scripts/deploy.js",
-    "generate-jwt-secret": "node scripts/generate-jwt-secret.js",
-    "rotate-jwt-key": "node scripts/rotate-jwt-key.js",
-    "check-env": "node scripts/check-env.js"
+    "deploy": "node scripts/deploy.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
