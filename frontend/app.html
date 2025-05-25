@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programme 21 jours</title>
+    <title>21 Days Study</title>
     <link rel="icon" href="icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="icon.svg">
     <link rel="apple-touch-icon" sizes="152x152" href="icon.svg">
@@ -13,7 +13,8 @@
     <meta name="theme-color" content="#4fc3f7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Programme 21 jours">
+    <meta name="apple-mobile-web-app-title" content="21 Days Study">
+
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
     <script>
         // Enregistrement du service worker
@@ -42,6 +43,10 @@
         });
     </script>
     <style>
+        [v-cloak] {
+            display: none;
+        }
+
         :root {
             --primary-color: #4fc3f7;
             --primary-dark: #00b2e6;
@@ -389,9 +394,10 @@
             font-size: 1.2rem;
         }
     </style>
+
 </head>
 <body>
-    <div id="app">
+    <div id="app" v-cloak >
         <div class="header">
             <h1>Programme 21 jours</h1>
             <button class="logout-btn" @click="logout">Déconnexion</button>

@@ -1,7 +1,7 @@
 {
-  "name": "Programme 21 jours",
-  "short_name": "21 jours",
-  "description": "Programme de bien-être sur 21 jours",
+  "name": "21 Days Study",
+  "short_name": "21 Days Study ",
+  "description": "Study App on 21 days",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f8f9fa",
