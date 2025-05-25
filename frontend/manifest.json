@@ -1,0 +1,17 @@
+{
+  "name": "Programme 21 jours",
+  "short_name": "21 jours",
+  "description": "Programme de bien-être sur 21 jours",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f9fa",
+  "theme_color": "#4fc3f7",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+} 
