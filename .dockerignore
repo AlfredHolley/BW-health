@@ -1,0 +1,29 @@
+# Dépendances
+node_modules
+npm-debug.log
+
+# Fichiers de développement
+.git
+.gitignore
+.env
+.env.*
+*.md
+.vscode
+.idea
+
+# Fichiers de build
+dist
+build
+
+# Fichiers de données
+*.sqlite
+*.sqlite3
+backups/
+
+# Logs
+*.log
+logs/
+
+# Fichiers système
+.DS_Store
+Thumbs.db 
