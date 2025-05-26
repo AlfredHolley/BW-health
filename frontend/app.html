@@ -160,6 +160,29 @@
             position: relative;
         }
 
+        .day-card.current {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 8px 0 var(--primary-dark);
+        }
+
+
+        .day-card.current:hover {
+            transform: translateY(8px);
+            box-shadow: none;
+        }
+
+
+        .day-card.current .media-btn {
+            background: white;
+            border-color: white;
+        }
+
+        .day-card.current .media-btn:hover {
+            background: #1f1f1f;
+            border: 0px;
+        }
+
         .day-card.locked {
             background: var(--neutral-light);
             opacity: 0.8;
@@ -483,7 +506,7 @@
                 </div>
 
                 <div v-for="day in allDays" :key="day.day" 
-                     :class="['day-card', { 'locked': !isDayUnlocked(day.day) }]"
+                     :class="['day-card', { 'locked': !isDayUnlocked(day.day), 'current': day.day === currentDay }]"
                      :data-day="day.day">
                     <div class="day-number">Jour {{ day.day }}</div>
                     <div v-if="!isDayUnlocked(day.day)" class="lock-icon">🔒</div>
@@ -494,15 +517,8 @@
                             <p class="day-description">{{ day.description }}</p>
                         </div>
                         <div class="media-links">
-                            <a v-if="isDayUnlocked(day.day)" :href="`/day.html?day=${day.day}`" class="media-btn">Voir les instructions</a>
-                            <a v-if="isDayUnlocked(day.day)" :href="day.video" target="_blank" class="media-btn">Voir la vidéo</a>
-                            <a v-if="isDayUnlocked(day.day)" :href="day.podcast" target="_blank" class="media-btn">Écouter le podcast</a>
+                            <a v-if="isDayUnlocked(day.day)" :href="`/day.html?day=${day.day}`" class="media-btn">Voir le contenu</a>
                         </div>
-                    </div>
-
-                    <div v-if="isDayUnlocked(day.day)" class="content-section">
-                        <h3>Podcast du jour</h3>
-                        <div v-html="renderPodcast(day.podcast)"></div>
                     </div>
                 </div>
             </div>

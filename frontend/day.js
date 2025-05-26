@@ -9,6 +9,27 @@ createApp({
             dayNumber: null
         };
     },
+    methods: {
+        renderPodcast(podcast) {
+            if (typeof podcast === 'string') {
+                return `<p>Podcast non disponible</p>`;
+            }
+            if (podcast.embed) {
+                return `
+                    <iframe 
+                        style="${podcast.style || 'border-radius:12px'}"
+                        src="${podcast.embed}"
+                        width="100%"
+                        height="${podcast.height || 352}"
+                        frameborder="0"
+                        allowfullscreen
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                        loading="lazy">
+                    </iframe>`;
+            }
+            return `<p>Podcast non disponible</p>`;
+        }
+    },
     async created() {
         // Récupérer le numéro du jour depuis l'URL
         const urlParams = new URLSearchParams(window.location.search);

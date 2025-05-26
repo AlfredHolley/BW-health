@@ -142,6 +142,13 @@
             transform: translateY(-2px);
         }
 
+        .podcast-section {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--neutral-light);
+            border-radius: 8px;
+        }
+
         .instructions {
             margin-top: 2rem;
         }
@@ -232,8 +239,12 @@
                     <h2 class="media-title">Ressources du jour</h2>
                     <div class="media-links">
                         <a :href="day.video" target="_blank" class="media-btn">Voir la vidéo</a>
-                        <a :href="day.podcast" target="_blank" class="media-btn">Écouter le podcast</a>
                     </div>
+                </div>
+
+                <div class="podcast-section">
+                    <h2 class="media-title">Podcast du jour</h2>
+                    <div v-html="renderPodcast(day.podcast)"></div>
                 </div>
 
                 <div class="instructions">
