@@ -65,6 +65,7 @@
             padding: 0;
             background: var(--background-color);
             color: var(--text-color);
+            overflow-y: scroll;
         }
 
         .header {
@@ -80,6 +81,8 @@
             left: 0;
             right: 0;
             z-index: 1000;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .header h1 {
@@ -147,17 +150,25 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 5rem 1.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .day-card {
             background: white;
             border-radius: 12px;
             padding: 1.8rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 3.5rem;
+            max-width: 800px;
+            width: 100%;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid rgba(85, 85, 85, 0.1);
             position: relative;
+            cursor: pointer;
         }
 
         .day-card.current {
@@ -390,35 +401,52 @@
         @media screen and (max-width: 768px) {
             .header {
                 padding: 1rem;
+                position: fixed;
+                width: 100vw;
+                left: 0;
+                right: 0;
             }
 
-            .day-header {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .day-info {
+            .container {
+                padding: 4rem 0 2rem;
                 width: 100%;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .day-card {
+                width: 90%;
+                max-width: 800px;
+                margin: 0 auto 3.5rem;
+                box-sizing: border-box;
+            }
+
+            .day-content {
+                padding: 1.5rem;
+            }
+
+            .day-title {
+                font-size: 1.5rem;
             }
 
             .media-links {
-                width: 100%;
                 flex-direction: column;
-                gap: 0.8rem;
             }
 
             .media-btn {
                 justify-content: center;
             }
+        }
 
-            .day-number {
-                top: 0.5rem;
-                right: 0.5rem;
-            }
-
-            .lock-icon {
-                font-size: 1.5rem;
-            }
+        /* Empêcher le débordement horizontal sur mobile */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+            margin: 0;
+            padding: 0;
         }
 
         .install-prompt {
@@ -507,7 +535,8 @@
 
                 <div v-for="day in allDays" :key="day.day" 
                      :class="['day-card', { 'locked': !isDayUnlocked(day.day), 'current': day.day === currentDay }]"
-                     :data-day="day.day">
+                     :data-day="day.day"
+                     @click="isDayUnlocked(day.day) && goToDay(day.day)">
                     <div class="day-number">Jour {{ day.day }}</div>
                     <div v-if="!isDayUnlocked(day.day)" class="lock-icon">🔒</div>
                     
@@ -515,9 +544,6 @@
                         <div class="day-info">
                             <h2 class="day-title">{{ day.title }}</h2>
                             <p class="day-description">{{ day.description }}</p>
-                        </div>
-                        <div class="media-links">
-                            <a v-if="isDayUnlocked(day.day)" :href="`/day.html?day=${day.day}`" class="media-btn">Voir le contenu</a>
                         </div>
                     </div>
                 </div>
