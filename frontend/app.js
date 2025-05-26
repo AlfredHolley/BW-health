@@ -15,13 +15,12 @@ createApp({
       },
       unlockedDays: 0,
       startDate: null,
-      // Mode test
-      isTestMode: false,
-      testDate: new Date(),
-      testDaysToUnlock: 1,
+      currentDay: 0,
       // Installation PWA
       deferredPrompt: null,
-      showInstallPrompt: false
+      showInstallPrompt: false,
+      // Menu d'options
+      showOptions: false
     };
   },
   computed: {
@@ -54,20 +53,6 @@ createApp({
 
     // Vérifier si on est en mode test (via l'URL)
     const urlParams = new URLSearchParams(window.location.search);
-    this.isTestMode = urlParams.get('test') === 'true';
-    
-    if (this.isTestMode) {
-      // En mode test, on peut définir une date de début personnalisée
-      const testStartDate = urlParams.get('startDate');
-      if (testStartDate) {
-        this.startDate = new Date(testStartDate);
-      } else {
-        // Par défaut, on utilise la date actuelle
-        this.startDate = new Date();
-      }
-      this.testDaysToUnlock = 1;
-      this.unlockedDays = 1;
-    }
 
     try {
       const res = await fetch('/program-content', {
@@ -90,10 +75,11 @@ createApp({
       this.content = data;
       
       // Initialiser la date de début seulement si on n'est pas en mode test
-      if (!this.isTestMode && data.startDate) {
+      if (data.startDate) {
         console.log('Date de début reçue:', data.startDate);
         this.startDate = new Date(data.startDate);
         this.calculateUnlockedDays();
+        this.calculateCurrentDay();
       }
     } catch (e) {
       this.error = 'Erreur lors du chargement du contenu';
@@ -143,10 +129,6 @@ createApp({
     isDayUnlocked(dayNumber) {
       if (!this.startDate) return false;
       
-      if (this.isTestMode) {
-        return dayNumber <= this.testDaysToUnlock;
-      }
-
       const today = new Date();
       const start = new Date(this.startDate);
       
@@ -170,11 +152,6 @@ createApp({
     calculateUnlockedDays() {
       if (!this.startDate) return;
       
-      if (this.isTestMode) {
-        this.unlockedDays = this.testDaysToUnlock;
-        return;
-      }
-
       const today = new Date();
       const start = new Date(this.startDate);
       
@@ -201,27 +178,42 @@ createApp({
       this.unlockedDays = Math.min(diffDays + 1, 21);
     },
 
-    // Méthodes de test
-    simulateNextDay() {
-      if (!this.isTestMode) return;
-      if (this.testDaysToUnlock < 21) {
-        this.testDaysToUnlock++;
-        this.unlockedDays = this.testDaysToUnlock;
+    calculateCurrentDay() {
+      if (!this.startDate) return;
+      
+      const today = new Date();
+      const start = new Date(this.startDate);
+      
+      // Normaliser les dates pour ignorer les heures
+      today.setHours(0, 0, 0, 0);
+      start.setHours(0, 0, 0, 0);
+      
+      // Calculer le nombre de jours depuis le début
+      const diffTime = today.getTime() - start.getTime();
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      
+      console.log('Debug - Calcul du jour actuel:');
+      console.log('Debug - Date de début:', start.toISOString());
+      console.log('Debug - Date actuelle:', today.toISOString());
+      console.log('Debug - Jours écoulés:', diffDays);
+      
+      // Si la date est dans le futur, le jour actuel n'est pas débloqué
+      if (diffDays < 0) {
+        this.currentDay = 0;
+        return;
       }
+      
+      // Le jour actuel est le jour écoulé + 1
+      this.currentDay = Math.min(diffDays + 1, 21);
     },
 
-    simulatePreviousDay() {
-      if (!this.isTestMode) return;
-      if (this.testDaysToUnlock > 1) {
-        this.testDaysToUnlock--;
-        this.unlockedDays = this.testDaysToUnlock;
+    goToDay(dayNumber) {
+      if (this.isDayUnlocked(dayNumber)) {
+        window.location.href = `/day.html?day=${dayNumber}`;
+      } else {
+        console.log(`Jour ${dayNumber} bloqué.`);
+        // Optionnellement, afficher un message à l'utilisateur indiquant que le jour est bloqué
       }
-    },
-
-    resetTest() {
-      if (!this.isTestMode) return;
-      this.testDaysToUnlock = 1;
-      this.unlockedDays = 1;
     },
 
     renderPodcast(podcast) {
@@ -260,21 +252,21 @@ createApp({
 
     dismissInstallPrompt() {
       this.showInstallPrompt = false;
+    },
+
+    toggleOptions() {
+      this.showOptions = !this.showOptions;
+    },
+
+    // Fermer le menu si on clique en dehors
+    handleClickOutside(event) {
+      const optionsContainer = document.querySelector('.options-container');
+      if (optionsContainer && !optionsContainer.contains(event.target)) {
+        this.showOptions = false;
+      }
     }
   },
   mounted() {
-    if (!this.isTestMode) {
-      // Mettre à jour le nombre de jours débloqués chaque jour à minuit
-      const now = new Date();
-      const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
-      const timeUntilMidnight = tomorrow - now;
-      setTimeout(() => {
-        this.calculateUnlockedDays();
-        // Mettre à jour toutes les 24 heures
-        setInterval(() => this.calculateUnlockedDays(), 24 * 60 * 60 * 1000);
-      }, timeUntilMidnight);
-    }
-
     // Gestion de l'installation PWA
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
@@ -286,5 +278,19 @@ createApp({
       this.showInstallPrompt = false;
       this.deferredPrompt = null;
     });
+
+    // Gestion du menu d'options
+    document.addEventListener('click', this.handleClickOutside);
+
+    // Faire défiler la vue jusqu'à l'étape du jour actuel
+    setTimeout(() => {
+      const currentDayElement = document.querySelector(`[data-day="${this.currentDay}"]`);
+      if (currentDayElement) {
+        currentDayElement.scrollIntoView({ behavior: 'auto', block: 'center' });
+      }
+    }, 100);
+  },
+  beforeUnmount() {
+    document.removeEventListener('click', this.handleClickOutside);
   }
 }).mount('#app');
