@@ -169,9 +169,9 @@
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 5rem 1.5rem 2rem;
+            max-width: 1400px;
+            margin-top:4.8rem;
+            padding: 5rem 2rem 3rem;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -184,27 +184,44 @@
             border-radius: 12px;
             padding: 1.8rem;
             margin-bottom: 3.5rem;
-            max-width: 800px;
+            padding-bottom:1rem;
+            max-width: 1000px;
             width: 100%;
+            height: 150px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.2s ease;
             border: 1px solid rgba(85, 85, 85, 0.1);
             position: relative;
             cursor: pointer;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .day-card:nth-child(odd) {
+            margin-left: 0;
+            margin-right: auto;
+            transform: translateX(-10px) ;
+        }
+
+        .day-card:nth-child(even) {
+            margin-left: auto;
+            margin-right: 0;
+            transform: translateX(10px) ;
         }
 
         .day-card.current {
+            transform: none !important;
             background: var(--primary-color);
             color: white;
             box-shadow: 0 8px 0 var(--primary-dark);
         }
 
-
         .day-card.current:hover {
-            transform: translateY(8px);
+            transform: translateY(8px) !important;
             box-shadow: none;
         }
-
 
         .day-card.current .media-btn {
             background: white;
@@ -262,9 +279,13 @@
             width: 100%;
             height: 8px;
             background: var(--neutral-light);
-            margin: 2rem 0;
-            border-radius: 2px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-radius: 0;
             overflow: hidden;
+            z-index: 1000;
         }
 
         .progress-fill {
@@ -282,10 +303,6 @@
 
         }
 
-        .day-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(85, 85, 85, 0.1);
-        }
 
         .day-header {
             display: flex;
@@ -293,11 +310,15 @@
             align-items: flex-start;
             margin-bottom: 1.2rem;
             gap: 1rem;
+            flex: 1;
+            overflow: hidden;
         }
 
         .day-info {
             flex: 1;
             min-width: 0;
+            display: flex;
+            flex-direction: column;
         }
 
         .day-title {
@@ -313,6 +334,10 @@
             margin: 0;
             font-size: 0.95rem;
             line-height: 1.4;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
         }
 
         .day-card.locked .day-description {
@@ -374,52 +399,6 @@
             font-size: 1.1rem;
         }
 
-        .test-panel {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border: 2px solid var(--primary-color);
-        }
-
-        .test-panel h3 {
-            color: var(--neutral-gray);
-            margin: 0 0 1rem 0;
-            font-size: 1.2rem;
-        }
-
-        .test-controls {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .test-btn {
-            background: var(--neutral-light);
-            color: var(--neutral-gray);
-            border: 1px solid var(--neutral-gray);
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .test-btn:hover {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-
-        .test-info {
-            color: var(--neutral-gray);
-            font-size: 0.9rem;
-        }
-
-        .test-info p {
-            margin: 0.5rem 0;
-        }
-
         @media screen and (max-width: 768px) {
             .header {
                 padding: 1rem;
@@ -432,7 +411,8 @@
             .container {
                 padding: 4rem 0 2rem;
                 width: 100%;
-                margin: 0;
+                margin:0 auto;
+                margin-top:4.8rem;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -462,7 +442,6 @@
             }
         }
 
-        /* Empêcher le débordement horizontal sur mobile */
         html, body {
             overflow-x: hidden;
             width: 100%;
@@ -510,6 +489,24 @@
             padding: 0.5rem;
             font-size: 1.2rem;
         }
+
+        .day-icon {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            width: 24px;
+            height: 24px;
+        }
+
+        .day-icon .icon {
+            width: 100%;
+            height: 100%;
+            opacity: 0.5;
+        }
+
+        .day-card.current .day-icon .icon {
+            filter: brightness(0) invert(1);
+        }
     </style>
 
 </head>
@@ -536,34 +533,19 @@
             <div v-if="error" class="error">{{ error }}</div>
             <div v-if="loading" class="loading">Chargement du contenu...</div>
             
-            <!-- Panneau de test -->
-            <div v-if="isTestMode" class="test-panel">
-                <h3>Mode Test</h3>
-                <div class="test-controls">
-                    <button @click="simulatePreviousDay" class="test-btn">Jour précédent</button>
-                    <button @click="simulateNextDay" class="test-btn">Jour suivant</button>
-                    <button @click="resetTest" class="test-btn">Réinitialiser</button>
-                </div>
-                <div class="test-info">
-                    <p>Jours débloqués : {{ unlockedDays }} / 21</p>
-                    <p>Date de début : {{ startDate ? startDate.toLocaleDateString() : 'Non définie' }}</p>
-                </div>
-            </div>
-
             <div v-else>
                 <div class="progress-bar">
                     <div class="progress-fill" :style="{ width: progressPercentage + '%' }"></div>
                 </div>
-                <div class="progress-text">
-                    Progression : {{ unlockedDays }} / 21 jours
-                </div>
-
                 <div v-for="day in allDays" :key="day.day" 
                      :class="['day-card', { 'locked': !isDayUnlocked(day.day), 'current': day.day === currentDay }]"
                      :data-day="day.day"
                      @click="isDayUnlocked(day.day) && goToDay(day.day)">
                     <div class="day-number">Jour {{ day.day }}</div>
                     <div v-if="!isDayUnlocked(day.day)" class="lock-icon">🔒</div>
+                    <div v-if="day.day === 1" class="day-icon">
+                        <img src="audio-headphone.svg" alt="Audio" class="icon">
+                    </div>
                     
                     <div class="day-header">
                         <div class="day-info">
