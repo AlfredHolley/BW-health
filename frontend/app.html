@@ -59,6 +59,17 @@
             --background-color: #f8f9fa;
         }
 
+        @font-face {
+            font-family: 'VistaSansOT';
+            src: url('polices/VistaSansOT-Book.eot');
+            src: url('polices/VistaSansOT-Book.eot?#iefix') format('embedded-opentype'),
+                 url('polices/VistaSansOT-Book.woff2') format('woff2'),
+                 url('polices/VistaSansOT-Book.woff') format('woff'),
+                 url('polices/VistaSansOT-Book.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -89,6 +100,17 @@
             margin: 0;
             font-size: 1.5rem;
             font-weight: 600;
+            font-family: 'VistaSansOT', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header-logo {
+            width: 150px;
+            height: auto;
+            opacity: 0.8;
         }
 
         .options-btn {
@@ -494,7 +516,10 @@
 <body>
     <div id="app" v-cloak >
         <div class="header">
-            <h1>21 Days Challenge</h1>
+            <h1>
+                21 Days Challenge
+                <img src="logo_amplius.svg" alt="Logo Amplius" class="header-logo">
+            </h1>
             <div class="options-container">
                 <button class="options-btn" @click="toggleOptions">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
