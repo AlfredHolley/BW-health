@@ -5,7 +5,7 @@
       "video": "https://youtu.be/dQw4w9WgXcQ", 
       "podcast": {
         "embed": "https://open.spotify.com/embed/episode/5Mk3oAMu1mLpd6ZbesjqNL?utm_source=generator",
-        "height": 330,
+        "height": 352,
         "style": "border-radius:12px"
       },
       "title": "Jour 1",
@@ -20,9 +20,124 @@
     { 
       "day": 2, 
       "video": "https://youtu.be/oHg5SJYRHA0", 
-      "podcast": "https://open.spotify.com/episode/...",
+      "podcast": {
+        "embed": "https://open.spotify.com/embed/episode/5Mk3oAMu1mLpd6ZbesjqNL?utm_source=generator",
+        "height": 352,
+        "style": "border-radius:12px"
+      },
       "title": "Jour 2",
       "description": "Premiers pas dans le programme",
+      "instructions": [
+        "Visionnez la vidéo du jour",
+        "Écoutez le podcast associé",
+        "Commencez à mettre en pratique les premiers exercices",
+        "Notez vos impressions et difficultés"
+      ]
+    },
+    { 
+      "day": 3, 
+      "video": "https://youtu.be/oHg5SJYRHA0", 
+      "podcast": {
+        "embed": "https://open.spotify.com/embed/episode/5Mk3oAMu1mLpd6ZbesjqNL?utm_source=generator",
+        "height": 352,
+        "style": "border-radius:12px"
+      },
+      "title": "Jour 3",
+      "description": "",
+      "instructions": [
+        "Visionnez la vidéo du jour",
+        "Écoutez le podcast associé",
+        "Commencez à mettre en pratique les premiers exercices",
+        "Notez vos impressions et difficultés"
+      ]
+    },
+    { 
+      "day": 4, 
+      "video": "https://youtu.be/oHg5SJYRHA0", 
+      "podcast": {
+        "embed": "https://open.spotify.com/embed/episode/5Mk3oAMu1mLpd6ZbesjqNL?utm_source=generator",
+        "height": 352,
+        "style": "border-radius:12px"
+      },
+      "title": "Jour 4",
+      "description": "",
+      "instructions": [
+        "Visionnez la vidéo du jour",
+        "Écoutez le podcast associé",
+        "Commencez à mettre en pratique les premiers exercices",
+        "Notez vos impressions et difficultés"
+      ]
+    },
+    { 
+      "day": 5, 
+      "video": "https://youtu.be/oHg5SJYRHA0", 
+      "podcast": {
+        "embed": "https://open.spotify.com/embed/episode/5Mk3oAMu1mLpd6ZbesjqNL?utm_source=generator",
+        "height": 352,
+        "style": "border-radius:12px"
+      },
+      "title": "Jour 5",
+      "description": "",
+      "instructions": [
+        "Visionnez la vidéo du jour",
+        "Écoutez le podcast associé",
+        "Commencez à mettre en pratique les premiers exercices",
+        "Notez vos impressions et difficultés"
+      ]
+    },
+    { 
+      "day": 6, 
+      "video": "https://youtu.be/oHg5SJYRHA0", 
+      "podcast": {
+        "embed": "https://open.spotify.com/embed/episode/5Mk3oAMu1mLpd6ZbesjqNL?utm_source=generator",
+        "height": 352,
+        "style": "border-radius:12px"
+      },
+      "title": "Jour 6",
+      "description": "",
+      "instructions": [
+        "Visionnez la vidéo du jour",
+        "Écoutez le podcast associé",
+        "Commencez à mettre en pratique les premiers exercices",
+        "Notez vos impressions et difficultés"
+      ]
+    },
+    { 
+      "day": 7, 
+      "video": "https://youtu.be/oHg5SJYRHA0", 
+      "podcast": {
+        "embed": "https://open.spotify.com/embed/episode/5Mk3oAMu1mLpd6ZbesjqNL?utm_source=generator",
+        "height": 352,
+        "style": "border-radius:12px"
+      },
+      "title": "Jour 7",
+      "description": "",
+      "instructions": [
+        "Visionnez la vidéo du jour",
+        "Écoutez le podcast associé",
+        "Commencez à mettre en pratique les premiers exercices",
+        "Notez vos impressions et difficultés"
+      ]
+    },
+    { 
+      "day": 8, 
+      "video": "https://youtu.be/oHg5SJYRHA0", 
+      "podcast": "https://open.spotify.com/episode/...",
+      "title": "Jour 8",
+      "description": "",
+      "instructions": [
+        "Visionnez la vidéo du jour",
+        "Écoutez le podcast associé",
+        "Commencez à mettre en pratique les premiers exercices",
+        "Notez vos impressions et difficultés"
+      ]
+    },
+    { 
+      "day": 9, 
+      "video": "https://youtu.be/oHg5SJYRHA0", 
+      "podcast": "https://open.spotify.com/episode/...",
+      "title": "Jour 9",
+      "description": "",
       "instructions": [
         "Visionnez la vidéo du jour",
         "Écoutez le podcast associé",
