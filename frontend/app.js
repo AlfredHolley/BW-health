@@ -20,7 +20,9 @@ createApp({
       deferredPrompt: null,
       showInstallPrompt: false,
       // Menu d'options
-      showOptions: false
+      showOptions: false,
+      showWelcomeModal: false,
+      isClosing: false
     };
   },
   computed: {
@@ -264,7 +266,20 @@ createApp({
       if (optionsContainer && !optionsContainer.contains(event.target)) {
         this.showOptions = false;
       }
-    }
+    },
+
+    closeWelcomeModal() {
+      this.isClosing = true;
+      setTimeout(() => {
+        this.showWelcomeModal = false;
+        this.isClosing = false;
+        localStorage.setItem('welcomeShown', 'true');
+      }, 600); // Durée de l'animation
+    },
+
+    openDocumentation() {
+      this.showWelcomeModal = true;
+    },
   },
   mounted() {
     // Gestion de l'installation PWA
@@ -289,6 +304,12 @@ createApp({
         currentDayElement.scrollIntoView({ behavior: 'auto', block: 'center' });
       }
     }, 100);
+
+    // Vérifier si c'est la première visite
+    const welcomeShown = localStorage.getItem('welcomeShown');
+    if (!welcomeShown) {
+      this.showWelcomeModal = true;
+    }
   },
   beforeUnmount() {
     document.removeEventListener('click', this.handleClickOutside);

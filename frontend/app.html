@@ -15,6 +15,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="21 Days Study">
 
+    <!-- Chargement des bibliothèques -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
     <script>
         // Enregistrement du service worker
@@ -111,6 +112,11 @@
             width: 150px;
             height: auto;
             opacity: 0.8;
+        }
+
+        .options-container {
+            display: flex;
+            align-items: center;
         }
 
         .options-btn {
@@ -498,6 +504,15 @@
             height: 24px;
         }
 
+        .day-icon.sport-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .day-icon.listen-icon {
+            right: 3rem;
+        }
+
         .day-icon .icon {
             width: 100%;
             height: 100%;
@@ -507,11 +522,192 @@
         .day-card.current .day-icon .icon {
             filter: brightness(0) invert(1);
         }
+
+        .welcome-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 1rem;
+            opacity: 1;
+            transition: opacity 0.3s ease-in;
+        }
+
+        .welcome-content {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            z-index: 2002;
+            transform: translate(0, 0) scale(1);
+            transition: transform 0.3s ease-in, opacity 0.6s ease-in;
+            opacity: 1;
+        }
+
+        .welcome-content h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.8rem;
+            font-family: 'VistaSansOT', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .welcome-content p {
+            margin: 1rem 0;
+            line-height: 1.6;
+        }
+
+        .welcome-content ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .welcome-content li {
+            margin: 0.5rem 0;
+        }
+
+        .welcome-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--neutral-gray);
+            padding: 0.5rem;
+            z-index: 2003;
+            transition: color 0.3s;
+        }
+
+        .welcome-close:hover {
+            color: var(--primary-color);
+        }
+
+        .welcome-modal.closing {
+            opacity: 0;
+        }
+
+        .welcome-modal.closing .welcome-content {
+            transform: translate(calc(50vw - 50px), calc(-50vh + 100px)) scale(0.1);
+            opacity: 0;
+        }
+
+        .doc-icon {
+            width: 56px;
+            height: 56px;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+            filter: brightness(0) invert(1);
+        }
+
+        .doc-icon:hover {
+            opacity: 1;
+        }
+
+        /* Styles pour le diagramme de Venn */
+        #venn3 {
+            display: flex;
+            justify-content: center;
+            margin: 40px auto;
+            -webkit-user-select: none;
+            user-select: none;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            width: 100%;
+            max-width: 800px;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        #venn3 svg {
+            width: 100%;
+            height: auto;
+            max-width: 500px;
+        }
+
+        @media screen and (max-width: 768px) {
+            #venn3 {
+                margin: 20px auto;
+            }
+
+            #venn3 svg {
+                max-width: 400px;
+            }
+
+            #venn3 text {
+                font-size: 17px !important;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            #venn3 svg {
+                max-width: 300px;
+            }
+
+            #venn3 text {
+                font-size: 17px !important;
+            }
+        }
+
     </style>
 
 </head>
 <body>
     <div id="app" v-cloak >
+        <!-- Modal de bienvenue -->
+        <div v-if="showWelcomeModal" :class="['welcome-modal', { 'closing': isClosing }]">
+            <div class="welcome-content">
+                <button class="welcome-close" @click="closeWelcomeModal">×</button>
+                <h2 class="welcome-title">Bienvenue dans votre Challenge 21 Jours !</h2>
+                <p>Ce programme est conçu pour vous accompagner dans l'adoption d'un mode de vie sain, basé sur des principes scientifiques validés.</p>
+                
+                <h3>Phase de Familiarisation</h3>
+                <p>Cette étude vise à évaluer l'impact d'une phase préparatoire essentielle, qui combine trois dimensions complémentaires :</p>
+
+                <!-- Venn Diagram -->
+                <div id="venn3">
+                    <svg viewBox="0 0 500 400" preserveAspectRatio="xMidYMid meet">
+                        <!-- Cercle PHYSICAL (en haut) -->
+                        <circle cx="250" cy="120" r="120" fill="rgba(79,195,247,0.5)" />
+                        <!-- Cercle COGNITIVE (en bas à gauche) -->
+                        <circle cx="170" cy="250" r="120" fill="rgba(126,87,194,0.5)" />
+                        <!-- Cercle EMOTIONAL (en bas à droite) -->
+                        <circle cx="330" cy="250" r="120" fill="rgba(225,245,254,0.5)" />
+
+                        <!-- Labels -->
+                        <text x="250" y="70" font-size="22" fill="#487aff" font-weight="bold" text-anchor="middle">EXERCICE</text>
+                        <text x="100" y="250" font-size="22" fill="#7e57c2" font-weight="bold">JEÛNE</text>
+                        <text x="310" y="250" font-size="22" fill="#2c3e50" font-weight="bold">MEDITATION</text>
+                    </svg>
+                </div>
+
+                <h3>Notre Approche</h3>
+                <p>La phase de familiarisation est conçue pour vous accompagner dans l'adoption d'un nouveau mode de vie, en combinant :</p>
+                <ul>
+                    <li>Une préparation physique adaptée à votre niveau</li>
+                    <li>Une préparation mentale et émotionnelle au jeûne</li>
+                    <li>Des techniques de méditation pour renforcer votre bien-être</li>
+                </ul>
+
+                <h3>Votre Participation</h3>
+                <p>Vous faites partie d'un groupe d'étude qui nous permettra d'évaluer l'efficacité de cette approche. Votre expérience est précieuse pour développer un programme optimal.</p>
+                <p>Des questionnaires sur votre bien-être et votre progression seront proposés régulièrement pour nous aider à affiner le programme.</p>
+
+                <p>Prêt à commencer votre transformation ? Cliquez sur le bouton ci-dessous pour fermer cette fenêtre et commencer votre premier jour !</p>
+
+            </div>
+        </div>
+
         <div class="header">
             <h1>
                 21 Days Challenge
@@ -523,6 +719,7 @@
                         <path d="M47.16,21.221l-5.91-0.966c-0.346-1.186-0.819-2.326-1.411-3.405l3.45-4.917c0.279-0.397,0.231-0.938-0.112-1.282 l-3.889-3.887c-0.347-0.346-0.893-0.391-1.291-0.104l-4.843,3.481c-1.089-0.602-2.239-1.08-3.432-1.427l-1.031-5.886 C28.607,2.35,28.192,2,27.706,2h-5.5c-0.49,0-0.908,0.355-0.987,0.839l-0.956,5.854c-1.2,0.345-2.352,0.818-3.437,1.412l-4.83-3.45 c-0.399-0.285-0.942-0.239-1.289,0.106L6.82,10.648c-0.343,0.343-0.391,0.883-0.112,1.28l3.399,4.863 c-0.605,1.095-1.087,2.254-1.438,3.46l-5.831,0.971c-0.482,0.08-0.836,0.498-0.836,0.986v5.5c0,0.485,0.348,0.9,0.825,0.985 l5.831,1.034c0.349,1.203,0.831,2.362,1.438,3.46l-3.441,4.813c-0.284,0.397-0.239,0.942,0.106,1.289l3.888,3.891 c0.343,0.343,0.884,0.391,1.281,0.112l4.87-3.411c1.093,0.601,2.248,1.078,3.445,1.424l0.976,5.861C21.3,47.647,21.717,48,22.206,48 h5.5c0.485,0,0.9-0.348,0.984-0.825l1.045-5.89c1.199-0.353,2.348-0.833,3.43-1.435l4.905,3.441 c0.398,0.281,0.938,0.232,1.282-0.111l3.888-3.891c0.346-0.347,0.391-0.894,0.104-1.292l-3.498-4.857 c0.593-1.08,1.064-2.222,1.407-3.408l5.918-1.039c0.479-0.084,0.827-0.5,0.827-0.985v-5.5C47.999,21.718,47.644,21.3,47.16,21.221z M25,32c-3.866,0-7-3.134-7-7c0-3.866,3.134-7,7-7s7,3.134,7,7C32,28.866,28.866,32,25,32z"></path>
                     </svg>
                 </button>
+                <img src="book-icon.svg" alt="Documentation" class="doc-icon" @click="openDocumentation">
                 <div class="options-menu" :class="{ show: showOptions }">
                     <button @click="logout">Déconnexion</button>
                 </div>
@@ -543,7 +740,15 @@
                      @click="isDayUnlocked(day.day) && goToDay(day.day)">
                     <div class="day-number">Jour {{ day.day }}</div>
                     <div v-if="!isDayUnlocked(day.day)" class="lock-icon">🔒</div>
-                    <div v-if="day.day === 1" class="day-icon">
+                    
+                    <!-- Icônes pour chaque jour -->
+                    <div v-if="[2, 4, 6, 9, 11, 13, 16, 18, 20].includes(day.day)" class="day-icon sport-icon">
+                        <img src="muscle-icon.svg" alt="Sport" class="icon">
+                    </div>
+                    <div v-if="[3, 7, 10, 14, 17, 21].includes(day.day)" class="day-icon">
+                        <img src="walk-icon.svg" alt="Marche" class="icon">
+                    </div>
+                    <div v-if="[3, 7, 10, 14, 17, 21].includes(day.day)" class="day-icon listen-icon">
                         <img src="audio-headphone.svg" alt="Audio" class="icon">
                     </div>
                     
