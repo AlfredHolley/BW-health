@@ -28,6 +28,27 @@ createApp({
                     </iframe>`;
             }
             return `<p>Podcast non disponible</p>`;
+        },
+        isDayUnlocked(dayNumber) {
+            const startDate = new Date(localStorage.getItem('startDate') || new Date());
+            const today = new Date();
+            
+            // Normaliser les dates pour ignorer les heures
+            const start = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+            const current = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            
+            // Calculer le nombre de jours depuis le début
+            const diffTime = current.getTime() - start.getTime();
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            
+            console.log('Debug - Date de début:', start.toISOString());
+            console.log('Debug - Date actuelle:', current.toISOString());
+            console.log('Debug - Jours écoulés:', diffDays);
+            console.log('Debug - Jour demandé:', dayNumber);
+            console.log('Debug - Jour débloqué:', dayNumber <= (diffDays + 1));
+            
+            // Un jour est débloqué si son numéro est inférieur ou égal au nombre de jours écoulés + 1
+            return dayNumber <= (diffDays + 1);
         }
     },
     async created() {
@@ -45,6 +66,13 @@ createApp({
         const token = localStorage.getItem('token');
         if (!token) {
             window.location.href = '/login.html';
+            return;
+        }
+
+        // Vérifier si le jour est débloqué
+        if (!this.isDayUnlocked(this.dayNumber)) {
+            this.error = 'Ce jour n\'est pas encore débloqué';
+            this.loading = false;
             return;
         }
 
@@ -69,17 +97,6 @@ createApp({
             
             if (!dayData) {
                 this.error = 'Jour non trouvé';
-                return;
-            }
-
-            // Vérifier si le jour est débloqué
-            const startDate = new Date(data.startDate || new Date());
-            const today = new Date();
-            const dayStart = new Date(startDate);
-            dayStart.setDate(dayStart.getDate() + (this.dayNumber - 1));
-            
-            if (today < dayStart) {
-                this.error = 'Ce jour n\'est pas encore débloqué';
                 return;
             }
 

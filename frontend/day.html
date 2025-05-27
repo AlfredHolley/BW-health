@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Day {{ dayNumber }} - 21 Days Study</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Day {{ dayNumber }}</title>
     <link rel="icon" href="favicon.ico">
     <link rel="icon" href="icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="icon.svg">
@@ -12,7 +14,6 @@
     <link rel="apple-touch-icon" sizes="167x167" href="icon.svg">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#4fc3f7">
-    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="21 Days Study">
 
@@ -38,6 +39,17 @@
             color: var(--text-color);
         }
 
+        @font-face {
+            font-family: 'VistaSansOT';
+            src: url('polices/VistaSansOT-Book.eot');
+            src: url('polices/VistaSansOT-Book.eot?#iefix') format('embedded-opentype'),
+                 url('polices/VistaSansOT-Book.woff2') format('woff2'),
+                 url('polices/VistaSansOT-Book.woff') format('woff'),
+                 url('polices/VistaSansOT-Book.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+        }
+
         .header {
             background: var(--neutral-gray);
             color: white;
@@ -52,29 +64,35 @@
             margin: 0;
             font-size: 1.5rem;
             font-weight: 600;
+            font-family: 'VistaSansOT', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .back-btn {
-            background: #646464;
+            background: none;
             color: white;
             border: none;
-            padding: 0.7rem 1.2rem;
-            border-radius: 8px;
+            padding: 0.5rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            text-decoration: none;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
         }
 
         .back-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
+            transform: translateX(-4px);
         }
 
         .container {
             max-width: 1200px;
             margin: 2rem auto;
-            padding: 0 1.5rem;
+            padding: 0 1rem;
         }
 
         .day-content {
@@ -97,15 +115,15 @@
         }
 
         .day-description {
-            font-size: 1.1rem;
-            color: var(--neutral-gray);
-            opacity: 0.8;
+            font-size: 1.3rem;
+            color: #2c3e50;
+            opacity: 1;
             margin: 0;
         }
 
         .media-section {
             margin: 2rem 0;
-            padding: 1.5rem;
+            padding: 1.5rem 1rem;
             background: var(--neutral-light);
             border-radius: 8px;
         }
@@ -133,18 +151,19 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            border: 1px solid rgba(85, 85, 85, 0.2);
+            border: 1px solid rgba(85, 85, 85, 0.1);
         }
 
         .media-btn:hover {
             background: var(--primary-color);
             color: white;
             transform: translateY(-2px);
+            border-color: var(--primary-color);
         }
 
         .podcast-section {
             margin-top: 2rem;
-            padding: 1.5rem;
+            padding: 1.5rem 1rem;
             background: var(--neutral-light);
             border-radius: 8px;
         }
@@ -221,17 +240,20 @@
 <body>
     <div id="app" v-cloak>
         <div class="header">
-            <h1>21 Days Study</h1>
-            <a href="/app.html" class="back-btn">Retour au programme</a>
+            <h1>Jour {{ dayNumber }}</h1>
+            <a href="/app.html" class="back-btn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                </svg>
+            </a>
         </div>
         
         <div class="container">
             <div v-if="error" class="error">{{ error }}</div>
             <div v-if="loading" class="loading">Chargement du contenu...</div>
             
-            <div v-else class="day-content">
+            <div v-else-if="day" class="day-content">
                 <div class="day-header">
-                    <h1 class="day-title">{{ day.title }}</h1>
                     <p class="day-description">{{ day.description }}</p>
                 </div>
 
