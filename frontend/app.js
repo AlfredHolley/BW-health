@@ -107,7 +107,7 @@ createApp({
       console.log('Données reçues du serveur:', data);
       this.content = data;
       
-      // Initialiser les activités par défaut pour le calendrier (basé sur l'exemple fourni)
+      // Initialiser les activités par défaut pour le calendrier
       const defaultActivities = [
           'free', 'sport', 'sound', 'sport', 'free', 'sport', 'sound', // Semaine 1
           'free', 'sport', 'sound', 'sport', 'free', 'sport', 'sound', // Semaine 2
@@ -125,6 +125,8 @@ createApp({
         this.startDate = new Date(data.startDate);
         this.calculateUnlockedDays();
         this.calculateCurrentDay();
+        // Générer le calendrier une fois que la date de début est définie
+        this.generateCalendar();
       }
     } catch (e) {
       this.error = 'Erreur lors du chargement du contenu';
@@ -322,10 +324,6 @@ createApp({
 
     openDocumentation() {
       this.showWelcomeModal = true;
-       // Déclencher la génération du calendrier une fois la modal visible
-      this.$nextTick(() => {
-          this.generateCalendar();
-      });
     },
 
     generateCalendar() {
@@ -418,15 +416,6 @@ createApp({
     const welcomeShown = localStorage.getItem('welcomeShown');
     if (!welcomeShown) {
       this.showWelcomeModal = true;
-       // Déclencher la génération du calendrier une fois la modal visible
-      this.$nextTick(() => {
-          this.generateCalendar(); // Appeler la fonction pour générer le calendrier au montage de la modal
-      });
-    }
-     // Assurez-vous que le calendrier est également généré si la modal n'est pas affichée par défaut
-     // (par exemple, si l'utilisateur revient sur la page après la première visite)
-    if (welcomeShown && this.startDate) {
-        this.generateCalendar();
     }
   },
   beforeUnmount() {
