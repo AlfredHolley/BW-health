@@ -22,7 +22,38 @@ createApp({
       // Menu d'options
       showOptions: false,
       showWelcomeModal: false,
-      isClosing: false
+      isClosing: false,
+      // Calendrier d'activités
+      showActivitySelector: false,
+      selectedDay: null,
+      dayActivities: {},
+      calendarDays: [],
+       activities: {
+            free: {
+                icon: '',
+                text: 'Activité Libre'
+            },
+            sport: {
+                icon: '<svg enable-background="new 0 0 100 100" height="100px" id="Layer_1" version="1.1" viewBox="0 0 100 100" width="100px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><g><g><g/></g><g/></g></g><path d="M100,43h-7.086c-0.393-2.083-2.22-4-4.416-4h-3C85.327,39,85,38.366,85,38.385v-6.551  C85,29.353,82.979,27,80.498,27h-7C71.017,27,69,29.353,69,31.834V43H31V31.834C31,29.353,28.979,27,26.498,27h-7  C17.017,27,15,29.353,15,31.834v6.613C15,38.428,14.669,39,14.498,39h-3c-2.174,0-3.993,1.947-4.409,4H0v14h7.008  c0.057,2.433,2.044,4,4.49,4h3C14.669,61,15,61.365,15,61.346v7.488C15,71.315,17.017,73,19.498,73h7C28.979,73,31,71.315,31,68.834  V57h38v11.834C69,71.315,71.017,73,73.498,73h7C82.979,73,85,71.315,85,68.834v-7.551C85,61.302,85.327,61,85.498,61h3  c2.425,0,4.394-1.597,4.483-4H100V43z M4,47h3v6H4V47z M15,56.5c0,0.276-0.224,0.5-0.5,0.5h-3c-0.276,0-0.5-0.224-0.5-0.5v-13  c0-0.276,0.224-0.5,0.5-0.5h3c0.276,0,0.5,0.224,0.5,0.5V56.5z M27,68.834C27,69.105,26.769,69,26.498,69h-7  C19.227,69,19,69.105,19,68.834V56.896v-13V31.834C19,31.563,19.227,31,19.498,31h7C26.769,31,27,31.563,27,31.834V68.834z M31,53  v-6h38v6H31z M81,68.834C81,69.105,80.769,69,80.498,69h-7C73.227,69,73,69.105,73,68.834v-37C73,31.563,73.227,31,73.498,31h7  C80.769,31,81,31.563,81,31.834v12v13V68.834z M89,56.5c0,0.276-0.224,0.5-0.5,0.5h-3c-0.276,0-0.5-0.224-0.5-0.5v-13  c0-0.276,0.224-0.5,0.5-0.5h3c0.276,0,0.5,0.224,0.5,0.5V56.5z M96,53h-3v-6h3V53z" fill="#231F20"/></svg>',
+                text: 'Sport'
+            },
+            yoga: {
+                icon: '<svg viewBox="0 0 24 24"><path d="M12 5.5A2.5 2.5 0 0 0 9.5 8A2.5 2.5 0 0 0 12 10.5A2.5 2.5 0 0 0 14.5 8A2.5 2.5 0 0 0 12 5.5M12.5 2.5h-1V4h1V2.5M18.5 7h-1.5v1h1.5V7M6 7H4.5v1H6V7M12.5 20v1.5h-1V20h1Z"/></svg>',
+                text: 'Yoga'
+            },
+            running: {
+                icon: '<svg viewBox="0 0 24 24"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg>',
+                text: 'Course à Pied'
+            },
+            sound: {
+                icon: '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>',
+                text: 'Activité Sonore'
+            },
+            meditation: {
+                icon: '<svg viewBox="0 0 24 24"><path d="M12 3C9.75 3 8 4.75 8 7s1.75 4 4 4 4-1.75 4-4-1.75-4-4-4m0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4"/></svg>',
+                text: 'Méditation'
+            }
+        }
     };
   },
   computed: {
@@ -75,6 +106,18 @@ createApp({
       const data = await res.json();
       console.log('Données reçues du serveur:', data);
       this.content = data;
+      
+      // Initialiser les activités par défaut pour le calendrier (basé sur l'exemple fourni)
+      const defaultActivities = [
+          'free', 'sport', 'sound', 'sport', 'free', 'sport', 'sound', // Semaine 1
+          'free', 'sport', 'sound', 'sport', 'free', 'sport', 'sound', // Semaine 2
+          'free', 'sport', 'sound', 'sport', 'free', 'sport', 'sound'  // Semaine 3
+      ];
+      const initialActivities = {};
+      for (let i = 0; i < 21; i++) {
+           initialActivities[i + 1] = defaultActivities[i];
+      }
+      this.dayActivities = initialActivities;
       
       // Initialiser la date de début seulement si on n'est pas en mode test
       if (data.startDate) {
@@ -279,7 +322,73 @@ createApp({
 
     openDocumentation() {
       this.showWelcomeModal = true;
+       // Déclencher la génération du calendrier une fois la modal visible
+      this.$nextTick(() => {
+          this.generateCalendar();
+      });
     },
+
+    generateCalendar() {
+        if (!this.startDate) {
+            console.error("Start date is not set. Cannot generate calendar.");
+            return;
+        }
+
+        const daysInChallenge = 21;
+        const start = new Date(this.startDate);
+        // Déterminer le jour de la semaine de la date de début (0 pour dimanche, 1 pour lundi, etc.)
+        // getDay() retourne 0 pour dimanche, 1 pour lundi... on veut que lundi soit 0, mardi 1, ..., dimanche 6
+        const startDayOfWeek = (start.getDay() === 0) ? 6 : start.getDay() - 1;
+
+        const calendarDays = [];
+
+        // Ajouter des cellules vides pour le décalage du premier jour
+        for (let i = 0; i < startDayOfWeek; i++) {
+            calendarDays.push({ day: null, isEmpty: true, week: 0 });
+        }
+
+        // Ajouter les jours du challenge
+        for (let i = 0; i < daysInChallenge; i++) {
+            const currentDayNumber = i + 1;
+            const currentDayDate = new Date(start);
+            currentDayDate.setDate(start.getDate() + i);
+            const weekNumber = Math.floor((startDayOfWeek + i) / 7) + 1; // Calculer le numéro de la semaine
+
+            calendarDays.push({
+                day: currentDayNumber, // Jour dans le challenge (1 à 21)
+                isEmpty: false,
+                week: weekNumber,
+                date: currentDayDate, // La date complète
+                actualDayOfMonth: currentDayDate.getDate() // Jour du mois réel
+            });
+        }
+
+        this.calendarDays = calendarDays; // Stocker les jours dans la propriété réactive
+    },
+
+    openSelector(day) {
+        this.selectedDay = day;
+        this.showActivitySelector = true;
+    },
+
+    closeSelector() {
+        this.showActivitySelector = false;
+        this.selectedDay = null;
+    },
+
+     setDayActivity(day, activityType) {
+        if (activityType === 'clear') {
+            delete this.dayActivities[day];
+             // Utiliser $에도 pour assurer la réactivité
+            this.dayActivities = { ...this.dayActivities };
+        } else if (activityType === 'sport' || this.activities[activityType]) {
+            this.dayActivities[day] = activityType;
+             // Utiliser $에도 pour assurer la réactivité
+            this.dayActivities = { ...this.dayActivities };
+        }
+         // Fermer le sélecteur après sélection
+         this.closeSelector();
+    }
   },
   mounted() {
     // Gestion de l'installation PWA
@@ -309,6 +418,15 @@ createApp({
     const welcomeShown = localStorage.getItem('welcomeShown');
     if (!welcomeShown) {
       this.showWelcomeModal = true;
+       // Déclencher la génération du calendrier une fois la modal visible
+      this.$nextTick(() => {
+          this.generateCalendar(); // Appeler la fonction pour générer le calendrier au montage de la modal
+      });
+    }
+     // Assurez-vous que le calendrier est également généré si la modal n'est pas affichée par défaut
+     // (par exemple, si l'utilisateur revient sur la page après la première visite)
+    if (welcomeShown && this.startDate) {
+        this.generateCalendar();
     }
   },
   beforeUnmount() {

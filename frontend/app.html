@@ -555,7 +555,7 @@
         }
 
         .welcome-content h2 {
-            color: var(--primary-color);
+            color: #2fbfff;
             margin-top: 0;
             font-size: 1.8rem;
             font-family: 'VistaSansOT', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -659,6 +659,288 @@
             }
         }
 
+        /* Styles pour le Calendrier */
+        .calendar-section {
+            margin-top: 3rem;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .calendar-header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--neutral-gray);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .calendar-container {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 3px;
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .day-header-cal {
+            background: var(--primary-color);
+            color: white;
+            padding: 4px 2px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            border-radius: 2px;
+        }
+
+        .day-cell-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .day-cell-cal {
+            background: #61b5ff;
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            padding: 2px;
+            border-radius: 2px;
+            min-height: 60px;
+            max-height: 100px;
+            overflow: hidden;
+        }
+
+        .day-cell-cal:hover:not(.empty) {
+            background: #c5ddf2;
+        }
+
+        .day-cell-cal.week1 {
+            background: #e0f2f7;
+        }
+
+         .day-cell-cal.week1:hover:not(.empty) {
+            background: #b2ebf2;
+        }
+
+         .day-cell-cal.week2 {
+            background: #a5e1ff;
+        }
+
+         .day-cell-cal.week2:hover:not(.empty) {
+            background: #a5e7ff;
+        }
+
+        .day-cell-cal.empty {
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .day-number-cal {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--neutral-gray);
+            margin-bottom: 2px;
+        }
+
+        .activity-content-cal {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+        }
+
+        .activity-icon-cal svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--neutral-gray);
+        }
+
+        .activity-text-cal {
+            font-size: 0.7rem;
+            color: var(--neutral-gray);
+            text-align: center;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        /* Styles for Activity Selector (adapted from provided code) */
+        .activity-selector {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            padding: 30px;
+            z-index: 1000; /* Ensure it's above other content */
+            display: none;
+            min-width: 300px;
+        }
+
+        .activity-selector.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        .selector-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--neutral-gray);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .activity-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .activity-option {
+            padding: 15px;
+            border: 1px solid var(--neutral-light);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            background: var(--background-color);
+        }
+
+        .activity-option:hover:not(.selected) {
+            border-color: var(--primary-color);
+            background: #e0f7fa;
+        }
+
+        .activity-option.selected {
+            border-color: var(--primary-dark);
+            background: #b2ebf2;
+            color: var(--neutral-gray);
+        }
+
+         .activity-option.selected svg {
+            fill: var(--neutral-gray);
+         }
+
+        .activity-option svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--neutral-gray);
+        }
+
+        .close-btn-selector {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            transition: background 0.2s ease;
+        }
+
+        .close-btn-selector:hover {
+            background: var(--primary-dark);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            display: none;
+        }
+
+        .overlay.show {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-section {
+                 padding: 0 5px;
+                 box-sizing: border-box;
+            }
+
+            .calendar-container {
+                gap: 0px;
+                padding: 0px 0;
+            }
+
+            .day-header-cal {
+                font-size: 0.8rem;
+                padding: 6px 2px;
+                max-width: 38px;;
+            }
+
+            .day-cell-wrapper {
+                 gap: 0px;
+            }
+
+            .day-cell-cal {
+                aspect-ratio: 1;
+                min-height: 45px;
+                margin-bottom: 2px;
+                margin-top:2px;
+                max-height: 80px;
+                max-width: 40px;
+                overflow: hidden;
+            }
+
+            .day-number-cal {
+                font-size: 0.8rem;
+            }
+
+            .activity-icon-cal svg {
+                width: 14px;
+                height: 14px;
+            }
+
+            .activity-text-cal {
+                font-size: 0.6rem;
+            }
+
+             .activity-options {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+             .activity-option {
+                 padding: 10px;
+             }
+
+             .selector-title {
+                 font-size: 1rem;
+                 margin-bottom: 1rem;
+             }
+
+             .close-btn-selector {
+                 padding: 8px 15px;
+             }
+        }
+
     </style>
 
 </head>
@@ -705,6 +987,33 @@
 
                 <p>Prêt à commencer votre transformation ? Cliquez sur le bouton ci-dessous pour fermer cette fenêtre et commencer votre premier jour !</p>
 
+                 <!-- Nouveau Calendrier -->
+                <div class="calendar-section">
+                    <div class="calendar-header">Votre Calendrier d'Activités</div>
+                    <div class="calendar-container" id="calendar-container">
+                        <div class="day-header-cal">LUN</div>
+                        <div class="day-header-cal">MAR</div>
+                        <div class="day-header-cal">MER</div>
+                        <div class="day-header-cal">JEU</div>
+                        <div class="day-header-cal">VEN</div>
+                        <div class="day-header-cal">SAM</div>
+                        <div class="day-header-cal">DIM</div>
+                         <template v-for="day in calendarDays" :key="day.day || 'empty-' + day.week + '-' + $index">
+                            <div class="day-cell-wrapper">
+                                <div v-if="day.isEmpty" class="day-cell-cal empty"></div>
+                                <div v-else 
+                                     :class="['day-cell-cal', { 'week1': day.week === 1, 'week2': day.week === 2 }]"
+                                     @click="openSelector(day.day)">
+                                    <div class="day-number-cal">{{ day.actualDayOfMonth.toString().padStart(2, '0') }}</div>
+                                     <div v-if="dayActivities[day.day]" class="activity-content-cal">
+                                        <div class="activity-icon-cal" v-html="activities[dayActivities[day.day]].icon"></div>
+                                     </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -734,6 +1043,7 @@
                 <div class="progress-bar">
                     <div class="progress-fill" :style="{ width: progressPercentage + '%' }"></div>
                 </div>
+                
                 <div v-for="day in allDays" :key="day.day" 
                      :class="['day-card', { 'locked': !isDayUnlocked(day.day), 'current': day.day === currentDay }]"
                      :data-day="day.day"
@@ -771,6 +1081,65 @@
             <button class="close-btn" @click="dismissInstallPrompt">×</button>
         </div>
     </div>
+
+     <!-- Activity Selector Modal -->
+    <div class="overlay" id="overlay" @click="closeSelector"></div>
+    
+    <div class="activity-selector" id="activity-selector" v-if="showActivitySelector">
+        <div class="selector-title">Choisir une activité pour le Jour {{ selectedDay }}</div>
+        <div class="activity-options">
+            <div class="activity-option" 
+                 data-activity="free"
+                 :class="{ selected: dayActivities[selectedDay] === 'free' }"
+                 @click="setDayActivity(selectedDay, 'free')">
+                <div class="activity-icon-cal"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+                <div class="activity-text-cal">Activité Libre</div>
+            </div>
+            <div class="activity-option" 
+                 data-activity="sport"
+                 :class="{ selected: dayActivities[selectedDay] === 'sport' }"
+                 @click="setDayActivity(selectedDay, 'sport')">
+                 <div class="activity-icon-cal"><svg enable-background="new 0 0 100 100" height="100px" id="Layer_1" version="1.1" viewBox="0 0 100 100" width="100px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><g><g><g/></g><g/></g></g><path d="M100,43h-7.086c-0.393-2.083-2.22-4-4.416-4h-3C85.327,39,85,38.366,85,38.385v-6.551  C85,29.353,82.979,27,80.498,27h-7C71.017,27,69,29.353,69,31.834V43H31V31.834C31,29.353,28.979,27,26.498,27h-7  C17.017,27,15,29.353,15,31.834v6.613C15,38.428,14.669,39,14.498,39h-3c-2.174,0-3.993,1.947-4.409,4H0v14h7.008  c0.057,2.433,2.044,4,4.49,4h3C14.669,61,15,61.365,15,61.346v7.488C15,71.315,17.017,73,19.498,73h7C28.979,73,31,71.315,31,68.834  V57h38v11.834C69,71.315,71.017,73,73.498,73h7C82.979,73,85,71.315,85,68.834v-7.551C85,61.302,85.327,61,85.498,61h3  c2.425,0,4.394-1.597,4.483-4H100V43z M4,47h3v6H4V47z M15,56.5c0,0.276-0.224,0.5-0.5,0.5h-3c-0.276,0-0.5-0.224-0.5-0.5v-13  c0-0.276,0.224-0.5,0.5-0.5h3c0.276,0,0.5,0.224,0.5,0.5V56.5z M27,68.834C27,69.105,26.769,69,26.498,69h-7  C19.227,69,19,69.105,19,68.834V56.896v-13V31.834C19,31.563,19.227,31,19.498,31h7C26.769,31,27,31.563,27,31.834V68.834z M31,53  v-6h38v6H31z M81,68.834C81,69.105,80.769,69,80.498,69h-7C73.227,69,73,69.105,73,68.834v-37C73,31.563,73.227,31,73.498,31h7  C80.769,31,81,31.563,81,31.834v12v13V68.834z M89,56.5c0,0.276-0.224,0.5-0.5,0.5h-3c-0.276,0-0.5-0.224-0.5-0.5v-13  c0-0.276,0.224-0.5,0.5-0.5h3c0.276,0,0.5,0.224,0.5,0.5V56.5z M96,53h-3v-6h3V53z" fill="#231F20"/></svg></div>
+                <div class="activity-text-cal">Sport</div>
+            </div>
+            <div class="activity-option" 
+                 data-activity="yoga"
+                 :class="{ selected: dayActivities[selectedDay] === 'yoga' }"
+                 @click="setDayActivity(selectedDay, 'yoga')">
+                 <div class="activity-icon-cal"><svg viewBox="0 0 24 24"><path d="M12 5.5A2.5 2.5 0 0 0 9.5 8A2.5 2.5 0 0 0 12 10.5A2.5 2.5 0 0 0 14.5 8A2.5 2.5 0 0 0 12 5.5M12.5 2.5h-1V4h1V2.5M18.5 7h-1.5v1h1.5V7M6 7H4.5v1H6V7M12.5 20v1.5h-1V20h1Z"/></svg></div>
+                <div class="activity-text-cal">Yoga</div>
+            </div>
+            <div class="activity-option" 
+                 data-activity="running"
+                  :class="{ selected: dayActivities[selectedDay] === 'running' }"
+                 @click="setDayActivity(selectedDay, 'running')">
+                 <div class="activity-icon-cal"><svg viewBox="0 0 24 24"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg></div>
+                <div class="activity-text-cal">Course à Pied</div>
+            </div>
+            <div class="activity-option" 
+                 data-activity="sound"
+                  :class="{ selected: dayActivities[selectedDay] === 'sound' }"
+                 @click="setDayActivity(selectedDay, 'sound')">
+                  <div class="activity-icon-cal"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></div>
+                <div class="activity-text-cal">Activité Sonore</div>
+            </div>
+            <div class="activity-option" 
+                 data-activity="meditation"
+                  :class="{ selected: dayActivities[selectedDay] === 'meditation' }"
+                 @click="setDayActivity(selectedDay, 'meditation')">
+                  <div class="activity-icon-cal"><svg viewBox="0 0 24 24"><path d="M12 3C9.75 3 8 4.75 8 7s1.75 4 4 4 4-1.75 4-4-1.75-4-4-4m0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4"/></svg></div>
+                <div class="activity-text-cal">Méditation</div>
+            </div>
+            <div class="activity-option" 
+                 data-activity="clear"
+                 @click="setDayActivity(selectedDay, 'clear')">
+                 <div class="activity-icon-cal"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></div>
+                <div class="activity-text-cal">Effacer</div>
+            </div>
+        </div>
+        <button class="close-btn-selector" @click="closeSelector">Fermer</button>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html> 
