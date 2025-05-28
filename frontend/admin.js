@@ -7,7 +7,14 @@ createApp({
             loading: true,
             error: '',
             searchQuery: '',
-            editingPatient: null
+            editingPatient: null,
+            newPatient: {
+                code: '',
+                password: '',
+                startDate: '',
+                language: 'FR',
+                patient_group: 'CONTROL'
+            }
         };
     },
     computed: {
@@ -25,6 +32,13 @@ createApp({
             if (this.patients.length === 0) return 0;
             const total = this.patients.reduce((sum, p) => sum + p.progress, 0);
             return Math.round(total / this.patients.length);
+        },
+        isNewPatientValid() {
+            return this.newPatient.code && 
+                   this.newPatient.password && 
+                   this.newPatient.startDate &&
+                   this.newPatient.language &&
+                   this.newPatient.patient_group;
         }
     },
     methods: {
@@ -53,7 +67,8 @@ createApp({
                 this.patients = data.patients.map(patient => ({
                     ...patient,
                     progress: this.calculateProgress(patient.startDate),
-                    startDate: this.formatDate(patient.startDate)
+                    startDate: patient.startDate.split('T')[0],
+                    patient_group: patient.patient_group || 'CONTROL'
                 }));
             } catch (e) {
                 this.error = 'Erreur lors du chargement des données';
@@ -72,12 +87,18 @@ createApp({
             return Math.round((progress / 21) * 100);
         },
 
-        formatDate(date) {
-            return new Date(date).toLocaleDateString('fr-FR', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
+        formatDate(dateString) {
+            const date = new Date(dateString);
+            const day = date.getUTCDate();
+            const month = date.getUTCMonth();
+            const year = date.getUTCFullYear();
+            
+            const months = [
+                'janvier', 'février', 'mars', 'avril', 'mai', 'juin',
+                'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'
+            ];
+            
+            return `${day} ${months[month]} ${year}`;
         },
 
         logout() {
@@ -124,6 +145,45 @@ createApp({
                 this.editingPatient = null;
             } catch (e) {
                 this.error = 'Erreur lors de la mise à jour du patient';
+            }
+        },
+
+        async addPatient() {
+            try {
+                const res = await fetch('/admin/patients', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(this.newPatient)
+                });
+
+                if (!res.ok) {
+                    if (res.status === 401 || res.status === 403) {
+                        localStorage.removeItem('token');
+                        window.location.href = '/login.html';
+                        return;
+                    }
+                    throw new Error('Erreur lors de la création du patient');
+                }
+
+                const data = await res.json();
+                console.log('Patient créé:', data);
+                const newPatient = {
+                    ...data.patient,
+                    patient_group: this.newPatient.patient_group
+                };
+                this.patients.push(newPatient);
+                this.newPatient = {
+                    code: '',
+                    password: '',
+                    startDate: '',
+                    language: 'FR',
+                    patient_group: 'CONTROL'
+                };
+            } catch (e) {
+                this.error = 'Erreur lors de la création du patient';
             }
         }
     },

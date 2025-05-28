@@ -233,6 +233,45 @@
             }
         }
 
+        @media screen and (max-width: 900px) {
+            .container {
+                padding: 0 0.5rem;
+            }
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            .patients-table, .add-patient-form {
+                padding: 1rem;
+            }
+            th, td {
+                padding: 0.5rem;
+                font-size: 0.95rem;
+            }
+            .form-group {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            .form-input, .action-btn {
+                font-size: 1rem;
+                width: 100%;
+                min-width: 0;
+            }
+            .add-btn, .delete-btn, .edit-btn, .save-btn, .cancel-btn {
+                width: 100%;
+                margin: 0.25rem 0;
+            }
+            .patients-list table {
+                display: block;
+                overflow-x: auto;
+                width: 100%;
+            }
+            .patients-list thead, .patients-list tbody, .patients-list tr {
+                display: table;
+                width: 100%;
+                table-layout: fixed;
+            }
+        }
+
         .action-btn {
             padding: 0.5rem 1rem;
             border: none;
@@ -370,40 +409,65 @@
                     <div class="add-patient-form">
                         <h3>Ajouter un nouveau patient</h3>
                         <div class="form-group">
-                            <input 
-                                type="text" 
-                                v-model="newPatient.code" 
-                                placeholder="Code patient"
-                                class="form-input"
-                                id="patient-code"
-                                aria-label="Code patient"
-                            >
-                            <input 
-                                type="password" 
-                                v-model="newPatient.password" 
-                                placeholder="Mot de passe"
-                                class="form-input"
-                                id="patient-password"
-                                aria-label="Mot de passe"
-                            >
-                            <input 
-                                type="date" 
-                                v-model="newPatient.startDate" 
-                                class="form-input"
-                                id="patient-date"
-                                aria-label="Date de début"
-                            >
-                            <select 
-                                v-model="newPatient.language" 
-                                class="form-input"
-                                id="patient-language"
-                                aria-label="Langue"
-                            >
-                                <option value="FR">Français</option>
-                                <option value="EN">English</option>
-                                <option value="DE">Deutsch</option>
-                                <option value="SP">Español</option>
-                            </select>
+                            <div style="display: flex; flex-direction: column;">
+                                <label for="patient-code">Code patient</label>
+                                <input 
+                                    type="text" 
+                                    v-model="newPatient.code" 
+                                    placeholder="Code patient"
+                                    class="form-input"
+                                    id="patient-code"
+                                    aria-label="Code patient"
+                                >
+                            </div>
+                            <div style="display: flex; flex-direction: column;">
+                                <label for="patient-password">Mot de passe</label>
+                                <input 
+                                    type="password" 
+                                    v-model="newPatient.password" 
+                                    placeholder="Mot de passe"
+                                    class="form-input"
+                                    id="patient-password"
+                                    aria-label="Mot de passe"
+                                >
+                            </div>
+                            <div style="display: flex; flex-direction: column;">
+                                <label for="patient-date">Date de début</label>
+                                <input 
+                                    type="date" 
+                                    v-model="newPatient.startDate" 
+                                    class="form-input"
+                                    id="patient-date"
+                                    aria-label="Date de début"
+                                >
+                            </div>
+                            <div style="display: flex; flex-direction: column;">
+                                <label for="patient-language">Langue</label>
+                                <select 
+                                    v-model="newPatient.language" 
+                                    class="form-input"
+                                    id="patient-language"
+                                    aria-label="Langue"
+                                >
+                                    <option value="FR">Français</option>
+                                    <option value="EN">English</option>
+                                    <option value="DE">Deutsch</option>
+                                    <option value="SP">Español</option>
+                                </select>
+                            </div>
+                            <div style="display: flex; flex-direction: column;">
+                                <label for="patient-group">Groupe</label>
+                                <select 
+                                    v-model="newPatient.patient_group"
+                                    class="form-input"
+                                    id="patient-group"
+                                    aria-label="Groupe"
+                                >
+                                    <option value="CONTROL">CONTROL</option>
+                                    <option value="FBW">FBW</option>
+                                    <option value="FASTEX">FASTEX</option>
+                                </select>
+                            </div>
                             <button 
                                 @click="addPatient" 
                                 class="action-btn add-btn"
@@ -423,6 +487,7 @@
                                     <th>Code</th>
                                     <th>Date de début</th>
                                     <th>Statut</th>
+                                    <th>Groupe</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -433,6 +498,7 @@
                                     <td :class="patient.isActive ? 'status-active' : 'status-inactive'">
                                         {{ patient.isActive ? 'Actif' : 'Inactif' }}
                                     </td>
+                                    <td>{{ patient.patient_group || 'CONTROL' }}</td>
                                     <td>
                                         <button 
                                             @click="deletePatient(patient.code)" 

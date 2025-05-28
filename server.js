@@ -111,7 +111,16 @@ app.post('/login', async (req, res) => {
         { expiresIn: config.security.tokenExpiration }
     );
     
-    log('info', `Connexion réussie pour ${code}`, { isAdmin: !!patient.isAdmin });
+    // Log de débogage pour voir le contenu complet de patient
+    console.log('Patient object:', JSON.stringify(patient, null, 2));
+    
+    log('info', `Connexion réussie pour ${code}`, { 
+        isAdmin: !!patient.isAdmin,
+        language: patient.language,
+        startDate: patient.startDate,
+        patient_group: patient.patient_group,
+        active: patient.active
+    });
     res.json({ 
         message: 'Authentification réussie', 
         token, 
@@ -144,11 +153,18 @@ app.get('/program-content', authenticateToken, (req, res) => {
     const patient = db.prepare('SELECT * FROM patients WHERE code = ?').get(req.user.code);
     
     if (patient) {
-        content.startDate = patient.startDate;
+        const response = {
+            ...content,
+            startDate: patient.startDate,
+            language: patient.language || 'FR'
+        };
+        res.json(response);
+    } else {
+        res.json({
+            ...content,
+            language: 'FR'
+        });
     }
-    
-    log('debug', `Contenu envoyé à ${req.user.code}`);
-    res.json(content);
 });
 
 // Route admin protégée
@@ -159,7 +175,7 @@ app.get('/admin/patients', authenticateToken, (req, res) => {
         return res.status(403).json({ error: 'Accès non autorisé' });
     }
 
-    const patients = db.prepare('SELECT code, startDate, active as isActive FROM patients').all();
+    const patients = db.prepare('SELECT code, startDate, active as isActive, patient_group FROM patients').all();
     log('info', `Liste des patients récupérée par ${req.user.code}`);
     res.json({ patients });
 });
@@ -179,7 +195,7 @@ app.get('/patients', (req, res) => {
 // Route pour ajouter un nouveau patient
 app.post('/patients', async (req, res) => {
     try {
-        const { code, password, startDate, language = 'FR' } = req.body;
+        const { code, password, startDate, language = 'FR', patient_group = 'CONTROL' } = req.body;
         
         if (!code || !password || !startDate) {
             log('warn', 'Tentative d\'ajout de patient avec données manquantes');
@@ -201,11 +217,11 @@ app.post('/patients', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         db.prepare(`
-            INSERT INTO patients (code, password, startDate, active, language)
-            VALUES (?, ?, ?, 1, ?)
-        `).run(code, hashedPassword, new Date(startDate).toISOString(), language);
+            INSERT INTO patients (code, password, startDate, active, language, patient_group)
+            VALUES (?, ?, ?, 1, ?, ?)
+        `).run(code, hashedPassword, new Date(startDate).toISOString(), language, patient_group);
 
-        log('info', `Nouveau patient ajouté: ${code}`, { language });
+        log('info', `Nouveau patient ajouté: ${code}`, { language, patient_group });
         res.status(201).json({ message: 'Patient ajouté avec succès' });
     } catch (error) {
         log('error', 'Erreur lors de l\'ajout du patient', { error: error.message });

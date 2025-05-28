@@ -11,6 +11,7 @@
     <link rel="apple-touch-icon" sizes="167x167" href="icon.svg">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#4fc3f7">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="21 Days Study">
@@ -117,6 +118,13 @@
         .options-container {
             display: flex;
             align-items: center;
+            gap: 1rem;
+        }
+
+        @media screen and (min-width: 1200px) {
+            .options-container {
+                gap: 2rem;
+            }
         }
 
         .options-btn {
@@ -1017,6 +1025,87 @@
             }
         }
 
+        .language-options {
+            background: var(--background-color);
+            border-top: 1px solid var(--neutral-light);
+            border-bottom: 1px solid var(--neutral-light);
+            margin: 0;
+            padding: 0.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .language-options button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 30px;
+            padding: 0;
+            border: none;
+            background: none;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .language-options button:hover {
+            transform: scale(1.1);
+        }
+
+        .language-options button.active {
+            background: var(--neutral-light);
+            box-shadow: 0 0 0 2px var(--primary-color);
+        }
+
+        .flag-icon {
+            width: 30px;
+            height: 20px;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        .language-menu-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            background: none;
+            color: var(--neutral-gray);
+            text-align: left;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            line-height: 1;
+        }
+
+        .language-menu-btn span {
+            flex: 1;
+            line-height: 1;
+        }
+
+        .arrow-icon {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+            transform: translateY(4px);
+            margin-left: 0.5rem;
+            line-height: 1;
+        }
+        .arrow-icon.rotated {
+            transform: translateY(4px) rotate(180deg);
+        }
+
+        .arrow-icon svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            display: block;
+        }
+
+
     </style>
 
 </head>
@@ -1128,6 +1217,26 @@
                 </button>
                 <img src="book-icon.svg" alt="Documentation" class="doc-icon" @click="openDocumentation">
                 <div class="options-menu" :class="{ show: showOptions }">
+                    <button @click="toggleLanguageMenu" class="language-menu-btn">
+                        <span>Language</span>
+                        <svg class="arrow-icon" :class="{ 'rotated': showLanguageMenu }" viewBox="0 0 24 24">
+                            <path d="M7 10l5 5 5-5z"/>
+                        </svg>
+                    </button>
+                    <div class="language-options" v-show="showLanguageMenu">
+                        <button @click="changeLanguage('FR')" :class="{ active: currentLanguage === 'FR' }">
+                            <img src="icons/flag_of_France.svg" alt="Français" class="flag-icon">
+                        </button>
+                        <button @click="changeLanguage('EN')" :class="{ active: currentLanguage === 'EN' }">
+                            <img src="icons/flag_of_the_United_Kingdom.svg" alt="English" class="flag-icon">
+                        </button>
+                        <button @click="changeLanguage('SP')" :class="{ active: currentLanguage === 'SP' }">
+                            <img src="icons/flag_of_Spain.svg" alt="Español" class="flag-icon">
+                        </button>
+                        <button @click="changeLanguage('DE')" :class="{ active: currentLanguage === 'DE' }">
+                            <img src="icons/flag_of_Germany.svg" alt="Deutsch" class="flag-icon">
+                        </button>
+                    </div>
                     <button @click="logout">Déconnexion</button>
                 </div>
             </div>

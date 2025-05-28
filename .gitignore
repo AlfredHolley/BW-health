@@ -5,7 +5,7 @@
 # # Base de données
 # *.sqlite
 # *.sqlite3
-
+read_patients
 # # Dépendances
 node_modules/
 npm-debug.log

@@ -13,6 +13,7 @@ function initializeDatabase() {
             active INTEGER DEFAULT 1,
             isAdmin INTEGER DEFAULT 0,
             language TEXT DEFAULT 'FR',
+            patient_group TEXT DEFAULT 'CONTROL',
             createdAt TEXT DEFAULT CURRENT_TIMESTAMP,
             updatedAt TEXT DEFAULT CURRENT_TIMESTAMP
         )
@@ -22,9 +23,9 @@ function initializeDatabase() {
     const adminExists = db.prepare('SELECT COUNT(*) as count FROM patients WHERE code = ?').get('admin');
     if (adminExists.count === 0) {
         db.prepare(`
-            INSERT INTO patients (code, password, startDate, isAdmin, language)
-            VALUES (?, ?, ?, ?, ?)
-        `).run('admin', 'admin123', new Date().toISOString(), 1, 'EN');
+            INSERT INTO patients (code, password, startDate, isAdmin, language, patient_group)
+            VALUES (?, ?, ?, ?, ?, ?)
+        `).run('admin', 'admin123', new Date().toISOString(), 1, 'EN', 'CONTROL');
     }
 
     db.close();
