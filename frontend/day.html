@@ -240,8 +240,8 @@
 <body>
     <div id="app" v-cloak>
         <div class="header">
-            <h1>Jour {{ dayNumber }}</h1>
-            <a href="/app.html" class="back-btn">
+            <h1>{{ translations.day.title }}</h1>
+            <a href="/app.html" class="back-btn" :title="translations.day.back">
                 <svg viewBox="0 0 24 24">
                     <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
                 </svg>
@@ -249,8 +249,8 @@
         </div>
         
         <div class="container">
-            <div v-if="error" class="error">{{ error }}</div>
-            <div v-if="loading" class="loading">Chargement du contenu...</div>
+            <div v-if="error" class="error">{{ translations.day.error }}</div>
+            <div v-if="loading" class="loading">{{ translations.day.loading }}</div>
             
             <div v-else-if="day" class="day-content">
                 <div class="day-header">
@@ -258,21 +258,21 @@
                 </div>
 
                 <div class="media-section">
-                    <h2 class="media-title">Ressources du jour</h2>
+                    <h2 class="media-title">{{ translations.day.resources.title }}</h2>
                     <div class="media-links">
-                        <a :href="day.video" target="_blank" class="media-btn">Voir la vidéo</a>
+                        <a :href="day.video" target="_blank" class="media-btn">{{ translations.day.resources.video }}</a>
                     </div>
                 </div>
 
                 <div class="podcast-section">
-                    <h2 class="media-title">Podcast du jour</h2>
+                    <h2 class="media-title">{{ translations.day.podcast.title }}</h2>
                     <div v-html="renderPodcast(day.podcast)"></div>
                 </div>
 
                 <div class="instructions">
-                    <h2>Instructions du jour</h2>
+                    <h2>{{ translations.day.instructions.title }}</h2>
                     <ul class="instructions-list">
-                        <li v-for="(instruction, index) in day.instructions" :key="index">
+                        <li v-for="(instruction, index) in translatedInstructions" :key="index">
                             {{ instruction }}
                         </li>
                     </ul>
@@ -280,6 +280,6 @@
             </div>
         </div>
     </div>
-    <script src="day.js"></script>
+    <script type="module" src="day.js"></script>
 </body>
 </html> 
