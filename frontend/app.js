@@ -13,7 +13,10 @@ createApp({
       loading: true,
       loadingContent: false,
       content: { 
-        days: []
+        days: [],
+        title: '21 Days Study',
+        description: '',
+        language: 'FR'
       },
       unlockedDays: 0,
       startDate: null,
@@ -99,6 +102,7 @@ createApp({
       if (!res.ok) {
         if (res.status === 401 || res.status === 403) {
           localStorage.removeItem('token');
+          localStorage.removeItem('userData');
           window.location.href = '/login.html';
           return;
         }
@@ -108,20 +112,35 @@ createApp({
       const data = await res.json();
       this.content = data;
       
+      // Restaurer l'état de la session si disponible
+      const savedUserData = localStorage.getItem('userData');
+      if (savedUserData) {
+        const parsedUserData = JSON.parse(savedUserData);
+        this.startDate = parsedUserData.startDate ? new Date(parsedUserData.startDate) : null;
+        this.unlockedDays = parsedUserData.unlockedDays || 0;
+        this.currentDay = parsedUserData.currentDay || 1;
+      }
+      
+      // Stocker les informations de session
+      const userData = {
+        language: data.language,
+        startDate: data.startDate,
+        unlockedDays: this.unlockedDays,
+        currentDay: this.currentDay
+      };
+      localStorage.setItem('userData', JSON.stringify(userData));
+      
       // Vérifier si c'est la première connexion de l'utilisateur
       const isFirstConnection = !localStorage.getItem('hasConnected');
       
       if (isFirstConnection) {
-        // Supprimer l'ancienne langue du localStorage
         localStorage.removeItem('language');
-        // Marquer que l'utilisateur s'est connecté
         localStorage.setItem('hasConnected', 'true');
       }
       
       // Initialiser la langue avec celle du patient
       const patientLanguage = data.language;
       
-      // Si c'est la première connexion ou si la langue n'est pas définie, utiliser celle du patient
       if (isFirstConnection || !localStorage.getItem('language')) {
         this.currentLanguage = patientLanguage;
         localStorage.setItem('language', patientLanguage);
@@ -150,11 +169,19 @@ createApp({
         localStorage.setItem('startDate', this.startDate.toISOString());
         this.calculateUnlockedDays();
         this.calculateCurrentDay();
+        // Sauvegarder le currentDay dans localStorage
+        localStorage.setItem('currentDay', this.currentDay);
         // Générer le calendrier une fois que la date de début est définie
         this.generateCalendar();
       }
     } catch (e) {
+      console.error('Erreur lors du chargement:', e);
       this.error = 'Erreur lors du chargement du contenu';
+      if (e.message.includes('401') || e.message.includes('403')) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userData');
+        window.location.href = '/login.html';
+      }
     } finally {
       this.loading = false;
     }
@@ -484,13 +511,21 @@ createApp({
     // Gestion du menu d'options
     document.addEventListener('click', this.handleClickOutside);
 
-    // Faire défiler la vue jusqu'à l'étape du jour actuel
-    setTimeout(() => {
-      const currentDayElement = document.querySelector(`[data-day="${this.currentDay}"]`);
-      if (currentDayElement) {
-        currentDayElement.scrollIntoView({ behavior: 'auto', block: 'center' });
-      }
-    }, 100);
+    // Attendre que le DOM soit chargé
+    window.addEventListener('DOMContentLoaded', () => {
+      // Attendre un court instant pour s'assurer que les données sont chargées
+      setTimeout(() => {
+        const currentDay = localStorage.getItem('currentDay') || this.currentDay;
+        if (!currentDay) return;
+
+        const currentDayElement = document.querySelector(`[data-day="${currentDay}"]`);
+        if (currentDayElement) {
+          requestAnimationFrame(() => {
+            currentDayElement.scrollIntoView({ behavior: 'auto', block: 'center' });
+          });
+        }
+      }, 100);
+    });
 
     // Vérifier si c'est la première visite
     const welcomeShown = localStorage.getItem('welcomeShown');
@@ -499,6 +534,8 @@ createApp({
     }
   },
   beforeUnmount() {
+    // Sauvegarder l'état actuel avant de quitter
+    localStorage.setItem('currentDay', this.currentDay);
     document.removeEventListener('click', this.handleClickOutside);
   }
 }).mount('#app');
