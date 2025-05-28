@@ -32,6 +32,12 @@ function log(level, message, data = null) {
 const app = express();
 app.use(express.json());
 
+// Autoriser encrypted-media et autoplay dans les iframes
+app.use((req, res, next) => {
+    res.setHeader('Permissions-Policy', 'encrypted-media=(self), autoplay=(self)');
+    next();
+});
+
 // Initialiser la connexion à la base de données pour les patients
 const db = new Database(config.database.path);
 log('info', `Base de données initialisée: ${config.database.path}`);

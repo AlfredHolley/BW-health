@@ -89,107 +89,128 @@ export default {
                 1: {
                     instruction1: "Sieh dir das heutige Video an",
                     instruction2: "Höre den zugehörigen Podcast",
-                    instruction3: "Beginne mit den ersten Übungen"
+                    instruction3: "Beginne mit den ersten Übungen",
+                    instruction4: "Notiere deine Eindrücke und Schwierigkeiten"
                 },
                 2: {
                     instruction1: "Sieh dir das heutige Video an",
                     instruction2: "Höre den zugehörigen Podcast",
-                    instruction3: "Beginne mit den ersten Übungen"
+                    instruction3: "Beginne mit den ersten Übungen",
+                    instruction4: "Notiere deine Eindrücke und Schwierigkeiten"
                 },
                 3: {
                     instruction1: "Sieh dir das heutige Video an",
                     instruction2: "Höre den zugehörigen Podcast",
-                    instruction3: "Beginne mit den ersten Übungen"
+                    instruction3: "Beginne mit den ersten Übungen",
+                    instruction4: "Notiere deine Eindrücke und Schwierigkeiten"
                 },
                 4: {
                     instruction1: "Sieh dir das heutige Video an",
                     instruction2: "Höre den zugehörigen Podcast",
-                    instruction3: "Beginne mit den ersten Übungen"
+                    instruction3: "Beginne mit den ersten Übungen",
+                    instruction4: "Notiere deine Eindrücke und Schwierigkeiten"
                 },
                 5: {
                     instruction1: "Sieh dir das heutige Video an",
                     instruction2: "Höre den zugehörigen Podcast",
-                    instruction3: "Beginne mit den ersten Übungen"
+                    instruction3: "Beginne mit den ersten Übungen",
+                    instruction4: "Notiere deine Eindrücke und Schwierigkeiten"
                 },
                 6: {
                     instruction1: "Sieh dir das heutige Video an",
                     instruction2: "Höre den zugehörigen Podcast",
-                    instruction3: "Beginne mit den ersten Übungen"
+                    instruction3: "Beginne mit den ersten Übungen",
+                    instruction4: "Notiere deine Eindrücke und Schwierigkeiten"
                 },
                 7: {
                     instruction1: "Sieh dir das heutige Video an",
                     instruction2: "Höre den zugehörigen Podcast",
-                    instruction3: "Beginne mit den ersten Übungen"
+                    instruction3: "Beginne mit den ersten Übungen",
+                    instruction4: "Notiere deine Eindrücke und Schwierigkeiten"
                 },
                 8: {
                     instruction1: "Sieh dir das heutige Video an",
                     instruction2: "Höre den zugehörigen Podcast",
-                    instruction3: "Beginne mit den ersten Übungen"
+                    instruction3: "Beginne mit den ersten Übungen",
+                    instruction4: "Notiere deine Eindrücke und Schwierigkeiten"
                 },
                 9: {
                     instruction1: "Sieh dir das heutige Video an",
                     instruction2: "Höre den zugehörigen Podcast",
-                    instruction3: "Beginne mit den ersten Übungen"
+                    instruction3: "Beginne mit den ersten Übungen",
+                    instruction4: "Notiere deine Eindrücke und Schwierigkeiten"
                 },
                 10: {
                     instruction1: "Sieh dir das heutige Video an",
                     instruction2: "Höre den zugehörigen Podcast",
-                    instruction3: "Beginne mit den ersten Übungen"
+                    instruction3: "Beginne mit den ersten Übungen",
+                    instruction4: "Notiere deine Eindrücke und Schwierigkeiten"
                 },
                 11: {
                     instruction1: "Sieh dir das heutige Video an",
                     instruction2: "Höre den zugehörigen Podcast",
-                    instruction3: "Beginne mit den ersten Übungen"
+                    instruction3: "Beginne mit den ersten Übungen",
+                    instruction4: "Notiere deine Eindrücke und Schwierigkeiten"
                 },
                 12: {
                     instruction1: "Sieh dir das heutige Video an",
                     instruction2: "Höre den zugehörigen Podcast",
-                    instruction3: "Beginne mit den ersten Übungen"
+                    instruction3: "Beginne mit den ersten Übungen",
+                    instruction4: "Notiere deine Eindrücke und Schwierigkeiten"
                 },
                 13: {
                     instruction1: "Sieh dir das heutige Video an",
                     instruction2: "Höre den zugehörigen Podcast",
-                    instruction3: "Beginne mit den ersten Übungen"
+                    instruction3: "Beginne mit den ersten Übungen",
+                    instruction4: "Notiere deine Eindrücke und Schwierigkeiten"
                 },
                 14: {
                     instruction1: "Sieh dir das heutige Video an",
                     instruction2: "Höre den zugehörigen Podcast",
-                    instruction3: "Beginne mit den ersten Übungen"
+                    instruction3: "Beginne mit den ersten Übungen",
+                    instruction4: "Notiere deine Eindrücke und Schwierigkeiten"
                 },
                 15: {
                     instruction1: "Sieh dir das heutige Video an",
                     instruction2: "Höre den zugehörigen Podcast",
-                    instruction3: "Beginne mit den ersten Übungen"
+                    instruction3: "Beginne mit den ersten Übungen",
+                    instruction4: "Notiere deine Eindrücke und Schwierigkeiten"
                 },
                 16: {
                     instruction1: "Sieh dir das heutige Video an",
                     instruction2: "Höre den zugehörigen Podcast",
-                    instruction3: "Beginne mit den ersten Übungen"
+                    instruction3: "Beginne mit den ersten Übungen",
+                    instruction4: "Notiere deine Eindrücke und Schwierigkeiten"
                 },
                 17: {
                     instruction1: "Sieh dir das heutige Video an",
                     instruction2: "Höre den zugehörigen Podcast",
-                    instruction3: "Beginne mit den ersten Übungen"
+                    instruction3: "Beginne mit den ersten Übungen",
+                    instruction4: "Notiere deine Eindrücke und Schwierigkeiten"
                 },
                 18: {
                     instruction1: "Sieh dir das heutige Video an",
                     instruction2: "Höre den zugehörigen Podcast",
-                    instruction3: "Beginne mit den ersten Übungen"
+                    instruction3: "Beginne mit den ersten Übungen",
+                    instruction4: "Notiere deine Eindrücke und Schwierigkeiten"
                 },
                 19: {
                     instruction1: "Sieh dir das heutige Video an",
                     instruction2: "Höre den zugehörigen Podcast",
-                    instruction3: "Beginne mit den ersten Übungen"
+                    instruction3: "Beginne mit den ersten Übungen",
+                    instruction4: "Notiere deine Eindrücke und Schwierigkeiten"
                 },
                 20: {
                     instruction1: "Sieh dir das heutige Video an",
                     instruction2: "Höre den zugehörigen Podcast",
-                    instruction3: "Beginne mit den ersten Übungen"
+                    instruction3: "Beginne mit den ersten Übungen",
+                    instruction4: "Notiere deine Eindrücke und Schwierigkeiten"
                 },
                 21: {
                     instruction1: "Sieh dir das heutige Video an",
                     instruction2: "Höre den zugehörigen Podcast",
-                    instruction3: "Beginne mit den ersten Übungen"
+                    instruction3: "Beginne mit den ersten Übungen",
+                    instruction4: "Notiere deine Eindrücke und Schwierigkeiten"
                 }
             }
         },

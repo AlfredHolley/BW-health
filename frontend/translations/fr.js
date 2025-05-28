@@ -80,7 +80,7 @@ export default {
             video: "Voir la vidéo"
         },
         podcast: {
-            title: "Podcast du jour",
+            title: "🎧 Podcast du jour",
             notAvailable: "Podcast non disponible"
         },
         instructions: {

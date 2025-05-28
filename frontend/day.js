@@ -11,8 +11,16 @@ createApp({
             dayNumber: null,
             currentLanguage: localStorage.getItem('language') || 'FR',
             translations: {},
-            translatedInstructions: []
+            translatedInstructions: [],
+            completed: []
         };
+    },
+    computed: {
+        percentCompleted() {
+            if (!this.translatedInstructions.length) return 0;
+            const done = this.completed.filter(Boolean).length;
+            return Math.round((done / this.translatedInstructions.length) * 100);
+        }
     },
     methods: {
         updateTranslations() {
@@ -76,15 +84,41 @@ createApp({
                 console.log('Debug - Instructions originales:', this.day.instructions);
                 this.translatedInstructions = this.day.instructions.map((instruction, index) => {
                     const translationKey = `day.instructions.list.${this.dayNumber}.instruction${index + 1}`;
-                    // Chercher la traduction de l'instruction
                     const translation = t(translationKey, this.currentLanguage);
-                    // Si la traduction n'existe pas ou est la clé elle-même, retourner l'instruction originale
                     return (translation && translation !== translationKey) ? translation : instruction;
                 });
+                // Synchroniser la checklist avec le nombre d'instructions
+                this.syncChecklist();
             } else {
                 console.log('Debug - Pas d\'instructions trouvées:', { day: this.day, instructions: this.day?.instructions });
                 this.translatedInstructions = [];
+                this.completed = [];
             }
+        },
+        syncChecklist() {
+            // Clé unique par jour et langue
+            const key = `completedTasks_${this.currentLanguage}_day${this.dayNumber}`;
+            let saved = localStorage.getItem(key);
+            let arr = [];
+            if (saved) {
+                try {
+                    arr = JSON.parse(saved);
+                } catch {
+                    arr = [];
+                }
+            }
+            // Toujours ajuster la taille du tableau
+            const n = this.translatedInstructions.length;
+            if (arr.length !== n) {
+                // On garde les valeurs déjà cochées, on complète avec false
+                this.completed = Array.from({length: n}, (_, i) => arr[i] === true);
+            } else {
+                this.completed = arr;
+            }
+        },
+        saveProgress() {
+            const key = `completedTasks_${this.currentLanguage}_day${this.dayNumber}`;
+            localStorage.setItem(key, JSON.stringify(this.completed));
         },
         renderPodcast(podcast) {
             if (typeof podcast === 'string') {
@@ -117,13 +151,6 @@ createApp({
             const diffTime = current.getTime() - start.getTime();
             const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
             
-            console.log('Debug - Date de début:', start.toISOString());
-            console.log('Debug - Date actuelle:', current.toISOString());
-            console.log('Debug - Jours écoulés:', diffDays);
-            console.log('Debug - Jour demandé:', dayNumber);
-            console.log('Debug - Jour débloqué:', dayNumber <= (diffDays + 1));
-            
-            // Un jour est débloqué si son numéro est inférieur ou égal au nombre de jours écoulés + 1
             return dayNumber <= (diffDays + 1);
         }
     },

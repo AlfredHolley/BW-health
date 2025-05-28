@@ -7,7 +7,7 @@ const ASSETS_TO_CACHE = [
   '/login.js',
   '/day.js',
   '/manifest.json',
-  '/icon.svg',
+  '/icons/icon.svg',
   '/translations/fr.js',
   '/translations/en.js',
   '/translations/sp.js',

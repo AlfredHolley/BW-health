@@ -7,11 +7,11 @@
     <meta name="mobile-web-app-capable" content="yes">
     <title>Day {{ dayNumber }}</title>
     <link rel="icon" href="favicon.ico">
-    <link rel="icon" href="icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="icon.svg">
-    <link rel="apple-touch-icon" sizes="152x152" href="icon.svg">
-    <link rel="apple-touch-icon" sizes="180x180" href="icon.svg">
-    <link rel="apple-touch-icon" sizes="167x167" href="icon.svg">
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="icons/icon.svg">
+    <link rel="apple-touch-icon" sizes="152x152" href="icons/icon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/icon.svg">
+    <link rel="apple-touch-icon" sizes="167x167" href="icons/icon.svg">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#4fc3f7">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -22,217 +22,230 @@
         :root {
             --primary-color: #4fc3f7;
             --primary-dark: #00b2e6;
+            --accent-color: #84b3c1;
             --neutral-light: #ecebe5;
             --neutral-dark: #2c3e50;
             --neutral-gray: #2e2e2e;
-            --text-color: #333333;
+            --text-color: #333;
             --background-color: #f8f9fa;
         }
+        
         [v-cloak] {
             display: none;
         }
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             background: var(--background-color);
             color: var(--text-color);
+            line-height: 1.6;
         }
-
+        
         @font-face {
             font-family: 'VistaSansOT';
-            src: url('polices/VistaSansOT-Book.eot');
-            src: url('polices/VistaSansOT-Book.eot?#iefix') format('embedded-opentype'),
-                 url('polices/VistaSansOT-Book.woff2') format('woff2'),
-                 url('polices/VistaSansOT-Book.woff') format('woff'),
-                 url('polices/VistaSansOT-Book.ttf') format('truetype');
-            font-weight: bold;
+            src: url('polices/VistaSansOT-Book.woff2') format('woff2'),
+                 url('polices/VistaSansOT-Book.woff') format('woff');
+            font-weight: normal;
             font-style: normal;
         }
-
+        
         .header {
             background: var(--neutral-gray);
             color: white;
-            padding: 1.2rem 2rem;
+            padding: 1rem 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-
+        
         .header h1 {
             margin: 0;
-            font-size: 1.5rem;
-            font-weight: 600;
+            font-size: 1.6rem;
             font-family: 'VistaSansOT', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
         .back-btn {
             background: none;
-            color: white;
             border: none;
-            padding: 0.5rem;
+            color: white;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            padding: 0.5rem;
             display: flex;
             align-items: center;
-            justify-content: center;
+            transition: transform 0.3s ease;
         }
-
+        
         .back-btn svg {
             width: 24px;
             height: 24px;
             fill: currentColor;
         }
-
+        
         .back-btn:hover {
             transform: translateX(-4px);
         }
-
+        
         .container {
-            max-width: 1200px;
-            margin: 2rem auto;
+            max-width: 600px;
+            margin: 2rem auto 5rem;
             padding: 0 1rem;
         }
-
+        
         .day-content {
             background: white;
             border-radius: 12px;
             padding: 2rem;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
-
+        
         .day-header {
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid var(--neutral-light);
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--neutral-light);
         }
-
-        .day-title {
-            font-size: 2rem;
-            color: var(--neutral-gray);
-            margin: 0 0 1rem 0;
-        }
-
+        
         .day-description {
-            font-size: 1.3rem;
-            color: #2c3e50;
-            opacity: 1;
-            margin: 0;
+            font-size: 1.2rem;
+            color: var(--neutral-dark);
+            margin: 0 0 1rem;
         }
-
-        .media-section {
-            margin: 2rem 0;
-            padding: 1.5rem 1rem;
-            background: var(--neutral-light);
-            border-radius: 8px;
-        }
-
-        .media-title {
-            font-size: 1.3rem;
-            color: var(--neutral-gray);
-            margin: 0 0 1rem 0;
-        }
-
-        .media-links {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .media-btn {
-            background: white;
-            color: var(--neutral-gray);
-            text-decoration: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            border: 1px solid rgba(85, 85, 85, 0.1);
-        }
-
-        .media-btn:hover {
-            background: var(--primary-color);
-            color: white;
-            transform: translateY(-2px);
-            border-color: var(--primary-color);
-        }
-
-        .podcast-section {
-            margin-top: 2rem;
-            padding: 1.5rem 1rem;
-            background: var(--neutral-light);
-            border-radius: 8px;
-        }
-
+        
         .instructions {
             margin-top: 2rem;
         }
-
+        
         .instructions h2 {
+            font-size: 1.3rem;
             color: var(--neutral-gray);
             margin-bottom: 1rem;
         }
-
+        
         .instructions-list {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-
+        
         .instructions-list li {
+            align-items: center;
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+            margin-bottom: 1.4rem;
+            box-shadow: 2px 4px #dadada;
+            transition: background 0.2s;
+            position: relative;
+        }
+        
+        .instructions-list li.completed {
+            background: #d2f8e5;
+            text-decoration: line-through;
+            color: #7a7a7a;
+        }
+        
+        .instructions-list input[type="checkbox"] {
+            accent-color: #56565600;
+            width: 1.3em;
+            height: 1.3em;
+            margin-right: 1rem;
+            cursor: pointer;
+        }
+        
+        .media-section,
+        .podcast-section {
+            margin-top: 0.5rem;
             padding: 1rem;
-            margin-bottom: 1rem;
-            background: var(--neutral-light);
-            border-radius: 8px;
+        }
+        
+        
+        .media-links {
             display: flex;
-            align-items: flex-start;
-            gap: 1rem;
+            flex-wrap: wrap;
+            gap: 0.8rem;
         }
-
-        .instructions-list li::before {
-            content: '📝';
-            font-size: 1.2rem;
+        
+        .media-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.3s;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            font-size: 1rem;
         }
-
+        
+        .media-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .podcast-embed {
+            width: 100%;
+            max-width: 100%;
+            min-height: 120px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            margin-top: 0.5rem;
+        }
+        
+        .progress-container {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100vw;
+            background: var(--neutral-light);
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
+            z-index: 100;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: var(--primary-color);
+            width: 0;
+            border-radius: 8px;
+            transition: width 0.3s;
+        }
+        
+        .progress-text {
+            text-align: center;
+            font-size: 0.95rem;
+            color: var(--neutral-dark);
+            margin-bottom: 0.2rem;
+            margin-top: 0.5rem;
+        }
+        
         .error {
             color: #e74c3c;
-            text-align: center;
-            margin: 1rem 0;
-            padding: 1rem;
             background: rgba(231, 76, 60, 0.1);
+            padding: 1rem;
             border-radius: 8px;
-        }
-
-        .loading {
             text-align: center;
-            color: var(--neutral-gray);
-            margin: 2rem 0;
-            font-size: 1.1rem;
         }
-
-        @media screen and (max-width: 768px) {
-            .header {
-                padding: 1rem;
+        
+        .loading {
+            color: var(--neutral-gray);
+            text-align: center;
+            font-size: 1.1rem;
+            margin: 2rem 0;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                padding: 0 0.2rem;
             }
-
-            .day-content {
-                padding: 1.5rem;
+            .instructions-list li {
+                padding: 0.8rem 0.5rem;
             }
-
-            .day-title {
-                font-size: 1.5rem;
-            }
-
-            .media-links {
-                flex-direction: column;
-            }
-
-            .media-btn {
-                justify-content: center;
+            .media-section, .podcast-section {
+                padding: 0.7rem;
             }
         }
     </style>
@@ -257,27 +270,34 @@
                     <p class="day-description">{{ day.description }}</p>
                 </div>
 
-                <div class="media-section">
-                    <h2 class="media-title">{{ translations.day.resources.title }}</h2>
-                    <div class="media-links">
-                        <a :href="day.video" target="_blank" class="media-btn">{{ translations.day.resources.video }}</a>
-                    </div>
-                </div>
-
-                <div class="podcast-section">
-                    <h2 class="media-title">{{ translations.day.podcast.title }}</h2>
-                    <div v-html="renderPodcast(day.podcast)"></div>
-                </div>
-
                 <div class="instructions">
                     <h2>{{ translations.day.instructions.title }}</h2>
                     <ul class="instructions-list">
-                        <li v-for="(instruction, index) in translatedInstructions" :key="index">
-                            {{ instruction }}
+                        <li v-for="(instruction, index) in translatedInstructions" :key="index" :class="{ completed: completed[index] }">
+                            <input type="checkbox" :id="'task-' + index" v-model="completed[index]" @change="saveProgress">
+                            <label :for="'task-' + index">{{ instruction }}</label>
+                            <div v-if="index === 0" class="media-section">
+                                <div class="media-title">{{ translations.day.resources.title }}</div>
+                                <div class="media-links">
+                                    <a :href="day.video" target="_blank" class="media-btn">{{ translations.day.resources.video }}</a>
+                                </div>
+                            </div>
+                            <div v-if="index === 1" class="podcast-section">
+                                <div class="media-title">{{ translations.day.podcast.title }}</div>
+                                <div v-if="day.podcast && day.podcast.embed">
+                                    <iframe class="podcast-embed" :src="day.podcast.embed" :height="day.podcast.height || 152" allowfullscreen loading="lazy" 
+                                        allow="autoplay; encrypted-media"></iframe>
+                                </div>
+                                <div v-else v-html="renderPodcast(day.podcast)"></div>
+                            </div>
                         </li>
                     </ul>
                 </div>
             </div>
+        </div>
+        <div class="progress-text">{{ percentCompleted }}% {{ translations.day.status.completed }}</div>
+        <div class="progress-container">
+            <div class="progress-bar" :style="{ width: percentCompleted + '%' }"></div>
         </div>
     </div>
     <script type="module" src="day.js"></script>

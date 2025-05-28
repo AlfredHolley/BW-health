@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>21 Days Study</title>
-    <link rel="icon" href="icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="icon.svg">
-    <link rel="apple-touch-icon" sizes="152x152" href="icon.svg">
-    <link rel="apple-touch-icon" sizes="180x180" href="icon.svg">
-    <link rel="apple-touch-icon" sizes="167x167" href="icon.svg">
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="icons/icon.svg">
+    <link rel="apple-touch-icon" sizes="152x152" href="icons/icon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/icon.svg">
+    <link rel="apple-touch-icon" sizes="167x167" href="icons/icon.svg">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#4fc3f7">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="21 Days Study">
 
@@ -32,16 +31,77 @@
             });
         }
 
-        // Vérification de l'installation
+        // Gestion de l'installation
         let deferredPrompt;
+
+        // Attendre que le DOM soit chargé
+        document.addEventListener('DOMContentLoaded', () => {
+            // Créer le bouton d'installation
+            const installButton = document.createElement('button');
+            installButton.textContent = 'Installer l\'application';
+            installButton.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                padding: 10px 20px;
+                background-color: var(--primary-color);
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                display: none;
+                z-index: 1000;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-weight: 500;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                transition: all 0.3s ease;
+            `;
+            installButton.addEventListener('mouseover', () => {
+                installButton.style.backgroundColor = 'var(--primary-dark)';
+                installButton.style.transform = 'translateY(-2px)';
+            });
+            installButton.addEventListener('mouseout', () => {
+                installButton.style.backgroundColor = 'var(--primary-color)';
+                installButton.style.transform = 'translateY(0)';
+            });
+            document.body.appendChild(installButton);
+
+            // Gérer le clic sur le bouton
+            installButton.addEventListener('click', async () => {
+                if (deferredPrompt) {
+                    // Afficher la bannière d'installation
+                    deferredPrompt.prompt();
+                    // Attendre que l'utilisateur réponde à la bannière
+                    const { outcome } = await deferredPrompt.userChoice;
+                    console.log(`Résultat de l'installation: ${outcome}`);
+                    // Réinitialiser la variable
+                    deferredPrompt = null;
+                    // Cacher le bouton
+                    installButton.style.display = 'none';
+                }
+            });
+        });
+
         window.addEventListener('beforeinstallprompt', (e) => {
+            // Empêcher Chrome 67 et versions antérieures d'afficher automatiquement la bannière
             e.preventDefault();
+            // Stocker l'événement pour l'utiliser plus tard
             deferredPrompt = e;
+            // Afficher le bouton d'installation
+            const installButton = document.querySelector('button');
+            if (installButton) {
+                installButton.style.display = 'block';
+            }
             console.log('L\'application peut être installée');
         });
 
         window.addEventListener('appinstalled', (evt) => {
             console.log('Application installée avec succès');
+            // Cacher le bouton après l'installation
+            const installButton = document.querySelector('button');
+            if (installButton) {
+                installButton.style.display = 'none';
+            }
         });
     </script>
     <style>
@@ -1174,7 +1234,7 @@
                     <ul class="legend-list">
                         <li>
                             <div class="legend-icon">
-                                <img src="muscle-icon.svg" alt="Sport" class="icon">
+                                <img src="icons/muscle-icon.svg" alt="Sport" class="icon">
                             </div>
                             <div class="legend-text">
                                 <strong>{{ translations.welcome.calendar.legend.sport.title }}</strong> : {{ translations.welcome.calendar.legend.sport.description }}
@@ -1182,7 +1242,7 @@
                         </li>
                         <li>
                             <div class="legend-icon">
-                                <img src="audio-headphone.svg" alt="Audio" class="icon" style="width: 24px; height: 24px;">
+                                <img src="icons/audio-headphone.svg" alt="Audio" class="icon" style="width: 24px; height: 24px;">
                             </div>
                             <div class="legend-text">
                                 <strong>{{ translations.welcome.calendar.legend.podcasts.title }}</strong> : {{ translations.welcome.calendar.legend.podcasts.description }}
@@ -1204,7 +1264,7 @@
         <div class="header">
             <h1>
                 {{ translations.header.title }}
-                <img src="logo_amplius.svg" alt="Logo Amplius" class="header-logo">
+                <img src="icons/logo_amplius.svg" alt="Logo Amplius" class="header-logo">
             </h1>
             <div class="options-container">
                 <button class="options-btn" @click="toggleOptions">
@@ -1212,7 +1272,7 @@
                         <path d="M47.16,21.221l-5.91-0.966c-0.346-1.186-0.819-2.326-1.411-3.405l3.45-4.917c0.279-0.397,0.231-0.938-0.112-1.282 l-3.889-3.887c-0.347-0.346-0.893-0.391-1.291-0.104l-4.843,3.481c-1.089-0.602-2.239-1.08-3.432-1.427l-1.031-5.886 C28.607,2.35,28.192,2,27.706,2h-5.5c-0.49,0-0.908,0.355-0.987,0.839l-0.956,5.854c-1.2,0.345-2.352,0.818-3.437,1.412l-4.83-3.45 c-0.399-0.285-0.942-0.239-1.289,0.106L6.82,10.648c-0.343,0.343-0.391,0.883-0.112,1.28l3.399,4.863 c-0.605,1.095-1.087,2.254-1.438,3.46l-5.831,0.971c-0.482,0.08-0.836,0.498-0.836,0.986v5.5c0,0.485,0.348,0.9,0.825,0.985 l5.831,1.034c0.349,1.203,0.831,2.362,1.438,3.46l-3.441,4.813c-0.284,0.397-0.239,0.942,0.106,1.289l3.888,3.891 c0.343,0.343,0.884,0.391,1.281,0.112l4.87-3.411c1.093,0.601,2.248,1.078,3.445,1.424l0.976,5.861C21.3,47.647,21.717,48,22.206,48 h5.5c0.485,0,0.9-0.348,0.984-0.825l1.045-5.89c1.199-0.353,2.348-0.833,3.43-1.435l4.905,3.441 c0.398,0.281,0.938,0.232,1.282-0.111l3.888-3.891c0.346-0.347,0.391-0.894,0.104-1.292l-3.498-4.857 c0.593-1.08,1.064-2.222,1.407-3.408l5.918-1.039c0.479-0.084,0.827-0.5,0.827-0.985v-5.5C47.999,21.718,47.644,21.3,47.16,21.221z M25,32c-3.866,0-7-3.134-7-7c0-3.866,3.134-7,7-7s7,3.134,7,7C32,28.866,28.866,32,25,32z"></path>
                     </svg>
                 </button>
-                <img src="book-icon.svg" :alt="translations.common.documentation" class="doc-icon" @click="openDocumentation">
+                <img src="icons/book-icon.svg" :alt="translations.common.documentation" class="doc-icon" @click="openDocumentation">
                 <div class="options-menu" :class="{ show: showOptions }">
                     <button @click="toggleLanguageMenu" class="language-menu-btn">
                         <span>{{ translations.header.language }}</span>
@@ -1257,13 +1317,13 @@
                     
                     <!-- Icônes pour chaque jour -->
                     <div v-if="[2, 4, 6, 9, 11, 13, 16, 18, 20].includes(day.day)" class="day-icon sport-icon">
-                        <img src="muscle-icon.svg" alt="Sport" class="icon">
+                        <img src="icons/muscle-icon.svg" alt="Sport" class="icon">
                     </div>
                     <div v-if="[3, 7, 10, 14, 17, 21].includes(day.day)" class="day-icon">
-                        <img src="walk-icon.svg" alt="Marche" class="icon">
+                        <img src="icons/walk-icon.svg" alt="Marche" class="icon">
                     </div>
                     <div v-if="[3, 7, 10, 14, 17, 21].includes(day.day)" class="day-icon listen-icon">
-                        <img src="audio-headphone.svg" alt="Audio" class="icon" style="width: 24px; height: 24px;">
+                        <img src="icons/audio-headphone.svg" alt="Audio" class="icon" style="width: 24px; height: 24px;">
                     </div>
                     
                     <div class="day-header">

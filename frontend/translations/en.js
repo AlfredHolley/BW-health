@@ -89,107 +89,128 @@ export default {
                 1: {
                     instruction1: "Watch today's video",
                     instruction2: "Listen to the associated podcast",
-                    instruction3: "Start practicing the initial exercises"
+                    instruction3: "Start practicing the initial exercises",
+                    instruction4: "Note your impressions and difficulties"
                 },
                 2: {
                     instruction1: "Watch today's video",
                     instruction2: "Listen to the associated podcast",
-                    instruction3: "Start practicing the initial exercises"
+                    instruction3: "Start practicing the initial exercises",
+                    instruction4: "Note your impressions and difficulties"
                 },
                 3: {
                     instruction1: "Watch today's video",
                     instruction2: "Listen to the associated podcast",
-                    instruction3: "Start practicing the initial exercises"
+                    instruction3: "Start practicing the initial exercises",
+                    instruction4: "Note your impressions and difficulties"
                 },
                 4: {
                     instruction1: "Watch today's video",
                     instruction2: "Listen to the associated podcast",
-                    instruction3: "Start practicing the initial exercises"
+                    instruction3: "Start practicing the initial exercises",
+                    instruction4: "Note your impressions and difficulties"
                 },
                 5: {
                     instruction1: "Watch today's video",
                     instruction2: "Listen to the associated podcast",
-                    instruction3: "Start practicing the initial exercises"
+                    instruction3: "Start practicing the initial exercises",
+                    instruction4: "Note your impressions and difficulties"
                 },
                 6: {
                     instruction1: "Watch today's video",
                     instruction2: "Listen to the associated podcast",
-                    instruction3: "Start practicing the initial exercises"
+                    instruction3: "Start practicing the initial exercises",
+                    instruction4: "Note your impressions and difficulties"
                 },
                 7: {
                     instruction1: "Watch today's video",
                     instruction2: "Listen to the associated podcast",
-                    instruction3: "Start practicing the initial exercises"
+                    instruction3: "Start practicing the initial exercises",
+                    instruction4: "Note your impressions and difficulties"
                 },
                 8: {
                     instruction1: "Watch today's video",
                     instruction2: "Listen to the associated podcast",
-                    instruction3: "Start practicing the initial exercises"
+                    instruction3: "Start practicing the initial exercises",
+                    instruction4: "Note your impressions and difficulties"
                 },
                 9: {
                     instruction1: "Watch today's video",
                     instruction2: "Listen to the associated podcast",
-                    instruction3: "Start practicing the initial exercises"
+                    instruction3: "Start practicing the initial exercises",
+                    instruction4: "Note your impressions and difficulties"
                 },
                 10: {
                     instruction1: "Watch today's video",
                     instruction2: "Listen to the associated podcast",
-                    instruction3: "Start practicing the initial exercises"
+                    instruction3: "Start practicing the initial exercises",
+                    instruction4: "Note your impressions and difficulties"
                 },
                 11: {
                     instruction1: "Watch today's video",
                     instruction2: "Listen to the associated podcast",
-                    instruction3: "Start practicing the initial exercises"
+                    instruction3: "Start practicing the initial exercises",
+                    instruction4: "Note your impressions and difficulties"
                 },
                 12: {
                     instruction1: "Watch today's video",
                     instruction2: "Listen to the associated podcast",
-                    instruction3: "Start practicing the initial exercises"
+                    instruction3: "Start practicing the initial exercises",
+                    instruction4: "Note your impressions and difficulties"
                 },
                 13: {
                     instruction1: "Watch today's video",
                     instruction2: "Listen to the associated podcast",
-                    instruction3: "Start practicing the initial exercises"
+                    instruction3: "Start practicing the initial exercises",
+                    instruction4: "Note your impressions and difficulties"
                 },
                 14: {
                     instruction1: "Watch today's video",
                     instruction2: "Listen to the associated podcast",
-                    instruction3: "Start practicing the initial exercises"
+                    instruction3: "Start practicing the initial exercises",
+                    instruction4: "Note your impressions and difficulties"
                 },
                 15: {
                     instruction1: "Watch today's video",
                     instruction2: "Listen to the associated podcast",
-                    instruction3: "Start practicing the initial exercises"
+                    instruction3: "Start practicing the initial exercises",
+                    instruction4: "Note your impressions and difficulties"
                 },
                 16: {
                     instruction1: "Watch today's video",
                     instruction2: "Listen to the associated podcast",
-                    instruction3: "Start practicing the initial exercises"
+                    instruction3: "Start practicing the initial exercises",
+                    instruction4: "Note your impressions and difficulties"
                 },
                 17: {
                     instruction1: "Watch today's video",
                     instruction2: "Listen to the associated podcast",
-                    instruction3: "Start practicing the initial exercises"
+                    instruction3: "Start practicing the initial exercises",
+                    instruction4: "Note your impressions and difficulties"
                 },
                 18: {
                     instruction1: "Watch today's video",
                     instruction2: "Listen to the associated podcast",
-                    instruction3: "Start practicing the initial exercises"
+                    instruction3: "Start practicing the initial exercises",
+                    instruction4: "Note your impressions and difficulties"
                 },
                 19: {
                     instruction1: "Watch today's video",
                     instruction2: "Listen to the associated podcast",
-                    instruction3: "Start practicing the initial exercises"
+                    instruction3: "Start practicing the initial exercises",
+                    instruction4: "Note your impressions and difficulties"
                 },
                 20: {
                     instruction1: "Watch today's video",
                     instruction2: "Listen to the associated podcast",
-                    instruction3: "Start practicing the initial exercises"
+                    instruction3: "Start practicing the initial exercises",
+                    instruction4: "Note your impressions and difficulties"
                 },
                 21: {
                     instruction1: "Watch today's video",
                     instruction2: "Listen to the associated podcast",
-                    instruction3: "Start practicing the initial exercises"
+                    instruction3: "Start practicing the initial exercises",
+                    instruction4: "Note your impressions and difficulties"
                 }
             }
         },

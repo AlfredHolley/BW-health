@@ -171,107 +171,128 @@ export default {
                 1: {
                     "instruction1": "Mire el video del día",
                     "instruction2": "Escuche el podcast asociado",
-                    "instruction3": "Comience a practicar los primeros ejercicios"
+                    "instruction3": "Comience a practicar los primeros ejercicios",
+                    "instruction4": "Anote sus impresiones y dificultades"
                 },
                 2: {
                     "instruction1": "Mire el video del día",
                     "instruction2": "Escuche el podcast asociado",
-                    "instruction3": "Comience a practicar los primeros ejercicios"
+                    "instruction3": "Comience a practicar los primeros ejercicios",
+                    "instruction4": "Anote sus impresiones y dificultades"
                 },
                 3: {
                     "instruction1": "Mire el video del día",
                     "instruction2": "Escuche el podcast asociado",
-                    "instruction3": "Comience a practicar los primeros ejercicios"
+                    "instruction3": "Comience a practicar los primeros ejercicios",
+                    "instruction4": "Anote sus impresiones y dificultades"
                 },
                 4: {
                     "instruction1": "Mire el video del día",
                     "instruction2": "Escuche el podcast asociado",
-                    "instruction3": "Comience a practicar los primeros ejercicios"
+                    "instruction3": "Comience a practicar los primeros ejercicios",
+                    "instruction4": "Anote sus impresiones y dificultades"
                 },
                 5: {
                     "instruction1": "Mire el video del día",
                     "instruction2": "Escuche el podcast asociado",
-                    "instruction3": "Comience a practicar los primeros ejercicios"
+                    "instruction3": "Comience a practicar los primeros ejercicios",
+                    "instruction4": "Anote sus impresiones y dificultades"
                 },
                 6: {
                     "instruction1": "Mire el video del día",
                     "instruction2": "Escuche el podcast asociado",
-                    "instruction3": "Comience a practicar los primeros ejercicios"
+                    "instruction3": "Comience a practicar los primeros ejercicios",
+                    "instruction4": "Anote sus impresiones y dificultades"
                 },
                 7: {
                     "instruction1": "Mire el video del día",
                     "instruction2": "Escuche el podcast asociado",
-                    "instruction3": "Comience a practicar los primeros ejercicios"
+                    "instruction3": "Comience a practicar los primeros ejercicios",
+                    "instruction4": "Anote sus impresiones y dificultades"
                 },
                 8: {
                     "instruction1": "Mire el video del día",
                     "instruction2": "Escuche el podcast asociado",
-                    "instruction3": "Comience a practicar los primeros ejercicios"
+                    "instruction3": "Comience a practicar los primeros ejercicios",
+                    "instruction4": "Anote sus impresiones y dificultades"
                 },
                 9: {
                     "instruction1": "Mire el video del día",
                     "instruction2": "Escuche el podcast asociado",
-                    "instruction3": "Comience a practicar los primeros ejercicios"
+                    "instruction3": "Comience a practicar los primeros ejercicios",
+                    "instruction4": "Anote sus impresiones y dificultades"
                 },
                 10: {
                     "instruction1": "Mire el video del día",
                     "instruction2": "Escuche el podcast asociado",
-                    "instruction3": "Comience a practicar los primeros ejercicios"
+                    "instruction3": "Comience a practicar los primeros ejercicios",
+                    "instruction4": "Anote sus impresiones y dificultades"
                 },
                 11: {
                     "instruction1": "Mire el video del día",
                     "instruction2": "Escuche el podcast asociado",
-                    "instruction3": "Comience a practicar los primeros ejercicios"
+                    "instruction3": "Comience a practicar los primeros ejercicios",
+                    "instruction4": "Anote sus impresiones y dificultades"
                 },
                 12: {
                     "instruction1": "Mire el video del día",
                     "instruction2": "Escuche el podcast asociado",
-                    "instruction3": "Comience a practicar los primeros ejercicios"
+                    "instruction3": "Comience a practicar los primeros ejercicios",
+                    "instruction4": "Anote sus impresiones y dificultades"
                 },
                 13: {
                     "instruction1": "Mire el video del día",
                     "instruction2": "Escuche el podcast asociado",
-                    "instruction3": "Comience a practicar los primeros ejercicios"
+                    "instruction3": "Comience a practicar los primeros ejercicios",
+                    "instruction4": "Anote sus impresiones y dificultades"
                 },
                 14: {
                     "instruction1": "Mire el video del día",
                     "instruction2": "Escuche el podcast asociado",
-                    "instruction3": "Comience a practicar los primeros ejercicios"
+                    "instruction3": "Comience a practicar los primeros ejercicios",
+                    "instruction4": "Anote sus impresiones y dificultades"
                 },
                 15: {
                     "instruction1": "Mire el video del día",
                     "instruction2": "Escuche el podcast asociado",
-                    "instruction3": "Comience a practicar los primeros ejercicios"
+                    "instruction3": "Comience a practicar los primeros ejercicios",
+                    "instruction4": "Anote sus impresiones y dificultades"
                 },
                 16: {
                     "instruction1": "Mire el video del día",
                     "instruction2": "Escuche el podcast asociado",
-                    "instruction3": "Comience a practicar los primeros ejercicios"
+                    "instruction3": "Comience a practicar los primeros ejercicios",
+                    "instruction4": "Anote sus impresiones y dificultades"
                 },
                 17: {
                     "instruction1": "Mire el video del día",
                     "instruction2": "Escuche el podcast asociado",
-                    "instruction3": "Comience a practicar los primeros ejercicios"
+                    "instruction3": "Comience a practicar los primeros ejercicios",
+                    "instruction4": "Anote sus impresiones y dificultades"
                 },
                 18: {
                     "instruction1": "Mire el video del día",
                     "instruction2": "Escuche el podcast asociado",
-                    "instruction3": "Comience a practicar los primeros ejercicios"
+                    "instruction3": "Comience a practicar los primeros ejercicios",
+                    "instruction4": "Anote sus impresiones y dificultades"
                 },
                 19: {
                     "instruction1": "Mire el video del día",
                     "instruction2": "Escuche el podcast asociado",
-                    "instruction3": "Comience a practicar los primeros ejercicios"
+                    "instruction3": "Comience a practicar los primeros ejercicios",
+                    "instruction4": "Anote sus impresiones y dificultades"
                 },
                 20: {
                     "instruction1": "Mire el video del día",
                     "instruction2": "Escuche el podcast asociado",
-                    "instruction3": "Comience a practicar los primeros ejercicios"
+                    "instruction3": "Comience a practicar los primeros ejercicios",
+                    "instruction4": "Anote sus impresiones y dificultades"
                 },
                 21: {
                     "instruction1": "Mire el video del día",
                     "instruction2": "Escuche el podcast asociado",
-                    "instruction3": "Comience a practicar los primeros ejercicios"
+                    "instruction3": "Comience a practicar los primeros ejercicios",
+                    "instruction4": "Anote sus impresiones y dificultades"
                 }
             }
         },
