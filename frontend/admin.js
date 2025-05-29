@@ -28,6 +28,9 @@ createApp({
         activePatients() {
             return this.patients.filter(p => p.isActive).length;
         },
+        totalPatients() {
+            return this.patients.length;
+        },
         averageProgress() {
             if (this.patients.length === 0) return 0;
             const total = this.patients.reduce((sum, p) => sum + p.progress, 0);
@@ -70,8 +73,10 @@ createApp({
                     startDate: patient.startDate.split('T')[0],
                     patient_group: patient.patient_group || 'CONTROL'
                 }));
+                this.error = '';
             } catch (e) {
                 this.error = 'Erreur lors du chargement des données';
+                console.error('Erreur loadPatients:', e);
             } finally {
                 this.loading = false;
             }
@@ -143,14 +148,17 @@ createApp({
                     p.code === patient.code ? data.patient : p
                 );
                 this.editingPatient = null;
+                this.error = '';
             } catch (e) {
                 this.error = 'Erreur lors de la mise à jour du patient';
+                console.error('Erreur updatePatient:', e);
             }
         },
 
         async addPatient() {
             try {
-                const res = await fetch('/admin/patients', {
+                this.loading = true;
+                const res = await fetch('/patients', {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -165,16 +173,17 @@ createApp({
                         window.location.href = '/login.html';
                         return;
                     }
-                    throw new Error('Erreur lors de la création du patient');
+                    const errorData = await res.json();
+                    throw new Error(errorData.error || 'Erreur lors de la création du patient');
                 }
 
                 const data = await res.json();
                 console.log('Patient créé:', data);
-                const newPatient = {
-                    ...data.patient,
-                    patient_group: this.newPatient.patient_group
-                };
-                this.patients.push(newPatient);
+                
+                // Recharger la liste des patients pour avoir les données à jour
+                await this.loadPatients();
+                
+                // Réinitialiser le formulaire
                 this.newPatient = {
                     code: '',
                     password: '',
@@ -182,8 +191,50 @@ createApp({
                     language: 'FR',
                     patient_group: 'CONTROL'
                 };
+                this.error = '';
             } catch (e) {
-                this.error = 'Erreur lors de la création du patient';
+                this.error = e.message || 'Erreur lors de la création du patient';
+                console.error('Erreur addPatient:', e);
+            } finally {
+                this.loading = false;
+            }
+        },
+
+        async deletePatient(patientCode) {
+            if (!confirm('Êtes-vous sûr de vouloir supprimer ce patient ?')) {
+                return;
+            }
+            
+            try {
+                this.loading = true;
+                const res = await fetch(`/patients/${patientCode}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+
+                if (!res.ok) {
+                    if (res.status === 401 || res.status === 403) {
+                        localStorage.removeItem('token');
+                        window.location.href = '/login.html';
+                        return;
+                    }
+                    const errorData = await res.json();
+                    throw new Error(errorData.error || 'Erreur lors de la suppression du patient');
+                }
+
+                console.log('Patient supprimé:', patientCode);
+                
+                // Recharger la liste des patients pour avoir les données à jour
+                await this.loadPatients();
+                
+                this.error = '';
+            } catch (e) {
+                this.error = e.message || 'Erreur lors de la suppression du patient';
+                console.error('Erreur deletePatient:', e);
+            } finally {
+                this.loading = false;
             }
         }
     },

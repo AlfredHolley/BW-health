@@ -163,6 +163,9 @@ createApp({
       }
       this.dayActivities = initialActivities;
       
+      // Charger la progression depuis le serveur
+      await this.loadProgressFromServer();
+      
       // Initialiser la date de début seulement si on n'est pas en mode test
       if (data.startDate) {
         this.startDate = new Date(data.startDate);
@@ -221,7 +224,41 @@ createApp({
     },
 
     logout() {
+      // Récupérer le code utilisateur avant de supprimer le token
+      const token = localStorage.getItem('token');
+      let userCode = 'unknown';
+      
+      if (token) {
+        try {
+          const payload = JSON.parse(atob(token.split('.')[1]));
+          userCode = payload.code || 'unknown';
+        } catch (e) {
+          console.error('Erreur décodage token:', e);
+        }
+      }
+
+      // Nettoyer les données de progression de cet utilisateur
+      const keysToRemove = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith(`completedTasks_${userCode}_`)) {
+          keysToRemove.push(key);
+        }
+      }
+      
+      keysToRemove.forEach(key => {
+        localStorage.removeItem(key);
+        localStorage.removeItem(`${key}_timestamp`);
+      });
+
+      // Supprimer le token et autres données utilisateur
       localStorage.removeItem('token');
+      localStorage.removeItem('userData');
+      localStorage.removeItem('language');
+      localStorage.removeItem('startDate');
+      localStorage.removeItem('currentDay');
+      localStorage.removeItem('hasConnected');
+      
       window.location.href = '/login.html';
     },
 
@@ -300,9 +337,21 @@ createApp({
     },
 
     getProgressCircle(dayNumber) {
-      // Calculer la progression basée sur les tâches completées du jour
-      // Utiliser la même clé que dans day.js: `completedTasks_${this.currentLanguage}_day${this.dayNumber}`
-      const completedKey = `completedTasks_${this.currentLanguage}_day${dayNumber}`;
+      // Récupérer le code utilisateur depuis le token
+      const token = localStorage.getItem('token');
+      if (!token) return 0;
+      
+      let userCode = 'unknown';
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        userCode = payload.code || 'unknown';
+      } catch (e) {
+        console.error('Erreur décodage token:', e);
+        return 0;
+      }
+
+      // Calculer la progression basée sur les tâches completées du jour pour cet utilisateur
+      const completedKey = `completedTasks_${userCode}_day${dayNumber}`;
       const completed = JSON.parse(localStorage.getItem(completedKey) || '[]');
       const totalTasks = 4; // 4 instructions par jour
       const completedTasks = completed.filter(Boolean).length;
@@ -498,6 +547,56 @@ createApp({
             instructions: this.translations.content?.days[day.day]?.instructions || day.instructions
           };
         });
+      }
+    },
+
+    async loadProgressFromServer() {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) return;
+
+        // Récupérer le code utilisateur depuis le token
+        let userCode = 'unknown';
+        try {
+          const payload = JSON.parse(atob(token.split('.')[1]));
+          userCode = payload.code || 'unknown';
+        } catch (e) {
+          console.error('Erreur décodage token:', e);
+          return;
+        }
+
+        const response = await fetch('/get-progress', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          
+          // Synchroniser les données de progression avec localStorage
+          if (data.progress) {
+            Object.keys(data.progress).forEach(progressKey => {
+              const serverProgress = data.progress[progressKey];
+              
+              // Extraire dayNumber de la clé (format: day1)
+              const match = progressKey.match(/day(\d+)$/);
+              if (match) {
+                const dayNumber = match[1];
+                const localKey = `completedTasks_${userCode}_day${dayNumber}`;
+                const localTimestamp = localStorage.getItem(`${localKey}_timestamp`);
+                
+                // Utiliser les données du serveur si elles sont plus récentes ou si pas de données locales
+                if (!localTimestamp || new Date(serverProgress.lastUpdated) > new Date(localTimestamp)) {
+                  localStorage.setItem(localKey, JSON.stringify(serverProgress.completed));
+                  localStorage.setItem(`${localKey}_timestamp`, serverProgress.lastUpdated);
+                }
+              }
+            });
+          }
+        }
+      } catch (error) {
+        console.error('Erreur lors du chargement de la progression:', error);
       }
     },
   },

@@ -1,4 +1,4 @@
-const CACHE_NAME = '21days-study-v1';
+const CACHE_NAME = '21days-study-v2';
 const ASSETS_TO_CACHE = [
   '/login.html',
   '/app.html',
@@ -58,10 +58,18 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // Ne pas intercepter les requêtes qui ne sont pas GET
+  if (event.request.method !== 'GET') {
+    return;
+  }
+
   // Ne pas mettre en cache les requêtes API
   if (event.request.url.includes('/api/') || 
       event.request.url.includes('/login') || 
-      event.request.url.includes('/program-content')) {
+      event.request.url.includes('/program-content') ||
+      event.request.url.includes('/save-progress') ||
+      event.request.url.includes('/get-progress') ||
+      event.request.url.includes('/user-profile')) {
     return;
   }
 
@@ -84,11 +92,13 @@ self.addEventListener('fetch', (event) => {
             // Cloner la réponse car elle ne peut être utilisée qu'une fois
             const responseToCache = response.clone();
 
-            // Mettre en cache la nouvelle réponse
-            caches.open(CACHE_NAME)
-              .then((cache) => {
-                cache.put(event.request, responseToCache);
-              });
+            // Mettre en cache la nouvelle réponse seulement pour les requêtes GET
+            if (event.request.method === 'GET') {
+              caches.open(CACHE_NAME)
+                .then((cache) => {
+                  cache.put(event.request, responseToCache);
+                });
+            }
 
             return response;
           });

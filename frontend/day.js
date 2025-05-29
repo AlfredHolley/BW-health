@@ -23,6 +23,18 @@ createApp({
         }
     },
     methods: {
+        getUserCodeFromToken() {
+            const token = localStorage.getItem('token');
+            if (!token) return null;
+            
+            try {
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                return payload.code || null;
+            } catch (e) {
+                console.error('Erreur décodage token:', e);
+                return null;
+            }
+        },
         updateTranslations() {
             if (!this.dayNumber) return;
             
@@ -96,10 +108,28 @@ createApp({
             }
         },
         syncChecklist() {
-            // Clé unique par jour et langue
-            const key = `completedTasks_${this.currentLanguage}_day${this.dayNumber}`;
+            // Récupérer le code utilisateur
+            const userCode = this.getUserCodeFromToken();
+            if (!userCode) return;
+
+            // Clé unique par utilisateur et jour
+            const key = `completedTasks_${userCode}_day${this.dayNumber}`;
             let saved = localStorage.getItem(key);
             let arr = [];
+            
+            // Migration : si pas de données avec la nouvelle clé, chercher l'ancienne clé sans utilisateur
+            if (!saved) {
+                const oldKey = `completedTasks_day${this.dayNumber}`;
+                const oldSaved = localStorage.getItem(oldKey);
+                if (oldSaved) {
+                    // Migrer les données vers la nouvelle clé avec utilisateur
+                    localStorage.setItem(key, oldSaved);
+                    // Ne pas supprimer l'ancienne clé pour éviter de perdre les données d'autres utilisateurs
+                    saved = oldSaved;
+                    console.log(`Migration des données de progression du jour ${this.dayNumber} pour ${userCode}`);
+                }
+            }
+            
             if (saved) {
                 try {
                     arr = JSON.parse(saved);
@@ -117,8 +147,77 @@ createApp({
             }
         },
         saveProgress() {
-            const key = `completedTasks_${this.currentLanguage}_day${this.dayNumber}`;
+            // Récupérer le code utilisateur
+            const userCode = this.getUserCodeFromToken();
+            if (!userCode) return;
+
+            const key = `completedTasks_${userCode}_day${this.dayNumber}`;
             localStorage.setItem(key, JSON.stringify(this.completed));
+            
+            // Synchroniser avec le serveur
+            this.syncWithServer();
+        },
+        async syncWithServer() {
+            try {
+                const token = localStorage.getItem('token');
+                if (!token) return;
+
+                const response = await fetch('/save-progress', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        dayNumber: this.dayNumber,
+                        completed: this.completed
+                    })
+                });
+
+                if (!response.ok) {
+                    console.error('Erreur lors de la synchronisation:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Erreur lors de la synchronisation:', error);
+            }
+        },
+        async loadProgressFromServer() {
+            try {
+                const token = localStorage.getItem('token');
+                if (!token) return;
+
+                // Récupérer le code utilisateur
+                const userCode = this.getUserCodeFromToken();
+                if (!userCode) return;
+
+                const response = await fetch('/get-progress', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const progressKey = `day${this.dayNumber}`;
+                    
+                    if (data.progress && data.progress[progressKey]) {
+                        const serverProgress = data.progress[progressKey];
+                        
+                        // Vérifier si les données du serveur sont plus récentes
+                        const localKey = `completedTasks_${userCode}_day${this.dayNumber}`;
+                        const localTimestamp = localStorage.getItem(`${localKey}_timestamp`);
+                        
+                        if (!localTimestamp || new Date(serverProgress.lastUpdated) > new Date(localTimestamp)) {
+                            // Utiliser les données du serveur
+                            this.completed = serverProgress.completed || [];
+                            localStorage.setItem(localKey, JSON.stringify(this.completed));
+                            localStorage.setItem(`${localKey}_timestamp`, serverProgress.lastUpdated);
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement de la progression:', error);
+            }
         },
         renderPodcast(podcast) {
             if (typeof podcast === 'string') {
@@ -211,6 +310,10 @@ createApp({
             
             // Mettre à jour les traductions après avoir chargé les données du jour
             this.updateTranslations();
+            
+            // Charger la progression depuis le serveur
+            await this.loadProgressFromServer();
+            
             console.log('Debug - Instructions traduites:', this.translatedInstructions);
         } catch (e) {
             this.error = t('day.errors.loadError', this.currentLanguage);
