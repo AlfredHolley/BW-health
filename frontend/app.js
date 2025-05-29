@@ -296,10 +296,24 @@ createApp({
     goToDay(dayNumber) {
       if (this.isDayUnlocked(dayNumber)) {
         window.location.href = `/day.html?day=${dayNumber}`;
-      } else {
-        console.log(`Jour ${dayNumber} bloqué.`);
-        // Optionnellement, afficher un message à l'utilisateur indiquant que le jour est bloqué
       }
+    },
+
+    getProgressCircle(dayNumber) {
+      // Calculer la progression basée sur les tâches completées du jour
+      // Utiliser la même clé que dans day.js: `completedTasks_${this.currentLanguage}_day${this.dayNumber}`
+      const completedKey = `completedTasks_${this.currentLanguage}_day${dayNumber}`;
+      const completed = JSON.parse(localStorage.getItem(completedKey) || '[]');
+      const totalTasks = 4; // 4 instructions par jour
+      const completedTasks = completed.filter(Boolean).length;
+      const percentage = (completedTasks / totalTasks) * 100;
+      
+      // Calculer la circonférence pour le cercle (sport: r=24, audio: r=20)
+      const isLargeIcon = [2, 4, 6, 9, 11, 13, 16, 18, 20].includes(dayNumber);
+      const radius = isLargeIcon ? 24 : 20;
+      const circumference = 2 * Math.PI * radius;
+      
+      return (percentage / 100) * circumference;
     },
 
     renderPodcast(podcast) {

@@ -107,7 +107,7 @@
         }
         
         .day-description {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             color: var(--neutral-dark);
             margin: 0 0 1rem;
         }
@@ -185,6 +185,30 @@
             transform: translateY(-2px);
         }
         
+        .media-btn .progress-ring {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            transform: rotate(-90deg);
+        }
+        
+        .media-btn .progress-ring-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.3);
+            stroke-width: 2;
+        }
+        
+        .media-btn .progress-ring-progress {
+            fill: none;
+            stroke: white;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-dasharray: 0 1000;
+            transition: stroke-dasharray 0.5s ease;
+        }
+        
         .podcast-embed {
             width: 100%;
             max-width: 100%;
@@ -207,7 +231,7 @@
         
         .progress-bar {
             height: 8px;
-            background: var(--primary-color);
+            background: #60e092;
             width: 0;
             border-radius: 8px;
             transition: width 0.3s;
@@ -217,7 +241,7 @@
             text-align: center;
             font-size: 0.95rem;
             color: var(--neutral-dark);
-            margin-bottom: 0.2rem;
+            margin-bottom: 1rem;
             margin-top: 0.5rem;
         }
         

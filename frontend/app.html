@@ -243,13 +243,12 @@
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 800px;
+            margin:auto;
             margin-top:4.8rem;
+            
             padding: 5rem 2rem 3rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
+            width: 80%;
             box-sizing: border-box;
         }
 
@@ -259,16 +258,14 @@
             padding: 1.8rem;
             margin-bottom: 3.5rem;
             padding-bottom:1rem;
-            max-width: 1000px;
-            width: 100%;
-            height: 150px;
+            max-height: 230px;
+            height: 8%;
+            aspect-ratio: 1.618;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             transition: transform 0.3s ease, box-shadow 0.2s ease;
             border: 1px solid rgba(85, 85, 85, 0.1);
             position: relative;
             cursor: pointer;
-            margin-left: auto;
-            margin-right: auto;
             display: flex;
             flex-direction: column;
         }
@@ -484,12 +481,9 @@
 
             .container {
                 padding: 4rem 0 2rem;
-                width: 100%;
+                width: 80%;
                 margin:0 auto;
                 margin-top:4.8rem;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
             }
 
             .day-card {
@@ -566,25 +560,58 @@
 
         .day-icon {
             position: absolute;
-            bottom: 1rem;
-            right: 1rem;
-            width: 24px;
-            height: 24px;
+            bottom: 0.5rem;
+            right: 0.5rem;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .day-icon.sport-icon {
-            width: 40px;
-            height: 40px;
+            width: 56px;
+            height: 56px;
         }
 
-        .day-icon.listen-icon {
-            right: 3rem;
+        .progress-circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .progress-circle-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.2);
+            stroke-width: 3;
+        }
+
+        .progress-circle-progress {
+            fill: none;
+            stroke: #6cd8a0;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-dasharray: 0 1000;
+            transition: stroke-dasharray 0.5s ease;
+        }
+
+        .day-card.current .progress-circle-bg {
+            stroke: rgba(255, 255, 255, 0.3);
+        }
+
+        .day-card.current .progress-circle-progress {
+            stroke: white;
         }
 
         .day-icon .icon {
-            width: 100%;
-            height: 100%;
+            width: 24px;
+            height: 24px;
             opacity: 0.5;
+            z-index: 2;
+            position: relative;
         }
 
         .day-card.current .day-icon .icon {
@@ -1317,12 +1344,19 @@
                     
                     <!-- Icônes pour chaque jour -->
                     <div v-if="[2, 4, 6, 9, 11, 13, 16, 18, 20].includes(day.day)" class="day-icon sport-icon">
+                        <svg class="progress-circle" viewBox="0 0 56 56">
+                            <circle class="progress-circle-bg" cx="28" cy="28" r="24"></circle>
+                            <circle class="progress-circle-progress" cx="28" cy="28" r="24" 
+                                    :style="{ strokeDasharray: getProgressCircle(day.day) + ' 1000' }"></circle>
+                        </svg>
                         <img src="icons/muscle-icon.svg" alt="Sport" class="icon">
                     </div>
-                    <div v-if="[3, 7, 10, 14, 17, 21].includes(day.day)" class="day-icon">
-                        <img src="icons/walk-icon.svg" alt="Marche" class="icon">
-                    </div>
                     <div v-if="[3, 7, 10, 14, 17, 21].includes(day.day)" class="day-icon listen-icon">
+                        <svg class="progress-circle" viewBox="0 0 48 48">
+                            <circle class="progress-circle-bg" cx="24" cy="24" r="20"></circle>
+                            <circle class="progress-circle-progress" cx="24" cy="24" r="20" 
+                                    :style="{ strokeDasharray: getProgressCircle(day.day) + ' 1000' }"></circle>
+                        </svg>
                         <img src="icons/audio-headphone.svg" alt="Audio" class="icon" style="width: 24px; height: 24px;">
                     </div>
                     
