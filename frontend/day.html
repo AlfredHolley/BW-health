@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
+    
     <title>Day {{ dayNumber }}</title>
     <link rel="icon" href="favicon.ico">
     <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
@@ -166,7 +167,7 @@
         }
         
         .media-btn {
-            background: var(--primary-color);
+            background: var(--primary-color) linear-gradient(45deg, #0024ff, #00000000);
             color: white;
             padding: 0.5rem 1rem;
             border-radius: 4px;
@@ -260,6 +261,108 @@
             margin: 2rem 0;
         }
         
+        .reading-content {
+            margin-top: 2rem;
+        }
+
+        .reading-content h2 {
+            background: linear-gradient(45deg, #00b2e6 30%, #2a5ed9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .reading-text {
+            background: linear-gradient(135deg, #fdfeff 0%, #f0f8ff 50%, #f8f9fa 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: #2c3e50;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+            border-left: 3px solid #dadada;
+        }
+
+        .reading-text p {
+            margin-bottom: 1.2rem;
+        }
+
+        .reading-text strong {
+            background: linear-gradient(45deg, #F44336 30%, #F7844f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+
+        .reading-text em {
+            color: #8e44ad;
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .reading-text br {
+            line-height: 1.5;
+        }
+
+        /* Styles pour les sections spécifiques */
+        .reading-text p:nth-child(even) strong {
+            background: linear-gradient(45deg, var(--primary-dark) 30%, var(--primary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .reading-text p:nth-child(3n) strong {
+            background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .reading-content .media-section,
+        .reading-content .podcast-section {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border-top: 3px solid transparent;
+        }
+
+        .reading-content .media-section {
+            border-top-color: #dbdbdb;
+        }
+
+        .reading-content .podcast-section {
+            border-top-color: #dfdfdf;
+        }
+
+        .reading-content .media-title {
+            color: #323232;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .reading-content .podcast-section .media-title {
+            color: #323232;
+        }
+
+        /* Ajout d'accents colorés pour les listes */
+        .reading-text p:contains("•") {
+            padding-left: 1rem;
+            border-left: 3px solid #2ecc71;
+            background: rgba(46, 204, 113, 0.05);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
         /* Responsive Design */
         @media (max-width: 600px) {
             .container {
@@ -294,7 +397,31 @@
                     <p class="day-description">{{ day.description }}</p>
                 </div>
 
-                <div class="instructions">
+                <!-- Section pour les jours de lecture -->
+                <div v-if="isReadingDay" class="reading-content">
+                    <h2>{{ translations.day.reading.title }}</h2>
+                    <div class="reading-text" v-html="parseMarkdown(day.readingContent)"></div>
+                    
+                    <!-- Médias pour les jours de lecture -->
+                    <div class="media-section">
+                        <div class="media-title">{{ translations.day.resources.title }}</div>
+                        <div class="media-links">
+                            <a :href="day.video" target="_blank" class="media-btn">{{ translations.day.resources.video }}</a>
+                        </div>
+                    </div>
+                    
+                    <div class="podcast-section">
+                        <div class="media-title">{{ translations.day.podcast.title }}</div>
+                        <div v-if="day.podcast && day.podcast.embed">
+                            <iframe class="podcast-embed" :src="day.podcast.embed" :height="day.podcast.height || 152" allowfullscreen loading="lazy" 
+                                allow="autoplay; encrypted-media"></iframe>
+                        </div>
+                        <div v-else v-html="renderPodcast(day.podcast)"></div>
+                    </div>
+                </div>
+
+                <!-- Section pour les jours d'instructions normales -->
+                <div v-else class="instructions">
                     <h2>{{ translations.day.instructions.title }}</h2>
                     <ul class="instructions-list">
                         <li v-for="(instruction, index) in translatedInstructions" :key="index" :class="{ completed: completed[index] }">

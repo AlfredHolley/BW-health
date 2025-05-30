@@ -350,6 +350,16 @@ createApp({
         return 0;
       }
 
+      // Jours de lecture - toujours 100% de progression
+      const readingDays = [1, 5, 7, 11, 14, 18];
+      if (readingDays.includes(dayNumber)) {
+        // Calculer la circonférence pour le cercle (sport: r=24, audio: r=20)
+        const isLargeIcon = [2, 4, 6, 9, 11, 13, 16, 18, 20].includes(dayNumber);
+        const radius = isLargeIcon ? 24 : 20;
+        const circumference = 2 * Math.PI * radius;
+        return circumference; // 100% de progression
+      }
+
       // Calculer la progression basée sur les tâches completées du jour pour cet utilisateur
       const completedKey = `completedTasks_${userCode}_day${dayNumber}`;
       const completed = JSON.parse(localStorage.getItem(completedKey) || '[]');

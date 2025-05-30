@@ -12,11 +12,13 @@ createApp({
             currentLanguage: localStorage.getItem('language') || 'FR',
             translations: {},
             translatedInstructions: [],
-            completed: []
+            completed: [],
+            isReadingDay: false
         };
     },
     computed: {
         percentCompleted() {
+            if (this.isReadingDay) return 100; // Les jours de lecture sont toujours "complétés"
             if (!this.translatedInstructions.length) return 0;
             const done = this.completed.filter(Boolean).length;
             return Math.round((done / this.translatedInstructions.length) * 100);
@@ -55,6 +57,9 @@ createApp({
                     instructions: {
                         title: t('day.instructions.title', this.currentLanguage)
                     },
+                    reading: {
+                        title: t('day.reading.title', this.currentLanguage)
+                    },
                     errors: {
                         invalidDay: t('day.errors.invalidDay', this.currentLanguage),
                         dayNotFound: t('day.errors.dayNotFound', this.currentLanguage),
@@ -83,16 +88,21 @@ createApp({
                 }
             };
 
-            // Traduire la description du jour
+            // Traduire la description et le contenu du jour
             if (this.day) {
                 const translatedContent = t(`content.days.${this.dayNumber}`, this.currentLanguage);
                 if (translatedContent && translatedContent.description) {
                     this.day.description = translatedContent.description;
                 }
+                
+                // Si c'est un jour de lecture, récupérer le contenu de lecture traduit
+                if (this.isReadingDay && translatedContent && translatedContent.readingContent) {
+                    this.day.readingContent = translatedContent.readingContent;
+                }
             }
 
-            // Traduire les instructions si le jour est chargé
-            if (this.day && this.day.instructions) {
+            // Traduire les instructions si le jour est chargé et que ce n'est pas un jour de lecture
+            if (this.day && this.day.instructions && !this.isReadingDay) {
                 console.log('Debug - Instructions originales:', this.day.instructions);
                 this.translatedInstructions = this.day.instructions.map((instruction, index) => {
                     const translationKey = `day.instructions.list.${this.dayNumber}.instruction${index + 1}`;
@@ -102,12 +112,15 @@ createApp({
                 // Synchroniser la checklist avec le nombre d'instructions
                 this.syncChecklist();
             } else {
-                console.log('Debug - Pas d\'instructions trouvées:', { day: this.day, instructions: this.day?.instructions });
+                console.log('Debug - Jour de lecture ou pas d\'instructions trouvées:', { day: this.day, isReadingDay: this.isReadingDay });
                 this.translatedInstructions = [];
                 this.completed = [];
             }
         },
         syncChecklist() {
+            // Ne pas synchroniser pour les jours de lecture
+            if (this.isReadingDay) return;
+
             // Récupérer le code utilisateur
             const userCode = this.getUserCodeFromToken();
             if (!userCode) return;
@@ -147,6 +160,9 @@ createApp({
             }
         },
         saveProgress() {
+            // Ne pas sauvegarder pour les jours de lecture
+            if (this.isReadingDay) return;
+
             // Récupérer le code utilisateur
             const userCode = this.getUserCodeFromToken();
             if (!userCode) return;
@@ -158,6 +174,9 @@ createApp({
             this.syncWithServer();
         },
         async syncWithServer() {
+            // Ne pas synchroniser pour les jours de lecture
+            if (this.isReadingDay) return;
+
             try {
                 const token = localStorage.getItem('token');
                 if (!token) return;
@@ -182,6 +201,9 @@ createApp({
             }
         },
         async loadProgressFromServer() {
+            // Ne pas charger pour les jours de lecture
+            if (this.isReadingDay) return;
+
             try {
                 const token = localStorage.getItem('token');
                 if (!token) return;
@@ -237,6 +259,14 @@ createApp({
                     </iframe>`;
             }
             return `<p>${this.translations.day.podcast.notAvailable}</p>`;
+        },
+        parseMarkdown(text) {
+            return text
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/\n\n/g, '</p><p>')
+                .replace(/\n• /g, '<br>• ')
+                .replace(/\n/g, '<br>');
         },
         isDayUnlocked(dayNumber) {
             const startDate = new Date(localStorage.getItem('startDate') || new Date());
@@ -308,13 +338,19 @@ createApp({
             console.log('Debug - Données du jour:', dayData);
             this.day = dayData;
             
+            // Vérifier si c'est un jour de lecture
+            this.isReadingDay = dayData.type === 'reading';
+            
             // Mettre à jour les traductions après avoir chargé les données du jour
             this.updateTranslations();
             
-            // Charger la progression depuis le serveur
-            await this.loadProgressFromServer();
+            // Charger la progression depuis le serveur seulement si ce n'est pas un jour de lecture
+            if (!this.isReadingDay) {
+                await this.loadProgressFromServer();
+            }
             
             console.log('Debug - Instructions traduites:', this.translatedInstructions);
+            console.log('Debug - Jour de lecture:', this.isReadingDay);
         } catch (e) {
             this.error = t('day.errors.loadError', this.currentLanguage);
         } finally {

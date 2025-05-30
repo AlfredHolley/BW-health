@@ -162,8 +162,11 @@ export default {
             video: "Ver el video"
         },
         podcast: {
-            title: "Podcast del día",
+            title: "🎧 Podcast diario",
             notAvailable: "Podcast no disponible"
+        },
+        reading: {
+            title: "Contenido reflexivo"
         },
         instructions: {
             title: "Instrucciones del día",
@@ -332,12 +335,8 @@ export default {
             1: {
                 title: "Día 1",
                 description: "Introducción al programa",
-                instructions: [
-                    "Mire el video de introducción",
-                    "Escuche el podcast para entender los objetivos",
-                    "Tómese unos minutos para reflexionar sobre sus expectativas",
-                    "Anote sus objetivos personales en un cuaderno"
-                ]
+                type: "reading",
+                readingContent: "**¡Bienvenido a tu viaje de transformación!**\n\nHoy marca el comienzo de una aventura extraordinaria. ¿Sabías que el ayuno intermitente se ha practicado durante milenios? Los filósofos griegos como Platón y Aristóteles ayunaban regularmente para mejorar su claridad mental y rendimiento físico.\n\n**La anécdota del día:**\nBenjamin Franklin, uno de los padres fundadores de América, decía: \"La mejor de todas las medicinas es el descanso y el ayuno.\" Tenía el hábito de ayunar un día a la semana para mantener su salud y productividad.\n\n**¿Sabías que?**\nCuando ayunamos, nuestro cuerpo comienza a usar sus reservas de grasa después de aproximadamente 12 horas. Este es un mecanismo natural de supervivencia que nuestros ancestros cazadores-recolectores usaban diariamente.\n\nTómate este tiempo para ver el video y escuchar el podcast. Déjate llevar por esta nueva experiencia sin presión. Tu cuerpo ya sabe cómo hacerlo - solo le estás recordando sus capacidades naturales."
             },
             2: {
                 title: "Día 2",
@@ -371,17 +370,13 @@ export default {
             },
             5: {
                 title: "Día 5",
-                description: "Consolidación",
-                instructions: [
-                    "Mire el video del día",
-                    "Escuche el podcast asociado",
-                    "Comience a practicar los primeros ejercicios",
-                    "Anote sus impresiones y dificultades"
-                ]
+                description: "Tiempo para reflexión y adaptación",
+                type: "reading",
+                readingContent: "**La magia de caminar**\n\n¡Felicidades! Ya has completado casi una semana. Este es el momento perfecto para ir más despacio y apreciar los beneficios de la actividad física suave.\n\n**La anécdota del día:**\nCharles Darwin tenía el hábito de tomar una caminata diaria de una hora en lo que llamaba su \"sendero de reflexión\". Fue durante estas caminatas que desarrolló gran parte de su teoría de la evolución. Decía que sus mejores ideas le venían mientras caminaba.\n\n**Beneficios ocultos de caminar:**\n• Después de solo 5 minutos de caminar, tu cerebro libera endorfinas\n• 30 minutos de caminata diaria pueden reducir el riesgo de enfermedades cardíacas en un 35%\n• Caminar estimula la creatividad en un 60% según Stanford University\n• Favorece la digestión y absorción de nutrientes\n\n**Consejo del día:**\nSi puedes, intenta caminar al aire libre hoy, aunque sean solo 10 minutos. Observa tu respiración, siente el aire en tu piel. La naturaleza tiene un efecto calmante científicamente comprobado en nuestro sistema nervioso.\n\nDisfruta este contenido multimedia sin presión. Tu cuerpo se está adaptando y aprendiendo."
             },
             6: {
                 title: "Día 6",
-                description: "Progresión",
+                description: "Progreso",
                 instructions: [
                     "Mire el video del día",
                     "Escuche el podcast asociado",
@@ -391,13 +386,9 @@ export default {
             },
             7: {
                 title: "Día 7",
-                description: "Primera semana completada",
-                instructions: [
-                    "Mire el video del día",
-                    "Escuche el podcast asociado",
-                    "Comience a practicar los primeros ejercicios",
-                    "Anote sus impresiones y dificultades"
-                ]
+                description: "Una semana lograda - ¡Celebremos!",
+                type: "reading",
+                readingContent: "**¡Una semana de transformación lograda!**\n\n¡Bravo! Acabas de completar tu primera semana. Este es un momento para celebrar y reflexionar.\n\n**La anécdota inspiradora del día:**\nEl montañista Reinhold Messner, el primer hombre en escalar el Everest sin oxígeno, practicaba ayunos regulares antes de sus expediciones. Decía que ayunar le enseñaba a distinguir entre sus verdaderas necesidades y sus simples deseos, una habilidad crucial en las montañas.\n\n**Transformaciones invisibles en curso:**\nDespués de 7 días, tu cuerpo ya ha comenzado cambios notables:\n• Tus células han activado la autofagia (\"limpieza celular\")\n• Tu sensibilidad a la insulina mejora\n• Tus mitocondrias (las \"centrales energéticas\" de las células) se vuelven más eficientes\n• Tu microbiota intestinal comienza a reequilibrarse\n\n**Reflexión del día:**\nEl deporte y el ayuno nos enseñan la misma lección: somos más fuertes de lo que pensamos. Cada pequeña molestia superada nos hace crecer.\n\n**Cita inspiradora:**\n\"El cuerpo humano es capaz de cosas extraordinarias. A veces solo necesita que le recuerden su potencial.\" - Dr. Valter Longo, especialista en ayuno.\n\nTómate tiempo para apreciar el camino recorrido mientras disfrutas el contenido de hoy."
             },
             8: {
                 title: "Día 8",
@@ -431,13 +422,9 @@ export default {
             },
             11: {
                 title: "Día 11",
-                description: "Intensificación",
-                instructions: [
-                    "Mire el video del día",
-                    "Escuche el podcast asociado",
-                    "Comience a practicar los primeros ejercicios",
-                    "Anote sus impresiones y dificultades"
-                ]
+                description: "El poder de la constancia",
+                type: "reading",
+                readingContent: "**El poder de los hábitos duraderos**\n\n¡Aquí estás en tu segunda semana! Este es el momento cuando los verdaderos cambios comienzan a arraigarse profundamente.\n\n**La anécdota fascinante del día:**\nLos monjes tibetanos practican un ejercicio llamado \"Tummo\" que combina ayuno, respiración y meditación. Logran aumentar su temperatura corporal varios grados, hasta el punto de secar sábanas mojadas colocadas sobre sus hombros en pleno invierno del Himalaya. ¡Esto muestra la increíble capacidad de adaptación de nuestro cuerpo!\n\n**La ciencia de la adaptación:**\n• Tu cuerpo ahora produce cetonas más naturalmente (combustible alternativo del cerebro)\n• Tus hormonas de crecimiento aumentan 300-500% durante el ayuno\n• Tu nivel de noradrenalina se eleva, mejorando concentración y vigilancia\n• La expresión de ciertos genes anti-envejecimiento se activa\n\n**El ejercicio como aliado:**\n¿Sabías que incluso 7 minutos de ejercicio diario pueden:\n• Reducir la inflamación crónica\n• Mejorar la calidad del sueño\n• Estimular la neurogénesis (creación de nuevas neuronas)\n• Fortalecer el sistema inmunológico\n\n**Pensamiento del día:**\nCada día de práctica es una inversión en tu yo futuro. Estás construyendo una versión más resistente, más energética y más consciente de ti mismo.\n\n¡Disfruta tranquilamente el contenido de hoy, te lo has ganado!"
             },
             12: {
                 title: "Día 12",
@@ -451,7 +438,7 @@ export default {
             },
             13: {
                 title: "Día 13",
-                description: "Mitad del camino",
+                description: "Punto medio del recorrido",
                 instructions: [
                     "Mire el video del día",
                     "Escuche el podcast asociado",
@@ -461,13 +448,9 @@ export default {
             },
             14: {
                 title: "Día 14",
-                description: "Segunda semana",
-                instructions: [
-                    "Mire el video del día",
-                    "Escuche el podcast asociado",
-                    "Comience a practicar los primeros ejercicios",
-                    "Anote sus impresiones y dificultades"
-                ]
+                description: "Hito: Dos semanas de transformación",
+                type: "reading",
+                readingContent: "**¡Felicidades por estas dos semanas extraordinarias!**\n\nHas alcanzado un hito importante. Dos semanas es el tiempo que necesita el cerebro para comenzar a formar conexiones neuronales duraderas.\n\n**La historia inspiradora del día:**\nTerry Fox, el maratonista canadiense, corrió 5,373 kilómetros a través de Canadá con una pierna amputada para crear conciencia sobre el cáncer. ¿Su secreto? Dividía sus objetivos enormes en pequeños pasos diarios. \"Incluso si solo das un paso, sigue siendo un paso en la dirección correcta,\" decía.\n\n**Tus logros invisibles:**\nDespués de 14 días, tu transformación es profunda:\n• Tu resistencia al estrés mejora (adaptación hormética)\n• Tus telómeros (marcadores de longevidad) se estabilizan\n• Tu flora intestinal se diversifica\n• Tu relación con las sensaciones de hambre y saciedad se reequilibra\n\n**El movimiento como medicina:**\nLos pueblos tradicionales como los Hunzas de Pakistán, famosos por su longevidad excepcional, integran naturalmente el movimiento en su vida diaria. No gimnasio, sino:\n• Caminatas diarias en montaña\n• Trabajo agrícola rítmico\n• Danzas comunitarias\n• Ayunos estacionales naturales\n\n**Tu mantra del día:**\n\"No solo estoy cambiando mis hábitos, estoy transformando mi relación con mi cuerpo y mis necesidades.\"\n\nEste es un día de descanso bien merecido. Disfruta el contenido sin restricciones, ya estás creando la mejor versión de ti mismo."
             },
             15: {
                 title: "Día 15",
@@ -501,13 +484,9 @@ export default {
             },
             18: {
                 title: "Día 18",
-                description: "Preparación para el final",
-                instructions: [
-                    "Mire el video del día",
-                    "Escuche el podcast asociado",
-                    "Comience a practicar los primeros ejercicios",
-                    "Anote sus impresiones y dificultades"
-                ]
+                description: "La sabiduría de la experiencia",
+                type: "reading",
+                readingContent: "**¡Ya casi has llegado a la cima!**\n\nTres semanas... Ahora formas parte del 8% de las personas que mantienen un cambio de hábito más allá de 21 días. ¡Eso es excepcional!\n\n**La anécdota legendaria del día:**\nEl explorador Ernest Shackleton y su tripulación sobrevivieron 22 meses en la Antártida después del naufragio de su barco. ¿Su secreto? Períodos de ayuno forzado alternados con ejercicio diario para mantener la moral y la forma física. Shackleton decía: \"El optimismo es la esperanza con un plan de acción.\"\n\n**Tu transformación neurológica:**\nEn esta etapa, han ocurrido cambios profundos:\n• Nueva mielinización de circuitos neuronales (conexiones más rápidas)\n• Aumento del BDNF (factor de crecimiento cerebral)\n• Reducción de la inflamación cerebral\n• Mejora de la plasticidad sináptica\n\n**La filosofía del movimiento:**\nLas artes marciales orientales enseñan que el ejercicio no es solo físico:\n• **Karate**: \"El karate comienza y termina con respeto\" (disciplina mental)\n• **Tai Chi**: \"En la lentitud, encontrar la fuerza\" (paciencia y perseverancia)\n• **Yoga**: \"La unión del cuerpo y la mente\" (conexión interior)\n\n**Tu herencia genética:**\nNuestros ancestros cazadores-recolectores alternaban naturalmente entre ayuno y abundancia, descanso y esfuerzo intenso. Estás reactivando programas genéticos ancestrales optimizados por 2 millones de años de evolución.\n\n**Reflexión profunda:**\nYa no eres la misma persona que eras hace 18 días. Has demostrado que puedes cumplir tus compromisos contigo mismo. Esta es la habilidad más valiosa que existe.\n\nEste contenido es un regalo para celebrar tu viaje extraordinario."
             },
             19: {
                 title: "Día 19",

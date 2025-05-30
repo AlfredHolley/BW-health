@@ -83,6 +83,9 @@ export default {
             title: "🎧 Podcast du jour",
             notAvailable: "Podcast non disponible"
         },
+        reading: {
+            title: "Contenu de réflexion"
+        },
         instructions: {
             title: "Instructions du jour",
             list: {
@@ -229,12 +232,8 @@ export default {
             1: {
                 title: "Jour 1",
                 description: "Introduction au programme",
-                instructions: [
-                    "Regardez la vidéo d'introduction",
-                    "Écoutez le podcast pour comprendre les objectifs",
-                    "Prenez quelques minutes pour réfléchir à vos attentes",
-                    "Notez vos objectifs personnels dans un carnet"
-                ]
+                type: "reading",
+                readingContent: "**Bienvenue dans votre voyage de transformation !**\n\nAujourd'hui marque le début d'une aventure extraordinaire. Saviez-vous que le jeûne intermittent est pratiqué depuis des millénaires ? Les philosophes grecs comme Platon et Aristote jeûnaient régulièrement pour améliorer leur clarté mentale et leur performance physique.\n\n**L'anecdote du jour :**\nBenjamin Franklin, l'un des pères fondateurs de l'Amérique, disait : \"Le meilleur de tous les médicaments, c'est de se reposer et de jeûner.\" Il avait l'habitude de jeûner un jour par semaine pour maintenir sa santé et sa productivité.\n\n**Le saviez-vous ?**\nLorsque nous jeûnons, notre corps commence à utiliser ses réserves de graisse après environ 12 heures. C'est un mécanisme naturel de survie que nos ancêtres chasseurs-cueilleurs utilisaient quotidiennement.\n\nPrenez ce temps pour regarder la vidéo et écouter le podcast. Laissez-vous porter par cette nouvelle expérience sans pression. Votre corps sait déjà comment faire - vous ne faites que lui rappeler ses capacités naturelles."
             },
             2: {
                 title: "Jour 2",
@@ -268,13 +267,9 @@ export default {
             },
             5: {
                 title: "Jour 5",
-                description: "Consolidation",
-                instructions: [
-                    "Visionnez la vidéo du jour",
-                    "Écoutez le podcast associé",
-                    "Commencez à mettre en pratique les premiers exercices",
-                    "Notez vos impressions et difficultés"
-                ]
+                description: "Temps de réflexion et d'adaptation",
+                type: "reading",
+                readingContent: "**La magie de la marche**\n\nFélicitations ! Vous avez déjà parcouru presque une semaine. C'est le moment idéal pour ralentir et apprécier les bienfaits de l'activité physique douce.\n\n**L'anecdote du jour :**\nCharles Darwin avait l'habitude de faire une promenade quotidienne d'une heure sur ce qu'il appelait son \"chemin de réflexion\". C'est pendant ces marches qu'il a développé une grande partie de sa théorie de l'évolution. Il disait que ses meilleures idées lui venaient en marchant.\n\n**Les bienfaits cachés de la marche :**\n• Après seulement 5 minutes de marche, votre cerveau libère des endorphines\n• 30 minutes de marche quotidienne peuvent réduire le risque de maladies cardiaques de 35%\n• La marche stimule la créativité de 60% selon Stanford University\n• Elle favorise la digestion et l'absorption des nutriments\n\n**Conseil du jour :**\nSi vous le pouvez, essayez de marcher dehors aujourd'hui, même 10 minutes. Observez votre respiration, sentez l'air sur votre peau. La nature a un effet apaisant prouvé scientifiquement sur notre système nerveux.\n\nProfitez de ce contenu multimédia sans pression. Votre corps s'adapte et apprend."
             },
             6: {
                 title: "Jour 6",
@@ -288,13 +283,9 @@ export default {
             },
             7: {
                 title: "Jour 7",
-                description: "Première semaine complétée",
-                instructions: [
-                    "Visionnez la vidéo du jour",
-                    "Écoutez le podcast associé",
-                    "Commencez à mettre en pratique les premiers exercices",
-                    "Notez vos impressions et difficultés"
-                ]
+                description: "Une semaine accomplie - Célébrons !",
+                type: "reading",
+                readingContent: "**Une semaine de transformation accomplie !**\n\nBravo ! Vous venez de terminer votre première semaine. C'est un moment de célébration et de réflexion.\n\n**L'anecdote inspirante du jour :**\nL'alpiniste Reinhold Messner, premier homme à gravir l'Everest sans oxygène, pratiquait des jeûnes réguliers avant ses expéditions. Il disait que jeûner lui apprenait à distinguer ses vrais besoins de ses simples envies, une compétence cruciale en montagne.\n\n**Les transformations invisibles en cours :**\nAprès 7 jours, votre corps a déjà commencé des changements remarquables :\n• Vos cellules ont activé l'autophagie (le \"nettoyage cellulaire\")\n• Votre sensibilité à l'insuline s'améliore\n• Vos mitochondries (les \"centrales énergétiques\" des cellules) deviennent plus efficaces\n• Votre microbiote intestinal commence à se rééquilibrer\n\n**Réflexion du jour :**\nLe sport et le jeûne nous enseignent la même leçon : nous sommes plus forts que nous le pensons. Chaque petit inconfort dépassé nous fait grandir.\n\n**Citation inspirante :**\n\"Le corps humain est capable de choses extraordinaires. Il suffit parfois de le rappeler à son potentiel.\" - Dr. Valter Longo, spécialiste du jeûne.\n\nPrenez le temps d'apprécier le chemin parcouru en savourant le contenu d'aujourd'hui."
             },
             8: {
                 title: "Jour 8",
@@ -328,13 +319,9 @@ export default {
             },
             11: {
                 title: "Jour 11",
-                description: "Intensification",
-                instructions: [
-                    "Regardez la vidéo du jour",
-                    "Écoutez le podcast associé",
-                    "Commencez à pratiquer les premiers exercices",
-                    "Notez vos impressions et difficultés"
-                ]
+                description: "Le pouvoir de la constance",
+                type: "reading",
+                readingContent: "**La puissance des habitudes durables**\n\nVous voilà dans votre deuxième semaine ! C'est le moment où les vrais changements commencent à s'ancrer profondément.\n\n**L'anecdote fascinante du jour :**\nLes moines tibétains pratiquent un exercice appelé \"Tummo\" qui combine jeûne, respiration et méditation. Ils arrivent à augmenter leur température corporelle de plusieurs degrés, au point de faire sécher des draps mouillés posés sur leurs épaules en plein hiver himalayan ! Cela montre l'incroyable capacité d'adaptation de notre corps.\n\n**La science de l'adaptation :**\n• Votre corps produit maintenant plus naturellement des cétones (carburant alternatif du cerveau)\n• Vos hormones de croissance augmentent de 300-500% pendant le jeûne\n• Votre taux de noradrénaline s'élève, améliorant concentration et vigilance\n• L'expression de certains gènes anti-âge s'active\n\n**L'exercice comme allié :**\nSaviez-vous que même 7 minutes d'exercice quotidien peuvent :\n• Réduire l'inflammation chronique\n• Améliorer la qualité du sommeil\n• Stimuler la neurogenèse (création de nouveaux neurones)\n• Renforcer le système immunitaire\n\n**Pensée du jour :**\nChaque jour de pratique est un investissement dans votre futur vous. Vous construisez une version plus résistante, plus énergique et plus consciente de vous-même.\n\nSavourez tranquillement le contenu d'aujourd'hui, vous l'avez mérité !"
             },
             12: {
                 title: "Jour 12",
@@ -358,13 +345,9 @@ export default {
             },
             14: {
                 title: "Jour 14",
-                description: "Deuxième semaine",
-                instructions: [
-                    "Regardez la vidéo du jour",
-                    "Écoutez le podcast associé",
-                    "Commencez à pratiquer les premiers exercices",
-                    "Notez vos impressions et difficultés"
-                ]
+                description: "Milestone : Deux semaines de transformation",
+                type: "reading",
+                readingContent: "**Félicitations pour ces deux semaines extraordinaires !**\n\nVous avez atteint un jalon important. Deux semaines, c'est le temps qu'il faut au cerveau pour commencer à former de nouvelles connexions neuronales durables.\n\n**L'histoire inspirante du jour :**\nTerry Fox, le marathonien canadien, a couru 5 373 kilomètres à travers le Canada avec une jambe amputée pour sensibiliser au cancer. Son secret ? Il divisait ses objectifs énormes en petites étapes quotidiennes. \"Même si tu fais juste un pas, c'est toujours un pas dans la bonne direction,\" disait-il.\n\n**Vos accomplissements invisibles :**\nAprès 14 jours, votre transformation est profonde :\n• Votre résistance au stress s'améliore (adaptation hormétique)\n• Vos télomères (marqueurs de longévité) se stabilisent\n• Votre flore intestinale se diversifie\n• Votre rapport aux sensations de faim et de satiété se rééquilibre\n\n**Le mouvement comme médecine :**\nLes peuples traditionnels comme les Hunzas du Pakistan, réputés pour leur longévité exceptionnelle, intègrent naturellement le mouvement dans leur quotidien. Pas de salle de sport, mais :\n• Marche en montagne quotidienne\n• Travaux agricoles rythmés\n• Danses communautaires\n• Jeûnes saisonniers naturels\n\n**Votre mantra du jour :**\n\"Je ne fais pas que changer mes habitudes, je transforme ma relation à mon corps et à mes besoins.\"\n\nC'est un jour de pause bien méritée. Profitez du contenu sans contrainte, vous êtes déjà en train de créer la meilleure version de vous-même."
             },
             15: {
                 title: "Jour 15",
@@ -398,13 +381,9 @@ export default {
             },
             18: {
                 title: "Jour 18",
-                description: "Préparation à la finale",
-                instructions: [
-                    "Regardez la vidéo du jour",
-                    "Écoutez le podcast associé",
-                    "Commencez à pratiquer les premiers exercices",
-                    "Notez vos impressions et difficultés"
-                ]
+                description: "La sagesse de l'expérience",
+                type: "reading",
+                readingContent: "**Vous voilà presque arrivé au sommet !**\n\nTrois semaines... Vous faites maintenant partie des 8% de personnes qui maintiennent un changement d'habitude au-delà de 21 jours. C'est exceptionnel !\n\n**L'anecdote légendaire du jour :**\nL'explorateur Ernest Shackleton et son équipage ont survécu 22 mois en Antarctique après le naufrage de leur navire. Leur secret ? Des périodes de jeûne forcé alternées avec de l'exercice quotidien pour maintenir le moral et la forme physique. Shackleton disait : \"L'optimisme est l'espoir avec un plan d'action.\"\n\n**Votre transformation neurologique :**\nÀ ce stade, des changements profonds se sont opérés :\n• Nouvelle myélinisation des circuits neuronaux (connexions plus rapides)\n• Augmentation du BDNF (facteur de croissance du cerveau)\n• Réduction de l'inflammation cérébrale\n• Amélioration de la plasticité synaptique\n\n**La philosophie du mouvement :**\nLes arts martiaux orientaux enseignent que l'exercice n'est pas seulement physique :\n• **Karate** : \"Le karate commence et finit par le respect\" (discipline mentale)\n• **Tai Chi** : \"Dans la lenteur, trouver la force\" (patience et persévérance)\n• **Yoga** : \"L'union du corps et de l'esprit\" (connexion intérieure)\n\n**Votre héritage génétique :**\nNos ancêtres chasseurs-cueilleurs alternaient naturellement entre jeûne et abondance, repos et effort intense. Vous réactivez des programmes génétiques ancestraux optimisés par 2 millions d'années d'évolution.\n\n**Réflexion profonde :**\nVous n'êtes plus la même personne qu'il y a 18 jours. Vous avez prouvé que vous pouvez tenir vos engagements envers vous-même. C'est la compétence la plus précieuse qui existe.\n\nCe contenu est un cadeau pour célébrer votre parcours extraordinaire."
             },
             19: {
                 title: "Jour 19",
