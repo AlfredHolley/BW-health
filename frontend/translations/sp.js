@@ -323,6 +323,37 @@ export default {
             complete: "Terminar",
             save: "Guardar",
             cancel: "Cancelar"
+        },
+        questionnaire: {
+            title: "Cuestionario",
+            completed: "Cuestionario completado",
+            fillOut: "Llenar el cuestionario",
+            submit: "Enviar",
+            cancel: "Cancelar",
+            close: "Cerrar",
+            pleaseAnswer: "Por favor responda todas las preguntas antes de enviar.",
+            submitSuccess: "¡Cuestionario enviado con éxito!",
+            questions: {
+                wellbeing: "Evalúe su nivel actual de bienestar del 1 al 10",
+                wellbeing_final: "Evalúe su nivel actual de bienestar del 1 al 10",
+                difficulty: "¿Cómo evalúa la dificultad de este programa?",
+                difficulty_final: "¿Cómo evalúa la dificultad de este programa?",
+                motivation: "¿Su motivación se ha mantenido constante?",
+                motivation_final: "¿Su motivación se ha mantenido constante?",
+                obstacles: "¿Ha tenido impedimentos o limitaciones que hicieron difícil seguir este programa?",
+                obstacles_final: "¿Ha tenido impedimentos o limitaciones que hicieron difícil seguir este programa?"
+            },
+            labels: {
+                veryLow: "Muy bajo",
+                excellent: "Excelente",
+                veryEasy: "Muy fácil",
+                veryDifficult: "Muy difícil"
+            },
+            options: {
+                yes: "Sí",
+                no: "No",
+                mixed: "Mixto"
+            }
         }
     },
     venn: {
@@ -448,12 +479,6 @@ export default {
             },
             14: {
                 title: "Día 14",
-                description: "Hito: Dos semanas de transformación",
-                type: "reading",
-                readingContent: "**¡Felicidades por estas dos semanas extraordinarias!**\n\nHas alcanzado un hito importante. Dos semanas es el tiempo que necesita el cerebro para comenzar a formar conexiones neuronales duraderas.\n\n**La historia inspiradora del día:**\nTerry Fox, el maratonista canadiense, corrió 5,373 kilómetros a través de Canadá con una pierna amputada para crear conciencia sobre el cáncer. ¿Su secreto? Dividía sus objetivos enormes en pequeños pasos diarios. \"Incluso si solo das un paso, sigue siendo un paso en la dirección correcta,\" decía.\n\n**Tus logros invisibles:**\nDespués de 14 días, tu transformación es profunda:\n• Tu resistencia al estrés mejora (adaptación hormética)\n• Tus telómeros (marcadores de longevidad) se estabilizan\n• Tu flora intestinal se diversifica\n• Tu relación con las sensaciones de hambre y saciedad se reequilibra\n\n**El movimiento como medicina:**\nLos pueblos tradicionales como los Hunzas de Pakistán, famosos por su longevidad excepcional, integran naturalmente el movimiento en su vida diaria. No gimnasio, sino:\n• Caminatas diarias en montaña\n• Trabajo agrícola rítmico\n• Danzas comunitarias\n• Ayunos estacionales naturales\n\n**Tu mantra del día:**\n\"No solo estoy cambiando mis hábitos, estoy transformando mi relación con mi cuerpo y mis necesidades.\"\n\nEste es un día de descanso bien merecido. Disfruta el contenido sin restricciones, ya estás creando la mejor versión de ti mismo."
-            },
-            15: {
-                title: "Día 15",
                 description: "Consolidación de hábitos",
                 instructions: [
                     "Mire el video del día",
@@ -461,6 +486,12 @@ export default {
                     "Comience a practicar los primeros ejercicios",
                     "Anote sus impresiones y dificultades"
                 ]
+            },
+            15: {
+                title: "Día 15",
+                description: "Hito: Dos semanas de transformación",
+                type: "reading",
+                readingContent: "**¡Felicidades por estas dos semanas extraordinarias!**\n\nHas alcanzado un hito importante. Dos semanas es el tiempo que necesita el cerebro para comenzar a formar conexiones neuronales duraderas.\n\n**La historia inspiradora del día:**\nTerry Fox, el maratonista canadiense, corrió 5,373 kilómetros a través de Canadá con una pierna amputada para crear conciencia sobre el cáncer. ¿Su secreto? Dividía sus objetivos enormes en pequeños pasos diarios. \"Incluso si solo das un paso, sigue siendo un paso en la dirección correcta,\" decía.\n\n**Tus logros invisibles:**\nDespués de 14 días, tu transformación es profunda:\n• Tu resistencia al estrés mejora (adaptación hormética)\n• Tus telómeros (marcadores de longevidad) se estabilizan\n• Tu flora intestinal se diversifica\n• Tu relación con las sensaciones de hambre y saciedad se reequilibra\n\n**El movimiento como medicina:**\nLos pueblos tradicionales como los Hunzas de Pakistán, famosos por su longevidad excepcional, integran naturalmente el movimiento en su vida diaria. No gimnasio, sino:\n• Caminatas diarias en montaña\n• Trabajo agrícola rítmico\n• Danzas comunitarias\n• Ayunos estacionales naturales\n\n**Tu mantra del día:**\n\"No solo estoy cambiando mis hábitos, estoy transformando mi relación con mi cuerpo y mis necesidades.\"\n\nEste es un día de descanso bien merecido. Disfruta del contenido sin restricciones, ya estás creando la mejor versión de ti mismo."
             },
             16: {
                 title: "Día 16",
@@ -484,12 +515,6 @@ export default {
             },
             18: {
                 title: "Día 18",
-                description: "La sabiduría de la experiencia",
-                type: "reading",
-                readingContent: "**¡Ya casi has llegado a la cima!**\n\nTres semanas... Ahora formas parte del 8% de las personas que mantienen un cambio de hábito más allá de 21 días. ¡Eso es excepcional!\n\n**La anécdota legendaria del día:**\nEl explorador Ernest Shackleton y su tripulación sobrevivieron 22 meses en la Antártida después del naufragio de su barco. ¿Su secreto? Períodos de ayuno forzado alternados con ejercicio diario para mantener la moral y la forma física. Shackleton decía: \"El optimismo es la esperanza con un plan de acción.\"\n\n**Tu transformación neurológica:**\nEn esta etapa, han ocurrido cambios profundos:\n• Nueva mielinización de circuitos neuronales (conexiones más rápidas)\n• Aumento del BDNF (factor de crecimiento cerebral)\n• Reducción de la inflamación cerebral\n• Mejora de la plasticidad sináptica\n\n**La filosofía del movimiento:**\nLas artes marciales orientales enseñan que el ejercicio no es solo físico:\n• **Karate**: \"El karate comienza y termina con respeto\" (disciplina mental)\n• **Tai Chi**: \"En la lentitud, encontrar la fuerza\" (paciencia y perseverancia)\n• **Yoga**: \"La unión del cuerpo y la mente\" (conexión interior)\n\n**Tu herencia genética:**\nNuestros ancestros cazadores-recolectores alternaban naturalmente entre ayuno y abundancia, descanso y esfuerzo intenso. Estás reactivando programas genéticos ancestrales optimizados por 2 millones de años de evolución.\n\n**Reflexión profunda:**\nYa no eres la misma persona que eras hace 18 días. Has demostrado que puedes cumplir tus compromisos contigo mismo. Esta es la habilidad más valiosa que existe.\n\nEste contenido es un regalo para celebrar tu viaje extraordinario."
-            },
-            19: {
-                title: "Día 19",
                 description: "Últimos desafíos",
                 instructions: [
                     "Mire el video del día",
@@ -497,6 +522,12 @@ export default {
                     "Comience a practicar los primeros ejercicios",
                     "Anote sus impresiones y dificultades"
                 ]
+            },
+            19: {
+                title: "Día 19",
+                description: "La sabiduría de la experiencia",
+                type: "reading",
+                readingContent: "**¡Ya casi está en la cima!**\n\nTres semanas... Ahora forma parte del 8% de las personas que mantienen un cambio de hábito más allá de los 21 días. ¡Eso es excepcional!\n\n**La anécdota legendaria del día:**\nEl explorador Ernest Shackleton y su tripulación sobrevivieron 22 meses en la Antártida después del naufragio de su barco. ¿Su secreto? Períodos de ayuno forzado alternados con ejercicio diario para mantener la moral y la forma física. Shackleton decía: \"El optimismo es la esperanza con un plan de acción.\"\n\n**Su transformación neurológica:**\nEn esta etapa, se han producido cambios profundos:\n• Nueva mielinización de los circuitos neuronales (conexiones más rápidas)\n• Aumento del BDNF (factor de crecimiento cerebral)\n• Reducción de la inflamación cerebral\n• Mejora de la plasticidad sináptica\n\n**La filosofía del movimiento:**\nLas artes marciales orientales enseñan que el ejercicio no es solo físico:\n• **Karate**: \"El karate comienza y termina con respeto\" (disciplina mental)\n• **Tai Chi**: \"En la lentitud, encuentra la fuerza\" (paciencia y perseverancia)\n• **Yoga**: \"La unión del cuerpo y la mente\" (conexión interior)\n\n**Su herencia genética:**\nNuestros antepasados cazadores-recolectores alternaban naturalmente entre ayuno y abundancia, descanso y esfuerzo intenso. Está reactivando programas genéticos ancestrales optimizados por 2 millones de años de evolución.\n\n**Reflexión profunda:**\nYa no es la misma persona que hace 18 días. Ha demostrado que puede mantener los compromisos consigo mismo. Esta es la habilidad más preciosa que existe.\n\nEste contenido es un regalo para celebrar su extraordinario viaje."
             },
             20: {
                 title: "Día 20",

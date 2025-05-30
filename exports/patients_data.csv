@@ -1,0 +1,5 @@
+code,startDate,active,isAdmin,language,createdAt,updatedAt,patient_group,progress,questionnaire_data
+admin,2025-05-24T11:28:50.612Z,1,1,EN,2025-05-24 11:28:50,2025-05-24 11:28:50,CONTROL,{},{}
+patient1,2025-05-12T00:00:00.000Z,1,0,FR,2025-05-30 12:04:51,2025-05-30 12:04:51,CONTROL,"{""day2"":{""completed"":[false,false,false,false],""lastUpdated"":""2025-05-30T12:47:50.288Z""},""questionnaire_day1"":{""answers"":{""wellbeing"":""8"",""difficulty"":""6"",""motivation"":""Non"",""obstacles"":""Non""},""completedAt"":""2025-05-30T13:17:58.459Z"",""dayNumber"":1},""day16"":{""completed"":[true,true,true,true],""lastUpdated"":""2025-05-30T13:16:52.772Z""},""day17"":{""completed"":[true,true,true,true],""lastUpdated"":""2025-05-30T13:17:14.189Z""}}",{}
+patient2,2025-05-22T00:00:00.000Z,1,0,FR,2025-05-30 12:05:03,2025-05-30 12:05:03,CONTROL,{},{}
+full,2025-05-01T00:00:00.000Z,1,0,EN,2025-05-30 12:40:26,2025-05-30 12:40:26,CONTROL,"{""questionnaire_day21"":{""answers"":{""wellbeing_final"":1,""difficulty_final"":""5"",""motivation_final"":""Mitigé"",""obstacles_final"":""Oui""},""completedAt"":""2025-05-30T12:40:45.300Z"",""dayNumber"":21}}",{}

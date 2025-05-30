@@ -344,6 +344,18 @@
                     >
                 </div>
 
+                <!-- Bouton d'export Excel -->
+                <div style="margin-bottom: 1.5rem; text-align: right;">
+                    <button 
+                        @click="exportToExcel($event)" 
+                        class="action-btn" 
+                        style="background: #2e7d32; color: white; padding: 0.8rem 1.5rem; font-size: 1rem;"
+                        :disabled="loading"
+                    >
+                        📊 Export Excel Workbook
+                    </button>
+                </div>
+
                 <div class="patients-table">
                     <h2>Gestion des patients</h2>
                     

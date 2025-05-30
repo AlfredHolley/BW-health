@@ -562,19 +562,14 @@
             position: absolute;
             bottom: 0.5rem;
             right: 0.5rem;
-            width: 48px;
-            height: 48px;
             display: flex;
             align-items: center;
             justify-content: center;
+            width: 50px;
+            height: 50px;
         }
 
-        .day-icon.sport-icon {
-            width: 56px;
-            height: 56px;
-        }
-
-        .progress-circle {
+        .day-icon .progress-circle {
             position: absolute;
             top: 0;
             left: 0;
@@ -583,39 +578,47 @@
             transform: rotate(-90deg);
         }
 
-        .progress-circle-bg {
+        .day-icon .progress-circle-bg {
             fill: none;
-            stroke: rgba(255, 255, 255, 0.2);
-            stroke-width: 3;
+            stroke: rgba(85, 85, 85, 0.2);
+            stroke-width: 2;
         }
 
-        .progress-circle-progress {
+        .day-icon .progress-circle-progress {
             fill: none;
-            stroke: #6cd8a0;
-            stroke-width: 3;
+            stroke: #43d154;
+            stroke-width: 2;
             stroke-linecap: round;
             stroke-dasharray: 0 1000;
             transition: stroke-dasharray 0.5s ease;
         }
 
-        .day-card.current .progress-circle-bg {
-            stroke: rgba(255, 255, 255, 0.3);
-        }
-
-        .day-card.current .progress-circle-progress {
-            stroke: white;
-        }
-
         .day-icon .icon {
-            width: 24px;
-            height: 24px;
-            opacity: 0.5;
-            z-index: 2;
             position: relative;
+            z-index: 1;
+            width: 28px;
+            height: 28px;
         }
 
-        .day-card.current .day-icon .icon {
-            filter: brightness(0) invert(1);
+        .day-icon.sport-icon .icon {
+            width: 32px;
+            height: 32px;
+        }
+
+        .day-icon.questionnaire-icon .icon {
+            fill: #6c757d;
+        }
+
+        .day-icon.questionnaire-icon .progress-circle-progress {
+            stroke: #43d154;
+        }
+
+        .day-icon.reading-icon .icon {
+            fill: #6c757d;
+        }
+
+        .day-icon.reading-icon .progress-circle-progress {
+            stroke: #17a2b8;
         }
 
         .welcome-modal {
@@ -1351,13 +1354,38 @@
                         </svg>
                         <img src="icons/muscle-icon.svg" alt="Sport" class="icon">
                     </div>
-                    <div v-if="[3, 7, 10, 14, 17, 21].includes(day.day)" class="day-icon listen-icon">
+                    <div v-if="[3, 7, 10, 14, 17].includes(day.day)" class="day-icon listen-icon">
                         <svg class="progress-circle" viewBox="0 0 48 48">
                             <circle class="progress-circle-bg" cx="24" cy="24" r="20"></circle>
                             <circle class="progress-circle-progress" cx="24" cy="24" r="20" 
                                     :style="{ strokeDasharray: getProgressCircle(day.day) + ' 1000' }"></circle>
                         </svg>
                         <img src="icons/audio-headphone.svg" alt="Audio" class="icon" style="width: 24px; height: 24px;">
+                    </div>
+                    
+                    <!-- Icônes questionnaire pour les jours 1 et 21 -->
+                    <div v-if="[1, 21].includes(day.day)" class="day-icon questionnaire-icon">
+                        <svg class="progress-circle" viewBox="0 0 48 48">
+                            <circle class="progress-circle-bg" cx="24" cy="24" r="20"></circle>
+                            <circle class="progress-circle-progress" cx="24" cy="24" r="20" 
+                                    :style="{ strokeDasharray: getProgressCircle(day.day) + ' 1000' }"></circle>
+                        </svg>
+                        <svg class="icon" viewBox="0 0 24 24" style="width: 24px; height: 24px;">
+                            <path fill="currentColor" d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                            <path fill="currentColor" d="M8,12V14H16V12H8M8,16V18H13V16H8Z"/>
+                        </svg>
+                    </div>
+                    
+                    <!-- Icônes pour les jours de lecture (sauf jour 1) -->
+                    <div v-if="[5, 8, 12, 19].includes(day.day)" class="day-icon reading-icon">
+                        <svg class="progress-circle" viewBox="0 0 48 48">
+                            <circle class="progress-circle-bg" cx="24" cy="24" r="20"></circle>
+                            <circle class="progress-circle-progress" cx="24" cy="24" r="20" 
+                                    :style="{ strokeDasharray: getProgressCircle(day.day) + ' 1000' }"></circle>
+                        </svg>
+                        <svg class="icon" viewBox="0 0 24 24" style="width: 24px; height: 24px;">
+                            <path fill="currentColor" d="M19,2L14,6.5V17.5L19,13V2M6.5,5C4.55,5 2.45,5.4 1,6.5V21.16C1,21.41 1.25,21.66 1.5,21.66C1.6,21.66 1.65,21.59 1.75,21.59C3.1,20.94 5.05,20.59 6.5,20.59C8.45,20.59 10.55,20.99 12,22C13.35,21.15 15.8,20.59 17.5,20.59C19.15,20.59 20.85,20.87 22.25,21.56C22.35,21.61 22.4,21.66 22.5,21.66C22.75,21.66 23,21.41 23,21.16V6.5C22.4,6.05 21.75,5.75 21,5.5V19C19.9,18.65 18.7,18.5 17.5,18.5C15.8,18.5 13.35,19.06 12,19.91C10.55,19.16 8.45,18.75 6.5,18.75C5.3,18.75 4.1,18.9 3,19.25V6.5C4.45,5.4 6.55,5 8.5,5H9V6.5H8.5C7.55,6.5 6.45,6.75 5.5,7.25V17.5C5.9,17.35 6.2,17.25 6.5,17.25C8.45,17.25 10.55,17.65 12,18.5V7.5C10.55,6.65 8.45,6.25 6.5,6.25C6.2,6.25 5.9,6.35 5.5,6.5V7.25C6.45,6.75 7.55,6.5 8.5,6.5H9V5H8.5C6.55,5 4.45,5.4 3,6.5Z"/>
+                        </svg>
                     </div>
                     
                     <div class="day-header">

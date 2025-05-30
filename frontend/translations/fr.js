@@ -220,6 +220,37 @@ export default {
             complete: "Terminer",
             save: "Enregistrer",
             cancel: "Annuler"
+        },
+        questionnaire: {
+            title: "Questionnaire",
+            completed: "Questionnaire complété",
+            fillOut: "Remplir le questionnaire",
+            submit: "Valider",
+            cancel: "Annuler",
+            close: "Fermer",
+            pleaseAnswer: "Veuillez répondre à toutes les questions avant de valider.",
+            submitSuccess: "Questionnaire envoyé avec succès !",
+            questions: {
+                wellbeing: "Évaluez votre niveau de bien-être actuel de 1 à 10",
+                wellbeing_final: "Évaluez votre niveau de bien-être actuel de 1 à 10",
+                difficulty: "Comment évaluez-vous la difficulté de ce programme ?",
+                difficulty_final: "Comment évaluez-vous la difficulté de ce programme ?",
+                motivation: "Votre motivation est-elle restée constante ?",
+                motivation_final: "Votre motivation est-elle restée constante ?",
+                obstacles: "Avez-vous eu des empêchements, des contraintes ayant rendu ce programme difficile à tenir ?",
+                obstacles_final: "Avez-vous eu des empêchements, des contraintes ayant rendu ce programme difficile à tenir ?"
+            },
+            labels: {
+                veryLow: "Très faible",
+                excellent: "Excellent",
+                veryEasy: "Très facile",
+                veryDifficult: "Très difficile"
+            },
+            options: {
+                yes: "Oui",
+                no: "Non",
+                mixed: "Mitigé"
+            }
         }
     },
     venn: {
@@ -345,12 +376,6 @@ export default {
             },
             14: {
                 title: "Jour 14",
-                description: "Milestone : Deux semaines de transformation",
-                type: "reading",
-                readingContent: "**Félicitations pour ces deux semaines extraordinaires !**\n\nVous avez atteint un jalon important. Deux semaines, c'est le temps qu'il faut au cerveau pour commencer à former de nouvelles connexions neuronales durables.\n\n**L'histoire inspirante du jour :**\nTerry Fox, le marathonien canadien, a couru 5 373 kilomètres à travers le Canada avec une jambe amputée pour sensibiliser au cancer. Son secret ? Il divisait ses objectifs énormes en petites étapes quotidiennes. \"Même si tu fais juste un pas, c'est toujours un pas dans la bonne direction,\" disait-il.\n\n**Vos accomplissements invisibles :**\nAprès 14 jours, votre transformation est profonde :\n• Votre résistance au stress s'améliore (adaptation hormétique)\n• Vos télomères (marqueurs de longévité) se stabilisent\n• Votre flore intestinale se diversifie\n• Votre rapport aux sensations de faim et de satiété se rééquilibre\n\n**Le mouvement comme médecine :**\nLes peuples traditionnels comme les Hunzas du Pakistan, réputés pour leur longévité exceptionnelle, intègrent naturellement le mouvement dans leur quotidien. Pas de salle de sport, mais :\n• Marche en montagne quotidienne\n• Travaux agricoles rythmés\n• Danses communautaires\n• Jeûnes saisonniers naturels\n\n**Votre mantra du jour :**\n\"Je ne fais pas que changer mes habitudes, je transforme ma relation à mon corps et à mes besoins.\"\n\nC'est un jour de pause bien méritée. Profitez du contenu sans contrainte, vous êtes déjà en train de créer la meilleure version de vous-même."
-            },
-            15: {
-                title: "Jour 15",
                 description: "Consolidation des habitudes",
                 instructions: [
                     "Regardez la vidéo du jour",
@@ -358,6 +383,12 @@ export default {
                     "Commencez à pratiquer les premiers exercices",
                     "Notez vos impressions et difficultés"
                 ]
+            },
+            15: {
+                title: "Jour 15",
+                description: "Milestone : Deux semaines de transformation",
+                type: "reading",
+                readingContent: "**Félicitations pour ces deux semaines extraordinaires !**\n\nVous avez atteint un jalon important. Deux semaines, c'est le temps qu'il faut au cerveau pour commencer à former de nouvelles connexions neuronales durables.\n\n**L'histoire inspirante du jour :**\nTerry Fox, le marathonien canadien, a couru 5 373 kilomètres à travers le Canada avec une jambe amputée pour sensibiliser au cancer. Son secret ? Il divisait ses objectifs énormes en petites étapes quotidiennes. \"Même si tu fais juste un pas, c'est toujours un pas dans la bonne direction,\" disait-il.\n\n**Vos accomplissements invisibles :**\nAprès 14 jours, votre transformation est profonde :\n• Votre résistance au stress s'améliore (adaptation hormétique)\n• Vos télomères (marqueurs de longévité) se stabilisent\n• Votre flore intestinale se diversifie\n• Votre rapport aux sensations de faim et de satiété se rééquilibre\n\n**Le mouvement comme médecine :**\nLes peuples traditionnels comme les Hunzas du Pakistan, réputés pour leur longévité exceptionnelle, intègrent naturellement le mouvement dans leur quotidien. Pas de salle de sport, mais :\n• Marche en montagne quotidienne\n• Travaux agricoles rythmés\n• Danses communautaires\n• Jeûnes saisonniers naturels\n\n**Votre mantra du jour :**\n\"Je ne fais pas que changer mes habitudes, je transforme ma relation à mon corps et à mes besoins.\"\n\nC'est un jour de pause bien méritée. Profitez du contenu sans contrainte, vous êtes déjà en train de créer la meilleure version de vous-même."
             },
             16: {
                 title: "Jour 16",
@@ -381,12 +412,6 @@ export default {
             },
             18: {
                 title: "Jour 18",
-                description: "La sagesse de l'expérience",
-                type: "reading",
-                readingContent: "**Vous voilà presque arrivé au sommet !**\n\nTrois semaines... Vous faites maintenant partie des 8% de personnes qui maintiennent un changement d'habitude au-delà de 21 jours. C'est exceptionnel !\n\n**L'anecdote légendaire du jour :**\nL'explorateur Ernest Shackleton et son équipage ont survécu 22 mois en Antarctique après le naufrage de leur navire. Leur secret ? Des périodes de jeûne forcé alternées avec de l'exercice quotidien pour maintenir le moral et la forme physique. Shackleton disait : \"L'optimisme est l'espoir avec un plan d'action.\"\n\n**Votre transformation neurologique :**\nÀ ce stade, des changements profonds se sont opérés :\n• Nouvelle myélinisation des circuits neuronaux (connexions plus rapides)\n• Augmentation du BDNF (facteur de croissance du cerveau)\n• Réduction de l'inflammation cérébrale\n• Amélioration de la plasticité synaptique\n\n**La philosophie du mouvement :**\nLes arts martiaux orientaux enseignent que l'exercice n'est pas seulement physique :\n• **Karate** : \"Le karate commence et finit par le respect\" (discipline mentale)\n• **Tai Chi** : \"Dans la lenteur, trouver la force\" (patience et persévérance)\n• **Yoga** : \"L'union du corps et de l'esprit\" (connexion intérieure)\n\n**Votre héritage génétique :**\nNos ancêtres chasseurs-cueilleurs alternaient naturellement entre jeûne et abondance, repos et effort intense. Vous réactivez des programmes génétiques ancestraux optimisés par 2 millions d'années d'évolution.\n\n**Réflexion profonde :**\nVous n'êtes plus la même personne qu'il y a 18 jours. Vous avez prouvé que vous pouvez tenir vos engagements envers vous-même. C'est la compétence la plus précieuse qui existe.\n\nCe contenu est un cadeau pour célébrer votre parcours extraordinaire."
-            },
-            19: {
-                title: "Jour 19",
                 description: "Derniers défis",
                 instructions: [
                     "Regardez la vidéo du jour",
@@ -394,6 +419,12 @@ export default {
                     "Commencez à pratiquer les premiers exercices",
                     "Notez vos impressions et difficultés"
                 ]
+            },
+            19: {
+                title: "Jour 19",
+                description: "La sagesse de l'expérience",
+                type: "reading",
+                readingContent: "**Vous voilà presque arrivé au sommet !**\n\nTrois semaines... Vous faites maintenant partie des 8% de personnes qui maintiennent un changement d'habitude au-delà de 21 jours. C'est exceptionnel !\n\n**L'anecdote légendaire du jour :**\nL'explorateur Ernest Shackleton et son équipage ont survécu 22 mois en Antarctique après le naufrage de leur navire. Leur secret ? Des périodes de jeûne forcé alternées avec de l'exercice quotidien pour maintenir le moral et la forme physique. Shackleton disait : \"L'optimisme est l'espoir avec un plan d'action.\"\n\n**Votre transformation neurologique :**\nÀ ce stade, des changements profonds se sont opérés :\n• Nouvelle myélinisation des circuits neuronaux (connexions plus rapides)\n• Augmentation du BDNF (facteur de croissance du cerveau)\n• Réduction de l'inflammation cérébrale\n• Amélioration de la plasticité synaptique\n\n**La philosophie du mouvement :**\nLes arts martiaux orientaux enseignent que l'exercice n'est pas seulement physique :\n• **Karate** : \"Le karate commence et finit par le respect\" (discipline mentale)\n• **Tai Chi** : \"Dans la lenteur, trouver la force\" (patience et persévérance)\n• **Yoga** : \"L'union du corps et de l'esprit\" (connexion intérieure)\n\n**Votre héritage génétique :**\nNos ancêtres chasseurs-cueilleurs alternaient naturellement entre jeûne et abondance, repos et effort intense. Vous réactivez des programmes génétiques ancestraux optimisés par 2 millions d'années d'évolution.\n\n**Réflexion profonde :**\nVous n'êtes plus la même personne qu'il y a 18 jours. Vous avez prouvé que vous pouvez tenir vos engagements envers vous-même. C'est la compétence la plus précieuse qui existe.\n\nCe contenu est un cadeau pour célébrer votre parcours extraordinaire."
             },
             20: {
                 title: "Jour 20",

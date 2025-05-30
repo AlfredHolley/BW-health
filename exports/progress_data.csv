@@ -1,0 +1,4 @@
+patient_code,patient_group,day,completion_rate
+patient1,CONTROL,2,0.0
+patient1,CONTROL,16,100.0
+patient1,CONTROL,17,100.0

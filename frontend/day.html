@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-    
+
     <title>Day {{ dayNumber }}</title>
     <link rel="icon" href="favicon.ico">
     <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
@@ -240,10 +240,19 @@
         
         .progress-text {
             text-align: center;
-            font-size: 0.95rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border-radius: 4px;
+            padding: 0px 6px 0px 6px;
+            transform: translate(-50%);
             color: var(--neutral-dark);
-            margin-bottom: 1rem;
-            margin-top: 0.5rem;
+            margin:auto;
+            position: fixed;
+            bottom:0.5rem;
+            left:50%;
+            background-color: #f0ffff9c;
+            z-index: 100;
+        
         }
         
         .error {
@@ -375,10 +384,334 @@
                 padding: 0.7rem;
             }
         }
+
+        /* Styles pour le questionnaire modal */
+        .questionnaire-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .questionnaire-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .questionnaire-content {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .questionnaire-modal.show .questionnaire-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .questionnaire-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--neutral-light);
+            padding-bottom: 1rem;
+        }
+
+        .questionnaire-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--neutral-gray);
+            margin: 0;
+        }
+
+        .questionnaire-close {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--neutral-gray);
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+            transition: color 0.3s ease;
+        }
+
+        .questionnaire-close:hover {
+            color: var(--primary-color);
+        }
+
+        .question {
+            margin-bottom: 2rem;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--neutral-gray);
+            margin-bottom: 1rem;
+        }
+
+        .scale-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .scale-label {
+            font-size: 0.9rem;
+            color: var(--neutral-gray);
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .scale-input {
+            flex: 1;
+            height: 6px;
+            background: var(--neutral-light);
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .scale-input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .scale-input::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        .scale-value {
+            font-weight: 700;
+            color: var(--primary-color);
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .multiple-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--neutral-light);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option-label:hover {
+            border-color: var(--primary-color);
+            background: rgba(79, 195, 247, 0.1);
+        }
+
+        .option-label input[type="radio"] {
+            margin-right: 0.75rem;
+            accent-color: var(--primary-color);
+        }
+
+        .option-label input[type="radio"]:checked + span {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .yesno-options {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .yesno-option {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid var(--neutral-light);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .yesno-option:hover {
+            border-color: var(--primary-color);
+            background: rgba(79, 195, 247, 0.1);
+        }
+
+        .yesno-option.selected {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .questionnaire-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--neutral-light);
+        }
+
+        .btn-secondary {
+            background: var(--neutral-light);
+            color: var(--neutral-gray);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #dadada;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .questionnaire-instruction {
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .questionnaire-instruction:hover {
+            background: rgba(79, 195, 247, 0.1);
+        }
+
+        .questionnaire-instruction.disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        .questionnaire-instruction.disabled:hover {
+            background: transparent;
+        }
+
+        .questionnaire-instruction.completed.disabled {
+            background: #d2f8e5;
+        }
+
+        .questionnaire-instruction.completed.disabled .questionnaire-icon {
+            color: #28a745;
+        }
+
+        .questionnaire-icon {
+            margin-left: 0.5rem;
+            color: var(--primary-color);
+        }
     </style>
 </head>
 <body>
     <div id="app" v-cloak>
+        <!-- Modal de questionnaire -->
+        <div class="questionnaire-modal" :class="{ show: showQuestionnaire }">
+            <div class="questionnaire-content">
+                <div class="questionnaire-header">
+                    <h2 class="questionnaire-title">{{ translations.day?.questionnaire?.title || questionnaire?.title || 'Questionnaire' }}</h2>
+                    <button class="questionnaire-close" @click="closeQuestionnaire">×</button>
+                </div>
+                
+                <div v-if="questionnaire" class="questionnaire-body">
+                    <div v-for="(question, index) in questionnaire.questions" :key="question.id" class="question">
+                        <p class="question-text">{{ getQuestionText(question) }}</p>
+                        
+                        <!-- Question type scale -->
+                        <div v-if="question.type === 'scale'" class="scale-container">
+                            <span class="scale-label">{{ getScaleLabel(question, 'min') }}</span>
+                            <input 
+                                type="range" 
+                                class="scale-input"
+                                :min="question.min" 
+                                :max="question.max" 
+                                v-model="answers[question.id]"
+                                @input="updateAnswer(question.id, $event.target.value)"
+                            >
+                            <span class="scale-label">{{ getScaleLabel(question, 'max') }}</span>
+                            <span class="scale-value">{{ answers[question.id] || question.min }}</span>
+                        </div>
+                        
+                        <!-- Question type multiple choice -->
+                        <div v-if="question.type === 'multiple'" class="multiple-options">
+                            <label v-for="option in question.options" :key="option" class="option-label">
+                                <input 
+                                    type="radio" 
+                                    :name="question.id" 
+                                    :value="option"
+                                    @change="updateAnswer(question.id, option)"
+                                >
+                                <span>{{ getOptionText(option) }}</span>
+                            </label>
+                        </div>
+                        
+                        <!-- Question type yes/no -->
+                        <div v-if="question.type === 'yesno'" class="yesno-options">
+                            <div 
+                                class="yesno-option"
+                                :class="{ selected: answers[question.id] === getYesText() }"
+                                @click="updateAnswer(question.id, getYesText())"
+                            >
+                                {{ getYesText() }}
+                            </div>
+                            <div 
+                                class="yesno-option"
+                                :class="{ selected: answers[question.id] === getNoText() }"
+                                @click="updateAnswer(question.id, getNoText())"
+                            >
+                                {{ getNoText() }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="questionnaire-actions">
+                    <button class="btn-secondary" @click="closeQuestionnaire">{{ translations.day?.questionnaire?.cancel || 'Annuler' }}</button>
+                    <button class="btn-primary" @click="submitQuestionnaire">{{ translations.day?.questionnaire?.submit || 'Valider' }}</button>
+                </div>
+            </div>
+        </div>
+
         <div class="header">
             <h1>{{ translations.day.title }}</h1>
             <a href="/app.html" class="back-btn" :title="translations.day.back">
@@ -401,6 +734,22 @@
                 <div v-if="isReadingDay" class="reading-content">
                     <h2>{{ translations.day.reading.title }}</h2>
                     <div class="reading-text" v-html="parseMarkdown(day.readingContent)"></div>
+                    
+                    <!-- Questionnaire pour les jours de lecture -->
+                    <div v-if="day.questionnaire" class="instructions">
+                        <h2>{{ translations.day.instructions.title }}</h2>
+                        <ul class="instructions-list">
+                            <li class="questionnaire-instruction" 
+                                :class="{ completed: isQuestionnaireCompleted, disabled: isQuestionnaireCompleted }" 
+                                @click="!isQuestionnaireCompleted && openQuestionnaire()">
+                                <input type="checkbox" :checked="isQuestionnaireCompleted" disabled>
+                                <label>
+                                    {{ isQuestionnaireCompleted ? translations.day?.questionnaire?.completed || 'Questionnaire complété' : translations.day?.questionnaire?.fillOut || 'Remplir le questionnaire' }}
+                                    <span class="questionnaire-icon">{{ isQuestionnaireCompleted ? '✅' : '📋' }}</span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
                     
                     <!-- Médias pour les jours de lecture -->
                     <div class="media-section">
@@ -441,6 +790,17 @@
                                 </div>
                                 <div v-else v-html="renderPodcast(day.podcast)"></div>
                             </div>
+                        </li>
+                        
+                        <!-- Questionnaire pour les jours avec instructions normales (jour 21) -->
+                        <li v-if="day.questionnaire" class="questionnaire-instruction" 
+                            :class="{ completed: isQuestionnaireCompleted, disabled: isQuestionnaireCompleted }" 
+                            @click="!isQuestionnaireCompleted && openQuestionnaire()">
+                            <input type="checkbox" :checked="isQuestionnaireCompleted" disabled>
+                            <label>
+                                {{ isQuestionnaireCompleted ? translations.day?.questionnaire?.completed || 'Questionnaire complété' : translations.day?.questionnaire?.fillOut || 'Remplir le questionnaire' }}
+                                <span class="questionnaire-icon">{{ isQuestionnaireCompleted ? '✅' : '📋' }}</span>
+                            </label>
                         </li>
                     </ul>
                 </div>

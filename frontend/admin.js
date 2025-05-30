@@ -200,15 +200,44 @@ createApp({
             }
         },
 
-        async deletePatient(patientCode) {
+        async deletePatient(code) {
             if (!confirm('Êtes-vous sûr de vouloir supprimer ce patient ?')) {
                 return;
             }
-            
+
             try {
-                this.loading = true;
-                const res = await fetch(`/patients/${patientCode}`, {
+                const token = localStorage.getItem('token');
+                const response = await fetch(`/admin/patients/${code}`, {
                     method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    alert('Patient supprimé avec succès');
+                    await this.loadPatients(); // Recharger la liste des patients
+                } else {
+                    const data = await response.json();
+                    alert(data.error || 'Erreur lors de la suppression du patient');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Erreur lors de la suppression du patient');
+            }
+        },
+
+        async exportToExcel(event) {
+            try {
+                // Afficher un indicateur de chargement
+                const originalText = event.target.innerHTML;
+                event.target.innerHTML = '⏳ Génération en cours...';
+                event.target.disabled = true;
+
+                // Ajout d'un paramètre unique pour éviter le cache navigateur
+                const url = '/admin/export-excel?t=' + new Date().getTime();
+                const res = await fetch(url, {
+                    method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
@@ -220,21 +249,52 @@ createApp({
                         window.location.href = '/login.html';
                         return;
                     }
-                    const errorData = await res.json();
-                    throw new Error(errorData.error || 'Erreur lors de la suppression du patient');
+                    throw new Error('Erreur lors de l\'export Excel');
                 }
 
-                console.log('Patient supprimé:', patientCode);
+                // Récupérer le fichier Excel en tant que blob
+                const blob = await res.blob();
                 
-                // Recharger la liste des patients pour avoir les données à jour
-                await this.loadPatients();
+                // Créer un lien de téléchargement
+                const urlLink = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = urlLink;
                 
-                this.error = '';
+                // Extraire le nom du fichier depuis les headers
+                const contentDisposition = res.headers.get('content-disposition');
+                let filename = 'export_donnees_programme21j.xlsx';
+                if (contentDisposition) {
+                    const filenameMatch = contentDisposition.match(/filename="(.+)"/);
+                    if (filenameMatch) {
+                        filename = filenameMatch[1];
+                    }
+                }
+                
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(urlLink);
+                document.body.removeChild(a);
+
+                console.log('Export Excel téléchargé:', filename);
+                
+                // Afficher un message de succès temporaire
+                event.target.innerHTML = '✅ Export réussi !';
+                setTimeout(() => {
+                    event.target.innerHTML = originalText;
+                    event.target.disabled = false;
+                }, 2000);
+
             } catch (e) {
-                this.error = e.message || 'Erreur lors de la suppression du patient';
-                console.error('Erreur deletePatient:', e);
-            } finally {
-                this.loading = false;
+                this.error = 'Erreur lors de l\'export Excel: ' + e.message;
+                console.error('Erreur exportToExcel:', e);
+                
+                // Restaurer le bouton
+                if (event && event.target) {
+                    event.target.innerHTML = '📊 Export Excel Workbook';
+                    event.target.disabled = false;
+                }
             }
         }
     },

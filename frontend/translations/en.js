@@ -241,6 +241,37 @@ export default {
             complete: "Complete",
             save: "Save",
             cancel: "Cancel"
+        },
+        questionnaire: {
+            title: "Questionnaire",
+            completed: "Questionnaire completed",
+            fillOut: "Fill out the questionnaire",
+            submit: "Submit",
+            cancel: "Cancel",
+            close: "Close",
+            pleaseAnswer: "Please answer all questions before submitting.",
+            submitSuccess: "Questionnaire submitted successfully!",
+            questions: {
+                wellbeing: "Rate your current well-being level from 1 to 10",
+                wellbeing_final: "Rate your current well-being level from 1 to 10",
+                difficulty: "How do you rate the difficulty of this program?",
+                difficulty_final: "How do you rate the difficulty of this program?",
+                motivation: "Has your motivation remained constant?",
+                motivation_final: "Has your motivation remained constant?",
+                obstacles: "Have you had any impediments or constraints that made this program difficult to follow?",
+                obstacles_final: "Have you had any impediments or constraints that made this program difficult to follow?"
+            },
+            labels: {
+                veryLow: "Very low",
+                excellent: "Excellent",
+                veryEasy: "Very easy",
+                veryDifficult: "Very difficult"
+            },
+            options: {
+                yes: "Yes",
+                no: "No",
+                mixed: "Mixed"
+            }
         }
     },
     venn: {
@@ -366,12 +397,6 @@ export default {
             },
             14: {
                 title: "Day 14",
-                description: "Milestone: Two weeks of transformation",
-                type: "reading",
-                readingContent: "**Congratulations on these extraordinary two weeks!**\n\nYou've reached an important milestone. Two weeks is the time it takes for the brain to begin forming lasting neural connections.\n\n**Today's inspiring story:**\nTerry Fox, the Canadian marathon runner, ran 5,373 kilometers across Canada with an amputated leg to raise cancer awareness. His secret? He divided his enormous goals into small daily steps. \"Even if you just take one step, it's still a step in the right direction,\" he said.\n\n**Your invisible accomplishments:**\nAfter 14 days, your transformation is profound:\n• Your stress resistance improves (hormetic adaptation)\n• Your telomeres (longevity markers) stabilize\n• Your intestinal flora diversifies\n• Your relationship with hunger and satiety sensations rebalances\n\n**Movement as medicine:**\nTraditional peoples like the Hunzas of Pakistan, renowned for their exceptional longevity, naturally integrate movement into their daily lives. No gym, but:\n• Daily mountain walking\n• Rhythmic agricultural work\n• Community dances\n• Natural seasonal fasting\n\n**Your daily mantra:**\n\"I'm not just changing my habits, I'm transforming my relationship with my body and my needs.\"\n\nThis is a well-deserved day of rest. Enjoy the content without constraints, you're already creating the best version of yourself."
-            },
-            15: {
-                title: "Day 15",
                 description: "Habit consolidation",
                 instructions: [
                     "Watch the daily video",
@@ -379,6 +404,12 @@ export default {
                     "Begin practicing the first exercises",
                     "Note your impressions and difficulties"
                 ]
+            },
+            15: {
+                title: "Day 15",
+                description: "Milestone: Two weeks of transformation",
+                type: "reading",
+                readingContent: "**Congratulations on these extraordinary two weeks!**\n\nYou've reached an important milestone. Two weeks is the time it takes for the brain to begin forming lasting neural connections.\n\n**Today's inspiring story:**\nTerry Fox, the Canadian marathon runner, ran 5,373 kilometers across Canada with an amputated leg to raise cancer awareness. His secret? He divided his enormous goals into small daily steps. \"Even if you just take one step, it's still a step in the right direction,\" he said.\n\n**Your invisible accomplishments:**\nAfter 14 days, your transformation is profound:\n• Your stress resistance improves (hormetic adaptation)\n• Your telomeres (longevity markers) stabilize\n• Your intestinal flora diversifies\n• Your relationship with hunger and satiety sensations rebalances\n\n**Movement as medicine:**\nTraditional peoples like the Hunzas of Pakistan, renowned for their exceptional longevity, naturally integrate movement into their daily lives. No gym, but:\n• Daily mountain walking\n• Rhythmic agricultural work\n• Community dances\n• Natural seasonal fasting\n\n**Your daily mantra:**\n\"I'm not just changing my habits, I'm transforming my relationship with my body and my needs.\"\n\nThis is a well-deserved day of rest. Enjoy the content without constraints, you're already creating the best version of yourself."
             },
             16: {
                 title: "Day 16",
@@ -402,19 +433,19 @@ export default {
             },
             18: {
                 title: "Day 18",
-                description: "The wisdom of experience",
-                type: "reading",
-                readingContent: "**You're almost at the summit!**\n\nThree weeks... You're now part of the 8% of people who maintain a habit change beyond 21 days. That's exceptional!\n\n**Today's legendary anecdote:**\nExplorer Ernest Shackleton and his crew survived 22 months in Antarctica after their ship was wrecked. Their secret? Periods of forced fasting alternated with daily exercise to maintain morale and physical fitness. Shackleton said: \"Optimism is hope with a plan of action.\"\n\n**Your neurological transformation:**\nAt this stage, profound changes have occurred:\n• New myelination of neural circuits (faster connections)\n• Increased BDNF (brain growth factor)\n• Reduced brain inflammation\n• Improved synaptic plasticity\n\n**The philosophy of movement:**\nOriental martial arts teach that exercise is not just physical:\n• **Karate**: \"Karate begins and ends with respect\" (mental discipline)\n• **Tai Chi**: \"In slowness, find strength\" (patience and perseverance)\n• **Yoga**: \"The union of body and mind\" (inner connection)\n\n**Your genetic heritage:**\nOur hunter-gatherer ancestors naturally alternated between fasting and abundance, rest and intense effort. You're reactivating ancestral genetic programs optimized by 2 million years of evolution.\n\n**Deep reflection:**\nYou're no longer the same person you were 18 days ago. You've proven that you can keep your commitments to yourself. This is the most precious skill that exists.\n\nThis content is a gift to celebrate your extraordinary journey."
+                description: "Final challenges",
+                instructions: [
+                    "Watch the daily video",
+                    "Listen to the associated podcast",
+                    "Begin practicing the first exercises",
+                    "Note your impressions and difficulties"
+                ]
             },
             19: {
                 title: "Day 19",
-                description: "Final challenges",
-                instructions: [
-                    "Watch today's video",
-                    "Listen to the associated podcast",
-                    "Start practicing the initial exercises",
-                    "Note your impressions and difficulties"
-                ]
+                description: "The wisdom of experience",
+                type: "reading",
+                readingContent: "**You're almost at the summit!**\n\nThree weeks... You are now among the 8% of people who maintain a habit change beyond 21 days. That's exceptional!\n\n**Today's legendary anecdote:**\nExplorer Ernest Shackleton and his crew survived 22 months in Antarctica after their ship was wrecked. Their secret? Periods of forced fasting alternated with daily exercise to maintain morale and physical fitness. Shackleton said: \"Optimism is hope with an action plan.\"\n\n**Your neurological transformation:**\nAt this stage, profound changes have occurred:\n• New myelination of neural circuits (faster connections)\n• Increase in BDNF (brain growth factor)\n• Reduction in cerebral inflammation\n• Improvement in synaptic plasticity\n\n**The philosophy of movement:**\nOriental martial arts teach that exercise is not just physical:\n• **Karate**: \"Karate begins and ends with respect\" (mental discipline)\n• **Tai Chi**: \"In slowness, find strength\" (patience and perseverance)\n• **Yoga**: \"The union of body and mind\" (inner connection)\n\n**Your genetic heritage:**\nOur hunter-gatherer ancestors naturally alternated between fasting and abundance, rest and intense effort. You are reactivating ancestral genetic programs optimized by 2 million years of evolution.\n\n**Deep reflection:**\nYou are no longer the same person you were 18 days ago. You have proven that you can keep commitments to yourself. This is the most precious skill that exists.\n\nThis content is a gift to celebrate your extraordinary journey."
             },
             20: {
                 title: "Day 20",

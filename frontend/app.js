@@ -350,27 +350,52 @@ createApp({
         return 0;
       }
 
-      // Jours de lecture - toujours 100% de progression
-      const readingDays = [1, 5, 7, 11, 14, 18];
+      // Calculer la circonférence pour le cercle (sport: r=24, audio: r=20)
+      const isLargeIcon = [2, 4, 6, 9, 11, 13, 16, 18, 20].includes(dayNumber);
+      const radius = isLargeIcon ? 24 : 20;
+      const circumference = 2 * Math.PI * radius;
+
+      // Jours avec questionnaire (1 et 21) - progression basée sur le questionnaire
+      if ([1, 21].includes(dayNumber)) {
+        const questionnaireKey = `questionnaire_${userCode}_day${dayNumber}`;
+        const questionnaireData = localStorage.getItem(questionnaireKey);
+        
+        if (questionnaireData) {
+          try {
+            const data = JSON.parse(questionnaireData);
+            if (data.answers && Object.keys(data.answers).length > 0) {
+              return circumference; // 100% si questionnaire completé
+            }
+          } catch (e) {
+            console.error('Erreur parsing questionnaire:', e);
+          }
+        }
+        return 0; // 0% si questionnaire pas completé
+      }
+
+      // Jours de lecture (sauf 1 et 21) - toujours 100% de progression
+      const readingDays = [5, 8, 12, 19];
       if (readingDays.includes(dayNumber)) {
-        // Calculer la circonférence pour le cercle (sport: r=24, audio: r=20)
-        const isLargeIcon = [2, 4, 6, 9, 11, 13, 16, 18, 20].includes(dayNumber);
-        const radius = isLargeIcon ? 24 : 20;
-        const circumference = 2 * Math.PI * radius;
         return circumference; // 100% de progression
       }
 
       // Calculer la progression basée sur les tâches completées du jour pour cet utilisateur
       const completedKey = `completedTasks_${userCode}_day${dayNumber}`;
-      const completed = JSON.parse(localStorage.getItem(completedKey) || '[]');
+      let completed = [];
+      
+      try {
+        const savedData = localStorage.getItem(completedKey);
+        if (savedData && savedData !== 'undefined' && savedData !== 'null') {
+          completed = JSON.parse(savedData);
+        }
+      } catch (e) {
+        console.error('Erreur lors du parsing des données de progression:', e);
+        completed = [];
+      }
+      
       const totalTasks = 4; // 4 instructions par jour
       const completedTasks = completed.filter(Boolean).length;
       const percentage = (completedTasks / totalTasks) * 100;
-      
-      // Calculer la circonférence pour le cercle (sport: r=24, audio: r=20)
-      const isLargeIcon = [2, 4, 6, 9, 11, 13, 16, 18, 20].includes(dayNumber);
-      const radius = isLargeIcon ? 24 : 20;
-      const circumference = 2 * Math.PI * radius;
       
       return (percentage / 100) * circumference;
     },
@@ -589,10 +614,10 @@ createApp({
             Object.keys(data.progress).forEach(progressKey => {
               const serverProgress = data.progress[progressKey];
               
-              // Extraire dayNumber de la clé (format: day1)
-              const match = progressKey.match(/day(\d+)$/);
-              if (match) {
-                const dayNumber = match[1];
+              // Gérer les tâches journalières (format: day1, day2, etc.)
+              const dayMatch = progressKey.match(/^day(\d+)$/);
+              if (dayMatch) {
+                const dayNumber = dayMatch[1];
                 const localKey = `completedTasks_${userCode}_day${dayNumber}`;
                 const localTimestamp = localStorage.getItem(`${localKey}_timestamp`);
                 
@@ -600,6 +625,20 @@ createApp({
                 if (!localTimestamp || new Date(serverProgress.lastUpdated) > new Date(localTimestamp)) {
                   localStorage.setItem(localKey, JSON.stringify(serverProgress.completed));
                   localStorage.setItem(`${localKey}_timestamp`, serverProgress.lastUpdated);
+                }
+              }
+              
+              // Gérer les questionnaires (format: questionnaire_day1, questionnaire_day21)
+              const questionnaireMatch = progressKey.match(/^questionnaire_day(\d+)$/);
+              if (questionnaireMatch) {
+                const dayNumber = questionnaireMatch[1];
+                const localKey = `questionnaire_${userCode}_day${dayNumber}`;
+                const localTimestamp = localStorage.getItem(`${localKey}_timestamp`);
+                
+                // Utiliser les données du serveur si elles sont plus récentes ou si pas de données locales
+                if (!localTimestamp || new Date(serverProgress.completedAt) > new Date(localTimestamp)) {
+                  localStorage.setItem(localKey, JSON.stringify(serverProgress));
+                  localStorage.setItem(`${localKey}_timestamp`, serverProgress.completedAt);
                 }
               }
             });

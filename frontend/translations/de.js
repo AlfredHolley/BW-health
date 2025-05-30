@@ -241,6 +241,37 @@ export default {
             complete: "Abschließen",
             save: "Speichern",
             cancel: "Abbrechen"
+        },
+        questionnaire: {
+            title: "Fragebogen",
+            completed: "Fragebogen ausgefüllt",
+            fillOut: "Fragebogen ausfüllen",
+            submit: "Absenden",
+            cancel: "Abbrechen",
+            close: "Schließen",
+            pleaseAnswer: "Bitte beantworten Sie alle Fragen vor dem Absenden.",
+            submitSuccess: "Fragebogen erfolgreich gesendet!",
+            questions: {
+                wellbeing: "Bewerten Sie Ihr aktuelles Wohlbefinden von 1 bis 10",
+                wellbeing_final: "Bewerten Sie Ihr aktuelles Wohlbefinden von 1 bis 10",
+                difficulty: "Wie bewerten Sie die Schwierigkeit dieses Programms?",
+                difficulty_final: "Wie bewerten Sie die Schwierigkeit dieses Programms?",
+                motivation: "Ist Ihre Motivation konstant geblieben?",
+                motivation_final: "Ist Ihre Motivation konstant geblieben?",
+                obstacles: "Hatten Sie Hindernisse oder Beschränkungen, die dieses Programm schwer durchführbar machten?",
+                obstacles_final: "Hatten Sie Hindernisse oder Beschränkungen, die dieses Programm schwer durchführbar machten?"
+            },
+            labels: {
+                veryLow: "Sehr niedrig",
+                excellent: "Ausgezeichnet",
+                veryEasy: "Sehr einfach",
+                veryDifficult: "Sehr schwierig"
+            },
+            options: {
+                yes: "Ja",
+                no: "Nein",
+                mixed: "Gemischt"
+            }
         }
     },
     venn: {
@@ -366,19 +397,19 @@ export default {
             },
             14: {
                 title: "Tag 14",
-                description: "Meilenstein: Zwei Wochen der Transformation",
-                type: "reading",
-                readingContent: "**Gratulation zu diesen außergewöhnlichen zwei Wochen!**\n\nSie haben einen wichtigen Meilenstein erreicht. Zwei Wochen sind die Zeit, die das Gehirn braucht, um dauerhafte neuronale Verbindungen zu bilden.\n\n**Die inspirierende Geschichte des Tages:**\nTerry Fox, der kanadische Marathonläufer, lief 5.373 Kilometer durch Kanada mit einem amputierten Bein, um das Bewusstsein für Krebs zu schärfen. Sein Geheimnis? Er teilte seine enormen Ziele in kleine tägliche Schritte auf. \"Auch wenn du nur einen Schritt machst, ist es immer noch ein Schritt in die richtige Richtung,\" sagte er.\n\n**Ihre unsichtbaren Errungenschaften:**\nNach 14 Tagen ist Ihre Transformation tiefgreifend:\n• Ihre Stressresistenz verbessert sich (hormetische Anpassung)\n• Ihre Telomere (Langlebigkeitsmarker) stabilisieren sich\n• Ihre Darmflora diversifiziert sich\n• Ihr Verhältnis zu Hunger- und Sättigungsgefühlen balanciert sich neu\n\n**Bewegung als Medizin:**\nTraditionelle Völker wie die Hunzas in Pakistan, berühmt für ihre außergewöhnliche Langlebigkeit, integrieren Bewegung natürlich in ihren Alltag. Kein Fitnessstudio, sondern:\n• Tägliche Bergwanderungen\n• Rhythmische landwirtschaftliche Arbeit\n• Gemeinschaftstänze\n• Natürliches saisonales Fasten\n\n**Ihr Mantra des Tages:**\n\"Ich verändere nicht nur meine Gewohnheiten, ich transformiere meine Beziehung zu meinem Körper und meinen Bedürfnissen.\"\n\nDies ist ein wohlverdienter Ruhetag. Genießen Sie den Inhalt ohne Zwänge, Sie erschaffen bereits die beste Version von sich selbst."
-            },
-            15: {
-                title: "Tag 15",
-                description: "Gewohnheits-Konsolidierung",
+                description: "Gewohnheitskonsolidierung",
                 instructions: [
                     "Sieh dir das heutige Video an",
                     "Höre den zugehörigen Podcast",
                     "Beginne mit den ersten Übungen",
                     "Halte deine Eindrücke und Schwierigkeiten fest"
                 ]
+            },
+            15: {
+                title: "Tag 15",
+                description: "Meilenstein: Zwei Wochen der Transformation",
+                type: "reading",
+                readingContent: "**Gratulation zu diesen außergewöhnlichen zwei Wochen!**\n\nSie haben einen wichtigen Meilenstein erreicht. Zwei Wochen sind die Zeit, die das Gehirn braucht, um dauerhafte neuronale Verbindungen zu bilden.\n\n**Die inspirierende Geschichte des Tages:**\nTerry Fox, der kanadische Marathonläufer, lief 5.373 Kilometer durch Kanada mit einem amputierten Bein, um das Bewusstsein für Krebs zu schärfen. Sein Geheimnis? Er teilte seine enormen Ziele in kleine tägliche Schritte auf. \"Auch wenn du nur einen Schritt machst, ist es immer noch ein Schritt in die richtige Richtung,\" sagte er.\n\n**Ihre unsichtbaren Errungenschaften:**\nNach 14 Tagen ist Ihre Transformation tiefgreifend:\n• Ihre Stressresistenz verbessert sich (hormetische Anpassung)\n• Ihre Telomere (Langlebigkeitsmarker) stabilisieren sich\n• Ihre Darmflora diversifiziert sich\n• Ihr Verhältnis zu Hunger- und Sättigungsgefühlen balanciert sich neu\n\n**Bewegung als Medizin:**\nTraditionelle Völker wie die Hunzas in Pakistan, berühmt für ihre außergewöhnliche Langlebigkeit, integrieren Bewegung natürlich in ihren Alltag. Kein Fitnessstudio, sondern:\n• Tägliche Bergwanderungen\n• Rhythmische landwirtschaftliche Arbeit\n• Gemeinschaftstänze\n• Natürliches saisonales Fasten\n\n**Ihr Mantra des Tages:**\n\"Ich verändere nicht nur meine Gewohnheiten, ich transformiere meine Beziehung zu meinem Körper und meinen Bedürfnissen.\"\n\nDies ist ein wohlverdienter Ruhetag. Genießen Sie die Inhalte ohne Zwang, Sie erschaffen bereits die beste Version von sich selbst."
             },
             16: {
                 title: "Tag 16",
@@ -402,19 +433,19 @@ export default {
             },
             18: {
                 title: "Tag 18",
-                description: "Die Weisheit der Erfahrung",
-                type: "reading",
-                readingContent: "**Sie sind fast am Gipfel angekommen!**\n\nDrei Wochen... Sie gehören jetzt zu den 8% der Menschen, die eine Gewohnheitsänderung über 21 Tage hinaus aufrechterhalten. Das ist außergewöhnlich!\n\n**Die legendäre Anekdote des Tages:**\nEntdecker Ernest Shackleton und seine Crew überlebten 22 Monate in der Antarktis nach dem Schiffbruch. Ihr Geheimnis? Perioden erzwungenen Fastens abwechselnd mit täglicher Bewegung, um Moral und körperliche Fitness aufrechtzuerhalten. Shackleton sagte: \"Optimismus ist Hoffnung mit einem Aktionsplan.\"\n\n**Ihre neurologische Transformation:**\nIn diesem Stadium haben sich tiefgreifende Veränderungen vollzogen:\n• Neue Myelinisierung neuronaler Schaltkreise (schnellere Verbindungen)\n• Erhöhung des BDNF (Gehirn-Wachstumsfaktor)\n• Reduzierung der Gehirnentzündung\n• Verbesserung der synaptischen Plastizität\n\n**Die Philosophie der Bewegung:**\nÖstliche Kampfkünste lehren, dass Bewegung nicht nur körperlich ist:\n• **Karate**: \"Karate beginnt und endet mit Respekt\" (mentale Disziplin)\n• **Tai Chi**: \"In der Langsamkeit Kraft finden\" (Geduld und Ausdauer)\n• **Yoga**: \"Die Vereinigung von Körper und Geist\" (innere Verbindung)\n\n**Ihr genetisches Erbe:**\nUnsere Jäger-Sammler-Vorfahren wechselten natürlich zwischen Fasten und Überfluss, Ruhe und intensiver Anstrengung. Sie reaktivieren uralte genetische Programme, die durch 2 Millionen Jahre Evolution optimiert wurden.\n\n**Tiefe Reflexion:**\nSie sind nicht mehr dieselbe Person wie vor 18 Tagen. Sie haben bewiesen, dass Sie Ihre Verpflichtungen sich selbst gegenüber einhalten können. Das ist die wertvollste Fähigkeit, die es gibt.\n\nDieser Inhalt ist ein Geschenk zur Feier Ihrer außergewöhnlichen Reise."
+                description: "Letzte Herausforderungen",
+                instructions: [
+                    "Schauen Sie sich das Video des Tages an",
+                    "Hören Sie den zugehörigen Podcast",
+                    "Beginnen Sie mit den ersten Übungen",
+                    "Notieren Sie Ihre Eindrücke und Schwierigkeiten"
+                ]
             },
             19: {
                 title: "Tag 19",
-                description: "Letzte Herausforderungen",
-                instructions: [
-                    "Sieh dir das heutige Video an",
-                    "Höre den zugehörigen Podcast",
-                    "Beginne mit den ersten Übungen",
-                    "Halte deine Eindrücke und Schwierigkeiten fest"
-                ]
+                description: "Die Weisheit der Erfahrung",
+                type: "reading",
+                readingContent: "**Sie sind fast am Gipfel angekommen!**\n\nDrei Wochen... Sie gehören jetzt zu den 8% der Menschen, die eine Gewohnheitsänderung über 21 Tage hinaus beibehalten. Das ist außergewöhnlich!\n\n**Die legendäre Anekdote des Tages:**\nDer Entdecker Ernest Shackleton und seine Crew überlebten 22 Monate in der Antarktis nach dem Schiffbruch ihres Schiffes. Ihr Geheimnis? Perioden des erzwungenen Fastens im Wechsel mit täglichem Training, um Moral und körperliche Fitness aufrechtzuerhalten. Shackleton sagte: \"Optimismus ist Hoffnung mit einem Aktionsplan.\"\n\n**Ihre neurologische Transformation:**\nIn diesem Stadium haben sich tiefgreifende Veränderungen vollzogen:\n• Neue Myelinisierung der neuronalen Schaltkreise (schnellere Verbindungen)\n• Erhöhung des BDNF (Gehirnwachstumsfaktor)\n• Reduzierung der Gehirnentzündung\n• Verbesserung der synaptischen Plastizität\n\n**Die Philosophie der Bewegung:**\nDie orientalischen Kampfkünste lehren, dass Bewegung nicht nur körperlich ist:\n• **Karate**: \"Karate beginnt und endet mit Respekt\" (mentale Disziplin)\n• **Tai Chi**: \"In der Langsamkeit die Kraft finden\" (Geduld und Ausdauer)\n• **Yoga**: \"Die Vereinigung von Körper und Geist\" (innere Verbindung)\n\n**Ihr genetisches Erbe:**\nUnsere Jäger-und-Sammler-Vorfahren wechselten natürlich zwischen Fasten und Überfluss, Ruhe und intensiver Anstrengung. Sie reaktivieren genetische Programme, die durch 2 Millionen Jahre Evolution optimiert wurden.\n\n**Tiefe Reflexion:**\nSie sind nicht mehr dieselbe Person wie vor 18 Tagen. Sie haben bewiesen, dass Sie Ihre Verpflichtungen sich selbst gegenüber einhalten können. Das ist die wertvollste Fähigkeit, die es gibt.\n\nDieser Inhalt ist ein Geschenk, um Ihre außergewöhnliche Reise zu feiern."
             },
             20: {
                 title: "Tag 20",
