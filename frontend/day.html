@@ -741,7 +741,7 @@
                         <ul class="instructions-list">
                             <li class="questionnaire-instruction" 
                                 :class="{ completed: isQuestionnaireCompleted, disabled: isQuestionnaireCompleted }" 
-                                @click="!isQuestionnaireCompleted && openQuestionnaire()">
+                                @click.stop="!isQuestionnaireCompleted && openQuestionnaire()">
                                 <input type="checkbox" :checked="isQuestionnaireCompleted" disabled>
                                 <label>
                                     {{ isQuestionnaireCompleted ? translations.day?.questionnaire?.completed || 'Questionnaire complété' : translations.day?.questionnaire?.fillOut || 'Remplir le questionnaire' }}
@@ -795,7 +795,7 @@
                         <!-- Questionnaire pour les jours avec instructions normales (jour 21) -->
                         <li v-if="day.questionnaire" class="questionnaire-instruction" 
                             :class="{ completed: isQuestionnaireCompleted, disabled: isQuestionnaireCompleted }" 
-                            @click="!isQuestionnaireCompleted && openQuestionnaire()">
+                            @click.stop="!isQuestionnaireCompleted && openQuestionnaire()">
                             <input type="checkbox" :checked="isQuestionnaireCompleted" disabled>
                             <label>
                                 {{ isQuestionnaireCompleted ? translations.day?.questionnaire?.completed || 'Questionnaire complété' : translations.day?.questionnaire?.fillOut || 'Remplir le questionnaire' }}
