@@ -3,16 +3,11 @@ export const config = {
     // Clé secrète pour JWT - À CHANGER EN PRODUCTION
     jwtSecret: process.env.JWT_SECRET || 'changez_moi_en_production',
     
+    // Configuration de la base de données
     database: {
-        // 1) on laisse la main à DB_PATH si elle est définie
-        // 2) sinon, en production on utilise le volume : /data/webapp_data.db
-        // 3) en dev on reste sur un fichier local : webapp_data.db
-        path:
-          process.env.DB_PATH ||
-          (process.env.NODE_ENV === 'production'
-            ? '/data/webapp_data.db'
-            : 'webapp_data.db')
+        path: process.env.NODE_ENV === 'production' ? '/data/database.sqlite' : 'database.sqlite'
     },
+    
     // Configuration du serveur
     server: {
         port: process.env.PORT || 3000,
